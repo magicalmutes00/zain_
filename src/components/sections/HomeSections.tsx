@@ -3,6 +3,14 @@ import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
 import { Building, Factory, Home as HomeIcon, Hospital, GraduationCap, Hotel, Building2, MapPin, Phone, Mail } from "lucide-react";
+import {
+  IconFlame,
+  IconShield,
+  IconBolt,
+  IconCamera,
+  IconDroplet,
+  IconBell
+} from "@tabler/icons-react";
 import { INDUSTRIES, COMPANY } from "@/data/company";
 
 export function Hero() {
@@ -80,12 +88,13 @@ export function About() {
 }
 
 export function Services() {
-  const serviceItems = [
-    { title: "Fire Detection", desc: "Addressable and conventional fire alarm systems", icon: "🔥" },
-    { title: "Fire Protection", desc: "Sprinklers, hydrants, pumps, and suppression systems", icon: "🛡️" },
-    { title: "Electrical", desc: "Commercial, industrial, and residential electrical services", icon: "⚡" },
-    { title: "CCTV & ELV", desc: "CCTV, access control, and networking solutions", icon: "📹" },
-    { title: "Plumbing", desc: "Comprehensive plumbing with 24/7 emergency support", icon: "🚿" }
+  type ServiceItem = { title: string; desc: string; Icon: typeof IconFlame };
+  const serviceItems: ServiceItem[] = [
+    { title: "Fire Detection", desc: "Addressable and conventional fire alarm systems", Icon: IconFlame },
+    { title: "Fire Protection", desc: "Sprinklers, hydrants, pumps, and suppression systems", Icon: IconShield },
+    { title: "Electrical", desc: "Commercial, industrial, and residential electrical services", Icon: IconBolt },
+    { title: "CCTV & ELV", desc: "CCTV, access control, and networking solutions", Icon: IconCamera },
+    { title: "Plumbing", desc: "Comprehensive plumbing with 24/7 emergency support", Icon: IconDroplet }
   ];
 
   return (
@@ -96,7 +105,9 @@ export function Services() {
           {serviceItems.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
               <Card hover className="text-center dark:bg-[#144272] dark:border-white/10">
-                <span className="text-4xl mb-4 block" role="img" aria-label={s.title}>{s.icon}</span>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 mx-auto" style={{ backgroundColor: "#FF6B3515" }}>
+                  <s.Icon size={32} stroke={1.5} className="text-[#FF6B35]" />
+                </div>
                 <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-2">{s.title}</h3>
                 <p className="text-[#64748B] dark:text-gray-400 text-sm">{s.desc}</p>
               </Card>

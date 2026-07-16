@@ -2,8 +2,16 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
-import { SERVICES } from "@/data/company";
-import { ArrowRight } from "lucide-react";
+import { SERVICES, PROCESS_STEPS } from "@/data/company";
+import { IconCircleArrowRight, IconFlame, IconShield, IconBolt, IconCamera, IconDroplet } from "@tabler/icons-react";
+
+const ICON_MAP: Record<string, typeof IconFlame> = {
+  Flame: IconFlame,
+  Shield: IconShield,
+  Zap: IconBolt,
+  Video: IconCamera,
+  Droplets: IconDroplet
+};
 
 export function Services() {
   return (
@@ -11,11 +19,13 @@ export function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader title="Our Services" subtitle="Comprehensive engineering solutions" />
         <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES.map((service, i) => (
+          {SERVICES.map((service, i) => {
+            const Icon = ICON_MAP[service.icon] ?? IconFlame;
+            return (
               <motion.div key={service.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <Card hover className="h-full flex flex-col">
                   <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ backgroundColor: "#FF6B3515" }}>
-                    <img src={service.iconImage} alt={service.title} className="w-8 h-8 object-contain" />
+                    <Icon size={32} stroke={1.5} className="text-[#FF6B35]" />
                   </div>
                   <h3 className="text-xl font-bold text-[#0A2647] mb-3">{service.title}</h3>
                   <p className="text-[#64748B] text-sm flex-grow">{service.description}</p>
@@ -28,11 +38,12 @@ export function Services() {
                     ))}
                   </ul>
                   <Link to={`/services/${service.slug}`} className="mt-6 inline-flex items-center gap-2 text-[#FF6B35] font-medium hover:gap-3 transition-all">
-                    Learn More <ArrowRight size={18} />
+                    Learn More <IconCircleArrowRight size={18} stroke={1.5} />
                   </Link>
                 </Card>
               </motion.div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
