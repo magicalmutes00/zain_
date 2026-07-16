@@ -1,0 +1,307 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { Card } from "@/components/ui/Card";
+import { Building, Factory, Home as HomeIcon, Hospital, GraduationCap, Hotel, Building2, MapPin, Phone, Mail } from "lucide-react";
+import { INDUSTRIES, COMPANY } from "@/data/company";
+
+export function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img src="https://images.pexels.com/photos/2030190/pexels-photo-2030190.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1" alt="Firefighter in protective gear ensuring fire safety" className="w-full h-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2647]/95 via-[#0A2647]/85 to-[#0A2647]/90" />
+      </div>
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF6B35]/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#FF6B35]/10 rounded-full blur-3xl" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm mb-6">
+              <span className="text-[#FF6B35]" aria-hidden="true">🛡️</span>
+              <span className="text-white/90 text-sm font-medium">Trusted Fire Safety Partner in Oman</span>
+            </div>
+            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              Comprehensive{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">Fire Safety</span> & Engineering Solutions
+            </motion.h1>
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-lg text-white/80 mb-8 max-w-xl">
+              Professional design, supply, installation, testing, commissioning, and maintenance of fire detection, fire protection, electrical, CCTV, and plumbing systems.
+            </motion.p>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-wrap gap-4">
+              <button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} className="px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold hover:bg-[#FF8F5E] transition-colors">
+                Get a Free Quote
+              </button>
+              <a href={`tel:${COMPANY.phones[0]}`} className="px-8 py-4 border-2 border-white/30 text-white rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                📞 {COMPANY.phones[0]}
+              </a>
+            </motion.div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="flex items-center gap-8 mt-12 pt-8 border-t border-white/10">
+              <div><span className="text-3xl font-bold text-white">5+</span><p className="text-white/60 text-sm">Years</p></div>
+              <div><span className="text-3xl font-bold text-white">200+</span><p className="text-white/60 text-sm">Projects</p></div>
+              <div><span className="text-3xl font-bold text-white">100+</span><p className="text-white/60 text-sm">Clients</p></div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-[#0A2647] z-20" />
+    </section>
+  );
+}
+
+export function About() {
+  return (
+    <section className="py-20 lg:py-32 bg-white dark:bg-[#0A2647]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <div className="relative">
+              <div className="absolute -top-4 -left-4 w-72 h-72 bg-[#FF6B35]/10 rounded-full blur-3xl" />
+              <div className="relative bg-gradient-to-br from-[#0A2647] to-[#144272] rounded-3xl p-8 lg:p-12">
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center p-4"><span className="text-4xl font-bold text-[#FF6B35]">2021</span><p className="text-white/70 text-sm mt-1">Established</p></div>
+                  <div className="text-center p-4"><span className="text-4xl font-bold text-[#FF6B35]">Oman</span><p className="text-white/70 text-sm mt-1">Based</p></div>
+                  <div className="text-center p-4"><span className="text-4xl font-bold text-[#FF6B35]">5+</span><p className="text-white/70 text-sm mt-1">Services</p></div>
+                  <div className="text-center p-4"><span className="text-4xl font-bold text-[#FF6B35]">24/7</span><p className="text-white/70 text-sm mt-1">Support</p></div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <h2 className="text-3xl lg:text-4xl font-bold text-[#0A2647] dark:text-white mb-4">About Our Company</h2>
+            <p className="text-[#64748B] dark:text-gray-400 mb-4">{COMPANY.name} is a professional engineering, contracting, and integrated technical services company specializing in complete fire detection and fire protection solutions.</p>
+            <p className="text-[#64748B] dark:text-gray-400">We offer complete design, supply, installation, testing, commissioning, maintenance, inspection, and engineering services for commercial, industrial, government, and residential projects throughout Oman.</p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Services() {
+  const serviceItems = [
+    { title: "Fire Detection", desc: "Addressable and conventional fire alarm systems", icon: "🔥" },
+    { title: "Fire Protection", desc: "Sprinklers, hydrants, pumps, and suppression systems", icon: "🛡️" },
+    { title: "Electrical", desc: "Commercial, industrial, and residential electrical services", icon: "⚡" },
+    { title: "CCTV & ELV", desc: "CCTV, access control, and networking solutions", icon: "📹" },
+    { title: "Plumbing", desc: "Comprehensive plumbing with 24/7 emergency support", icon: "🚿" }
+  ];
+
+  return (
+    <section className="py-20 lg:py-32 bg-gray-50 dark:bg-[#0D1B2A]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Our Services" subtitle="Comprehensive engineering solutions" />
+        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {serviceItems.map((s, i) => (
+            <motion.div key={s.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+              <Card hover className="text-center dark:bg-[#144272] dark:border-white/10">
+                <span className="text-4xl mb-4 block" role="img" aria-label={s.title}>{s.icon}</span>
+                <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-2">{s.title}</h3>
+                <p className="text-[#64748B] dark:text-gray-400 text-sm">{s.desc}</p>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Industries() {
+  const iconList = [Building, Factory, HomeIcon, Hospital, GraduationCap, Hotel, Building2];
+  return (
+    <section className="py-20 lg:py-32 bg-white dark:bg-[#0A2647]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Industries We Serve" subtitle="Expertise across diverse sectors" />
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {INDUSTRIES.map((industry, i) => {
+            const Icon = iconList[i % iconList.length];
+            return (
+              <motion.div key={industry} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} whileHover={{ y: -4 }} className="flex flex-col items-center text-center p-6 rounded-2xl bg-gray-50 dark:bg-[#144272] border border-gray-100 dark:border-white/10 hover:border-[#FF6B35]/30 hover:shadow-lg transition-all">
+                <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center mb-4">
+                  <Icon size={24} className="text-[#FF6B35]" aria-hidden="true" />
+                </div>
+                <span className="text-sm font-medium text-[#0A2647] dark:text-white">{industry}</span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Products() {
+  const products = ["Fire Pump Controllers", "FM-200 Systems", "Fire Alarm Panels", "Fire Extinguishers", "Fire Hydrant Equipment", "Fire Pumps", "Fire Cabinets", "Fire Hose Reels", "Emergency Lights", "Smoke Detectors", "Heat Detectors", "Suppression Systems"];
+
+  return (
+    <section className="py-20 lg:py-32 bg-gray-50 dark:bg-[#0D1B2A]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Our Products" subtitle="High-quality equipment from trusted brands" />
+        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <motion.div key={product} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center gap-4 p-5 bg-white dark:bg-[#144272] rounded-xl border border-gray-100 dark:border-white/10 hover:border-[#FF6B35]/30 hover:shadow-lg transition-all">
+              <div className="w-10 h-10 rounded-lg bg-[#FF6B35]/10 flex items-center justify-center flex-shrink-0" aria-hidden="true"><div className="w-3 h-3 rounded-full bg-[#FF6B35]" /></div>
+              <span className="font-medium text-[#0A2647] dark:text-white text-sm">{product}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Process() {
+  const steps = ["Consultation", "Site Survey", "Design", "Approval", "Supply", "Install", "Test", "Commission"];
+  return (
+    <section className="py-20 lg:py-32 bg-[#0A2647] dark:bg-[#071E36]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Our Process" subtitle="A systematic approach to excellence" light />
+        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {steps.map((step, i) => (
+            <motion.div key={step} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center">
+              <div className="w-12 h-12 rounded-full bg-[#FF6B35] flex items-center justify-center text-white font-bold mx-auto mb-4" aria-hidden="true">{i + 1}</div>
+              <span className="text-sm font-medium text-white">{step}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Certifications() {
+  const certs = ["UL", "FM Approved", "LPCB", "BSI", "NFPA", "TÜV"];
+  return (
+    <section className="py-20 lg:py-32 bg-white dark:bg-[#0A2647]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Certifications" subtitle="We adhere to the highest standards" />
+        <div className="mt-16 grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {certs.map((cert) => (
+            <motion.div key={cert} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex items-center justify-center p-4 bg-gray-50 dark:bg-[#144272] rounded-xl border border-gray-100 dark:border-white/10">
+              <span className="font-bold text-[#0A2647] dark:text-white">{cert}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Stats() {
+  const stats = [{ value: "5+", label: "Years" }, { value: "200+", label: "Projects" }, { value: "100+", label: "Clients" }, { value: "24/7", label: "Support" }];
+  return (
+    <section className="py-20 lg:py-32 bg-white dark:bg-[#0A2647]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          {stats.map((stat, i) => (
+            <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center">
+              <span className="text-4xl lg:text-5xl font-bold text-[#FF6B35]">{stat.value}</span>
+              <p className="text-[#64748B] dark:text-gray-400 mt-2">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function CTA() {
+  return (
+    <section className="py-20 lg:py-32 bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">Ready to Secure Your Property?</h2>
+        <p className="text-white/90 text-lg mb-8">Get in touch for a free consultation.</p>
+        <div className="flex flex-wrap justify-center gap-4">
+          <button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} className="px-8 py-4 bg-white text-[#FF6B35] rounded-lg font-semibold hover:bg-white/90 shadow-xl transition-colors">Get Free Quote</button>
+          <a href="tel:+96892144367" className="px-8 py-4 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors">Call Now</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", company: "", service: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    await new Promise((r) => setTimeout(r, 1000));
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    setFormData({ name: "", email: "", phone: "", company: "", service: "", message: "" });
+    setTimeout(() => setIsSuccess(false), 5000);
+  };
+
+  return (
+    <section id="contact" className="py-20 lg:py-32 bg-white dark:bg-[#0A2647]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-[#0A2647] dark:text-white mb-4">Get In Touch</h2>
+            <p className="text-[#64748B] dark:text-gray-400 mb-8">Contact us for a free consultation and quote.</p>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                  <MapPin size={24} className="text-[#FF6B35]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0A2647] dark:text-white">Address</h4>
+                  <p className="text-[#64748B] dark:text-gray-400 text-sm">Barka, Sumuhan, South Al Batinah, Oman</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                  <Phone size={24} className="text-[#FF6B35]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0A2647] dark:text-white">Phone</h4>
+                  <p className="text-[#64748B] dark:text-gray-400">+968 92144367</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                  <Mail size={24} className="text-[#FF6B35]" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-[#0A2647] dark:text-white">Email</h4>
+                  <p className="text-[#64748B] dark:text-gray-400">info@zaintechoman.com</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 dark:bg-[#144272] rounded-3xl p-8">
+            {isSuccess && (
+              <div className="mb-4 p-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg" role="alert">
+                Thank you! Message sent successfully.
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact form">
+              <input type="text" placeholder="Full Name *" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#FF6B35] outline-none bg-white dark:bg-[#0A2647] dark:text-white transition-colors" />
+              <div className="grid grid-cols-2 gap-4">
+                <input type="email" placeholder="Email *" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#FF6B35] outline-none bg-white dark:bg-[#0A2647] dark:text-white transition-colors" />
+                <input type="tel" placeholder="Phone *" required value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#FF6B35] outline-none bg-white dark:bg-[#0A2647] dark:text-white transition-colors" />
+              </div>
+              <select required value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#FF6B35] outline-none bg-white dark:bg-[#0A2647] dark:text-white transition-colors">
+                <option value="">Select a service</option>
+                <option value="fire-detection">Fire Detection</option>
+                <option value="fire-protection">Fire Protection</option>
+                <option value="electrical">Electrical</option>
+                <option value="cctv">CCTV & ELV</option>
+                <option value="plumbing">Plumbing</option>
+              </select>
+              <textarea placeholder="Message *" required rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-white/10 focus:border-[#FF6B35] outline-none resize-none bg-white dark:bg-[#0A2647] dark:text-white transition-colors" />
+              <button type="submit" disabled={isSubmitting} className="w-full px-6 py-3 bg-[#FF6B35] text-white rounded-lg font-semibold hover:bg-[#FF8F5E] transition-colors disabled:opacity-50">
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

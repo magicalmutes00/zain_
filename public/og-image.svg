@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A2647"/>
+      <stop offset="100%" stop-color="#144272"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#FF8C42"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative grid -->
+  <g opacity="0.08" stroke="#FFFFFF" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Accent bar -->
+  <rect x="80" y="80" width="120" height="8" fill="url(#accent)" rx="4"/>
+
+  <!-- Brand name -->
+  <text x="80" y="200" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="72" fill="#FFFFFF">
+    ZAIN Technical
+  </text>
+  <text x="80" y="258" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="32" fill="#FF6B35">
+    & Integrated Services LLC
+  </text>
+
+  <!-- Subheading -->
+  <text x="80" y="360" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="40" fill="#FFFFFF">
+    Fire Safety · Electrical · CCTV · Plumbing
+  </text>
+  <text x="80" y="408" font-family="Inter, Arial, sans-serif" font-weight="400" font-size="26" fill="#B8C4D9">
+    Design · Supply · Installation · Testing · Commissioning · Maintenance
+  </text>
+
+  <!-- Pills -->
+  <g font-family="Inter, Arial, sans-serif" font-weight="600" font-size="20">
+    <rect x="80" y="478" width="180" height="46" rx="23" fill="none" stroke="#FF6B35" stroke-width="2"/>
+    <text x="170" y="508" fill="#FF6B35" text-anchor="middle">5+ Years</text>
+
+    <rect x="280" y="478" width="200" height="46" rx="23" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="380" y="508" fill="#FFFFFF" text-anchor="middle">200+ Projects</text>
+
+    <rect x="500" y="478" width="200" height="46" rx="23" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="600" y="508" fill="#FFFFFF" text-anchor="middle">24/7 Support</text>
+  </g>
+
+  <!-- Footer line -->
+  <text x="80" y="580" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="22" fill="#7C8DA6">
+    zaintechoman.com · Barka, Sultanate of Oman · +968 92144367
+  </text>
+
+  <!-- Logo mark (right side) -->
+  <g transform="translate(960,180)">
+    <rect width="160" height="160" rx="24" fill="#0A2647" stroke="#FF6B35" stroke-width="4"/>
+    <path d="M40 40 L80 120 L120 40 Z" fill="#FF6B35"/>
+    <circle cx="80" cy="80" r="20" fill="#FF6B35"/>
+  </g>
+</svg>

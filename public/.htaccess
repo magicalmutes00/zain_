@@ -1,0 +1,63 @@
+# =============================================================
+# ZAIN Technical & Integrated Services LLC — Apache config
+# Place at the web root (e.g. public_html/.htaccess)
+# =============================================================
+
+# ---- Force HTTPS + www redirect (uncomment after SSL is live) ----
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ---- SPA fallback (so /services, /about etc. work on refresh) ----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Do not rewrite real files or directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Send everything else to index.html
+  RewriteRule ^.*$ /index.html [L]
+</IfModule>
+
+# ---- Cache static assets aggressively ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                "access plus 1 year"
+  ExpiresByType application/javascript  "access plus 1 year"
+  ExpiresByType image/svg+xml           "access plus 1 year"
+  ExpiresByType image/png               "access plus 6 months"
+  ExpiresByType image/jpeg              "access plus 6 months"
+  ExpiresByType image/webp              "access plus 6 months"
+  ExpiresByType image/avif              "access plus 6 months"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType font/woff               "access plus 1 year"
+  ExpiresDefault                       "access plus 1 day"
+</IfModule>
+
+# ---- Compression ----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# ---- Security headers ----
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options        "SAMEORIGIN"
+  Header set Referrer-Policy        "strict-origin-when-cross-origin"
+  Header set Permissions-Policy     "geolocation=(), microphone=(), camera=()"
+
+  # Cross-origin isolation for fonts (only when serving over HTTPS)
+  <IfModule mod_env.c>
+    RequestHeader set X-Forwarded-Proto "https" env=HTTPS
+  </IfModule>
+</IfModule>
+
+# ---- Disable directory listing ----
+Options -Indexes
+
+# ---- Favicon caching ----
+<FilesMatch "favicon\.(ico|svg|png)$">
+  Header set Cache-Control "public, max-age=604800"
+</FilesMatch>

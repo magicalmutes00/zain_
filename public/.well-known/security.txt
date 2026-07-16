@@ -1,0 +1,5 @@
+Contact: mailto:info@zaintechoman.com
+Contact: tel:+96892144367
+Expires: 2026-12-31T23:59:59z
+Preferred-Languages: en, ar
+Canonical: https://zaintechoman.com/.well-known/security.txt
