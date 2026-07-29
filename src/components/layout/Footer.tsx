@@ -85,12 +85,14 @@ export function Footer() {
                   </a>
                 </li>
               ))}
-              <li className="flex items-center gap-3">
-                <Mail size={20} className="text-[#FF6B35] flex-shrink-0" aria-hidden="true" />
-                <a href={`mailto:${COMPANY.emails[0]}`} className="text-white/70 hover:text-[#FF6B35] transition-colors text-sm">
-                  {COMPANY.emails[0]}
-                </a>
-              </li>
+              {COMPANY.emails.map((email) => (
+                <li key={email} className="flex items-center gap-3">
+                  <Mail size={20} className="text-[#FF6B35] flex-shrink-0" aria-hidden="true" />
+                  <a href={`mailto:${email}`} className="text-white/70 hover:text-[#FF6B35] transition-colors text-sm">
+                    {email}
+                  </a>
+                </li>
+              ))}
               <li className="flex items-center gap-3">
                 <Clock size={20} className="text-[#FF6B35] flex-shrink-0" aria-hidden="true" />
                 <span className="text-white/70 text-sm">{COMPANY.workingHours}</span>

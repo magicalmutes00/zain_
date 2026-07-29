@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
 interface SEOProps {
@@ -6,8 +6,6 @@ interface SEOProps {
   description?: string;
   image?: string;
   type?: "website" | "article";
-  publishedTime?: string;
-  authors?: string[];
 }
 
 export function SEO({
@@ -18,10 +16,7 @@ export function SEO({
 }: SEOProps) {
   const location = useLocation();
   const canonicalUrl = `https://zaintechoman.com${location.pathname}`;
-
-  useEffect(() => {
-    document.title = title.includes("ZAIN") ? title : `${title} | ZAIN Technical`;
-  }, [title]);
+  const pageTitle = title.includes("ZAIN") ? title : `${title} | ZAIN Technical`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -31,7 +26,7 @@ export function SEO({
     logo: "https://zaintechoman.com/images/logo.png",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Barka, Sumuhan",
+      streetAddress: "P.O.Box: 124, P.C:112, Barka, Sumuhan",
       addressLocality: "South Al Batinah",
       addressCountry: "OM",
     },
@@ -49,8 +44,8 @@ export function SEO({
   };
 
   return (
-    <>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Helmet>
+      <title>{pageTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content="fire protection oman, fire detection systems, fire alarm installation, electrical contractor, cctv installation, plumbing services oman" />
       <meta name="author" content="ZAIN Technical" />
@@ -59,22 +54,21 @@ export function SEO({
 
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <meta property="og:site_name" content="ZAIN Technical" />
       <meta property="og:locale" content="en_US" />
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
+      <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-    </>
+      <script type="application/ld+json">
+        {JSON.stringify(jsonLd)}
+      </script>
+    </Helmet>
   );
 }
 

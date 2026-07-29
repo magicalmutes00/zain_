@@ -6,6 +6,15 @@ import { NAV_LINKS, SERVICES } from "@/data/company";
 import { cn } from "@/lib/utils";
 import { useDarkMode } from "@/hooks/useCustomHooks";
 import OptimizedImage from "@/components/ui/OptimizedImage";
+import { IconFlame, IconShield, IconBolt, IconCamera, IconDroplet } from "@tabler/icons-react";
+
+const SERVICE_ICONS: Record<string, typeof IconFlame> = {
+  Flame: IconFlame,
+  Shield: IconShield,
+  Zap: IconBolt,
+  Video: IconCamera,
+  Droplets: IconDroplet,
+};
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,25 +41,20 @@ export function Navbar() {
       </a>
 
       <nav
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled
-            ? "glass shadow-lg"
-            : "bg-transparent"
-        )}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-lg bg-white dark:bg-[#0A2647]"
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-24">
             <Link to="/" className="flex items-center gap-3" aria-label="ZAIN Technical Home">
-              <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-12 h-12 object-contain rounded-xl" />
+              <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-16 h-16 object-contain rounded-xl" />
               <div className="hidden sm:block">
-                <span className="font-bold text-[#0A2647] dark:text-white text-sm leading-tight block">
-                  ZAIN Technical
+                <span className="font-bold text-[#0A2647] dark:text-white text-lg leading-tight block">
+                  ZAIN TECHNICAL
                 </span>
-                <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  & Inegrated Services LLC
+                <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">
+                  & Integrated Services LLC
                 </span>
               </div>
             </Link>
@@ -141,21 +145,24 @@ export function Navbar() {
             >
               <div className="max-w-7xl mx-auto px-4 py-6">
                 <div className="grid grid-cols-5 gap-4">
-                  {SERVICES.map((service) => (
-                    <Link
-                      key={service.slug}
-                      to={`/services/${service.slug}`}
-                      className="flex flex-col items-center p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group"
-                      role="menuitem"
-                    >
-                      <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center mb-3 group-hover:bg-[#FF6B35]/20 transition-colors">
-                        <span className="text-2xl">{service.icon === "Flame" ? "🔥" : service.icon === "Shield" ? "🛡️" : service.icon === "Zap" ? "⚡" : service.icon === "Video" ? "📹" : "🚿"}</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#0A2647] dark:text-white text-center">
-                        {service.title}
-                      </span>
-                    </Link>
-                  ))}
+                  {SERVICES.map((service) => {
+                    const ServiceIcon = SERVICE_ICONS[service.icon];
+                    return (
+                      <Link
+                        key={service.slug}
+                        to={`/services/${service.slug}`}
+                        className="flex flex-col items-center p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group"
+                        role="menuitem"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center mb-3 group-hover:bg-[#FF6B35]/20 transition-colors">
+                          {ServiceIcon && <ServiceIcon size={24} stroke={1.5} className="text-[#FF6B35]" />}
+                        </div>
+                        <span className="text-sm font-medium text-[#0A2647] dark:text-white text-center">
+                          {service.title}
+                        </span>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </motion.div>
@@ -177,8 +184,8 @@ export function Navbar() {
             <div className="flex flex-col h-full p-6">
               <div className="flex items-center justify-between mb-12">
                 <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
-                  <OptimizedImage name="logo-clean" alt="ZAIN Technical" className="w-12 h-12 object-contain rounded-xl" />
-                  <span className="text-white font-bold">ZAIN Technical</span>
+                  <OptimizedImage name="logo-clean" alt="ZAIN Technical" className="w-16 h-16 object-contain rounded-xl" />
+                  <span className="text-white font-bold text-lg">ZAIN TECHNICAL</span>
                 </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}

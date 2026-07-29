@@ -4,7 +4,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { INDUSTRIES } from "@/data/company";
 import { Building2, Factory, Home, Hospital, Hotel, ShoppingBag, Warehouse, Building } from "lucide-react";
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+const iconMap: Record<string, React.ComponentType<any>> = {
   Building2, Factory, Home, Hospital, Hotel, ShoppingBag, Warehouse, Building
 };
 

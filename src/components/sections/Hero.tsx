@@ -28,7 +28,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm mb-6"
             >
               <Shield size={16} className="text-[#FF6B35]" />
-              <span className="text-white/90 text-sm font-medium">Trusted Fire Safety Partner in Oman</span>
+              <span className="text-white/90 text-sm font-medium">شريك موثوق في السلامة من الحرائق في عمان</span>
             </motion.div>
 
             <motion.h1

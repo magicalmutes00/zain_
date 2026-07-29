@@ -28,7 +28,7 @@ export function Hero() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm mb-6">
               <span className="text-[#FF6B35]" aria-hidden="true">🛡️</span>
-              <span className="text-white/90 text-sm font-medium">Trusted Fire Safety Partner in Oman</span>
+              <span className="text-white/90 text-sm font-medium">شريك موثوق في السلامة من الحرائق في عمان</span>
             </div>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               Comprehensive{" "}
@@ -262,7 +262,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0A2647] dark:text-white">Address</h4>
-                  <p className="text-[#64748B] dark:text-gray-400 text-sm">Barka, Sumuhan, South Al Batinah, Oman</p>
+                  <p className="text-[#64748B] dark:text-gray-400 text-sm">P.O.Box: 124, P.C:112, Barka, Sumuhan, South Al Batinah, Oman</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -270,8 +270,10 @@ export function Contact() {
                   <Phone size={24} className="text-[#FF6B35]" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#0A2647] dark:text-white">Phone</h4>
-                  <p className="text-[#64748B] dark:text-gray-400">+968 92144367</p>
+                  <h4 className="font-semibold text-[#0A2647] dark:text-white mb-1">Phone</h4>
+                  {COMPANY.phones.map((phone) => (
+                    <a key={phone} href={`tel:${phone}`} className="text-[#64748B] dark:text-gray-400 hover:text-[#FF6B35] transition-colors block">{phone}</a>
+                  ))}
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -280,7 +282,9 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#0A2647] dark:text-white">Email</h4>
-                  <p className="text-[#64748B] dark:text-gray-400">info@zaintechoman.com</p>
+                  {COMPANY.emails.map((email) => (
+                    <p key={email} className="text-[#64748B] dark:text-gray-400">{email}</p>
+                  ))}
                 </div>
               </div>
             </div>

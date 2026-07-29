@@ -1,25 +1,26 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FloatingButtons } from "@/components/layout/FloatingButtons";
 import { AnimationProvider } from "@/components/AnimationProvider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ErrorBoundary, PageLoader } from "@/components/ErrorBoundary";
-import { SEO } from "@/components/SEO";
 import { useScrollProgress } from "@/hooks/useCustomHooks";
-import Home from "@/pages/Home";
-import AboutPage from "@/pages/About";
-import ServicesPage from "@/pages/Services";
-import ContactPage from "@/pages/Contact";
-import ProjectsPage from "@/pages/Projects";
-import FAQPage from "@/pages/FAQ";
-import PolicyPage from "@/pages/Policy";
-import TermsPage from "@/pages/Terms";
-import NotFound from "@/pages/NotFound";
-import ProductsPage from "@/pages/Products";
-import IndustriesPage from "@/pages/Industries";
-import CertificationsPage from "@/pages/Certifications";
+
+const Home = lazy(() => import("@/pages/Home"));
+const AboutPage = lazy(() => import("@/pages/About"));
+const ServicesPage = lazy(() => import("@/pages/Services"));
+const ContactPage = lazy(() => import("@/pages/Contact"));
+const ProjectsPage = lazy(() => import("@/pages/Projects"));
+const FAQPage = lazy(() => import("@/pages/FAQ"));
+const PolicyPage = lazy(() => import("@/pages/Policy"));
+const TermsPage = lazy(() => import("@/pages/Terms"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const ProductsPage = lazy(() => import("@/pages/Products"));
+const IndustriesPage = lazy(() => import("@/pages/Industries"));
+const CertificationsPage = lazy(() => import("@/pages/Certifications"));
 
 function ScrollProgress() {
   const progress = useScrollProgress();
@@ -39,7 +40,6 @@ function ScrollProgress() {
 function AppContent() {
   return (
     <>
-      <SEO />
       <ScrollProgress />
       <Navbar />
       <main id="main-content">
@@ -72,11 +72,13 @@ function AppContent() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <AnimationProvider>
-        <LanguageProvider>
-          <AppContent />
-        </LanguageProvider>
-      </AnimationProvider>
+      <HelmetProvider>
+        <AnimationProvider>
+          <LanguageProvider>
+            <AppContent />
+          </LanguageProvider>
+        </AnimationProvider>
+      </HelmetProvider>
     </ErrorBoundary>
   );
 }

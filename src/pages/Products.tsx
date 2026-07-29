@@ -4,7 +4,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { PRODUCTS, BRANDS } from "@/data/company";
 import { CheckCircle2, Shield, Zap, Thermometer, Radio, Eye } from "lucide-react";
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+const iconMap: Record<string, React.ComponentType<any>> = {
   Shield, Zap, Thermometer, Radio, Eye, CheckCircle2
 };
 

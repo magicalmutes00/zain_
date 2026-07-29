@@ -5,8 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 interface AnimationContextType {
-  revealOnScroll: (element: Element | null, options?: gsap.SmoothChildlessTimelineVars) => void;
-  fadeIn: (element: Element | null, options?: gsap.SmoothChildlessTimelineVars) => void;
+  revealOnScroll: (element: Element | null, options?: gsap.TimelineVars) => void;
+  fadeIn: (element: Element | null, options?: gsap.TimelineVars) => void;
 }
 
 const AnimationContext = createContext<AnimationContextType | null>(null);
@@ -21,7 +21,7 @@ export function AnimationProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const revealOnScroll = (element: Element | null, options?: gsap.SmoothChildlessTimelineVars) => {
+  const revealOnScroll = (element: Element | null, options?: gsap.TimelineVars) => {
     if (!element) return;
     gsap.fromTo(
       element,
@@ -42,7 +42,7 @@ export function AnimationProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  const fadeIn = (element: Element | null, options?: gsap.SmoothChildlessTimelineVars) => {
+  const fadeIn = (element: Element | null, options?: gsap.TimelineVars) => {
     if (!element) return;
     gsap.fromTo(
       element,

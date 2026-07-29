@@ -1,19 +1,21 @@
 export const COMPANY = {
   name: "ZAIN TECHNICAL & INTEGRATED SERVICES LLC",
-  shortName: "ZAIN Technical",
+  shortName: "ZAIN TECHNICAL",
   established: 2021,
   address: {
-    area: "Barka, Sumuhan",
+    area: "P.O.Box: 124, P.C:112, Barka, Sumham",
     region: "South Al Batinah",
     country: "Sultanate of Oman",
     near: "Near ROP Barka",
     poBox: "124",
     postalCode: "122",
   },
-  phones: ["+968 92144367", "+968 71744429"],
+  phones: ["+968 92144367", 
+           "+968 71744429"
+  ],
   emails: [
     "info@zaintechoman.com",
-    "zainprojectsoman@gmail.com",
+    // "zainprojectsoman@gmail.com",
     "zaintechnicaloman@gmail.com",
   ],
   workingHours: "Sunday - Thursday: 8:00 AM - 6:00 PM",

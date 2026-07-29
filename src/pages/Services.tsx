@@ -6,7 +6,7 @@ import { CTA, Contact, Process } from "@/components/sections/HomeSections";
 import { SERVICES as ServicesData } from "@/data/company";
 import { Flame, Shield, Zap, Video, Droplets, CheckCircle2, Phone, ArrowRight } from "lucide-react";
 
-const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = { Flame, Shield, Zap, Video, Droplets };
+const iconMap: Record<string, React.ComponentType<any>> = { Flame, Shield, Zap, Video, Droplets };
 
 export default function ServicesPage() {
   const { slug } = useParams();

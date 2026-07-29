@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SEO } from "@/components/SEO";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -72,6 +72,45 @@ const complianceStandards = [
 export default function CertificationsPage() {
   const [activeCert, setActiveCert] = useState<CertImage | null>(null);
   const [isLandscape, setIsLandscape] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  const prevFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (activeCert) {
+      prevFocusRef.current = document.activeElement as HTMLElement;
+      document.body.style.overflow = "hidden";
+      closeRef.current?.focus();
+    } else {
+      document.body.style.overflow = "";
+      prevFocusRef.current?.focus();
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeCert]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || !dialogRef.current) return;
+    const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (!activeCert) return;
@@ -276,6 +315,8 @@ export default function CertificationsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            ref={dialogRef}
+            onKeyDown={handleKeyDown}
             className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={() => setActiveCert(null)}
             role="dialog"
@@ -283,6 +324,7 @@ export default function CertificationsPage() {
             aria-label={activeCert.title}
           >
             <button
+              ref={closeRef}
               type="button"
               onClick={() => setActiveCert(null)}
               className="absolute top-4 right-4 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
