@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone, Moon, Sun } from "lucide-react";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { NAV_LINKS, SERVICES } from "@/data/company";
 import { cn } from "@/lib/utils";
-import { useDarkMode } from "@/hooks/useCustomHooks";
+
 import OptimizedImage from "@/components/ui/OptimizedImage";
 import { IconFlame, IconShield, IconBolt, IconCamera, IconDroplet } from "@tabler/icons-react";
 
@@ -20,7 +20,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const { isDarkMode, toggle } = useDarkMode();
   const location = useLocation();
 
   useEffect(() => {
@@ -49,11 +48,11 @@ export function Navbar() {
           <div className="flex items-center justify-between h-24">
             <Link to="/" className="flex items-center gap-3" aria-label="ZAIN Technical Home">
               <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-16 h-16 object-contain rounded-xl" />
-              <div className="hidden sm:block">
-                <span className="font-bold text-[#0A2647] dark:text-white text-lg leading-tight block">
+              <div className="block">
+                <span className="font-bold text-[#FF6B35] text-sm sm:text-lg leading-tight block">
                   ZAIN TECHNICAL
                 </span>
-                <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">
+                <span className="text-[8px] sm:text-[10px] text-[#FF6B35] uppercase tracking-wider whitespace-nowrap">
                   & Integrated Services LLC
                 </span>
               </div>
@@ -103,14 +102,6 @@ export function Navbar() {
             </div>
 
             <div className="flex items-center gap-3">
-              <button
-                onClick={toggle}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {isDarkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} />}
-              </button>
-
               <a
                 href="tel:+96892144367"
                 className="hidden md:flex items-center gap-2 px-4 py-2 bg-[#FF6B35] text-white rounded-lg font-medium hover:bg-[#FF8F5E] transition-colors"
@@ -185,7 +176,7 @@ export function Navbar() {
               <div className="flex items-center justify-between mb-12">
                 <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
                   <OptimizedImage name="logo-clean" alt="ZAIN Technical" className="w-16 h-16 object-contain rounded-xl" />
-                  <span className="text-white font-bold text-lg">ZAIN TECHNICAL</span>
+                  <span className="text-[#FF6B35] font-bold text-lg">ZAIN TECHNICAL</span>
                 </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}

@@ -47,7 +47,7 @@ export const SERVICES = [
     slug: "fire-protection",
     description: "Comprehensive fire protection solutions including sprinklers, hydrants, pumps, and suppression systems.",
     icon: "Shield",
-    iconImage: "/images/icon-protected.png",
+    iconImage: "/images/icon-protected.webp",
     features: ["Fire Hydrant Systems", "Fire Sprinkler Systems", "Fire Pump Systems", "FM-200 Suppression Systems", "Fire Extinguishers"],
   },
   {
@@ -55,7 +55,7 @@ export const SERVICES = [
     slug: "electrical",
     description: "Full range of commercial, industrial, and residential electrical installation and maintenance services.",
     icon: "Zap",
-    iconImage: "/images/icon-danger.png",
+    iconImage: "/images/icon-danger.webp",
     features: ["Commercial Installations", "Industrial Installations", "Power Distribution", "Office Fit-outs", "Emergency Repairs"],
   },
   {
@@ -63,7 +63,7 @@ export const SERVICES = [
     slug: "cctv",
     description: "Professional CCTV installation, access control, networking, and integrated security solutions.",
     icon: "Video",
-    iconImage: "/images/icon-cctv.png",
+    iconImage: "/images/icon-cctv.webp",
     features: ["CCTV Installation", "Access Control", "Structured Cabling", "Fiber Optic Cabling", "IT Infrastructure"],
   },
   {
@@ -71,7 +71,7 @@ export const SERVICES = [
     slug: "plumbing",
     description: "Comprehensive residential, commercial, and industrial plumbing services with 24/7 emergency support.",
     icon: "Droplets",
-    iconImage: "/images/icon-repair.png",
+    iconImage: "/images/icon-repair.webp",
     features: ["Bathroom & Kitchen Plumbing", "Leak Detection", "Water Heater Services", "Drain Cleaning", "24/7 Emergency Support"],
   },
 ];
