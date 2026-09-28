@@ -3,12 +3,12 @@ export const COMPANY = {
   shortName: "ZAIN TECHNICAL",
   established: 2021,
   address: {
-    area: "P.O.Box: 124, P.C:112, Barka, Sumham",
+    area: "P.O.Box: 124, P.C:112, Barka, Sumuhan",
     region: "South Al Batinah",
     country: "Sultanate of Oman",
     near: "Near ROP Barka",
     poBox: "124",
-    postalCode: "122",
+    postalCode: "112",
   },
   phones: ["+968 92144367", 
            "+968 71744429"
@@ -37,7 +37,7 @@ export const SERVICES = [
   {
     title: "Fire Detection Systems",
     slug: "fire-detection",
-    description: "Complete design, supply, installation, testing, commissioning, and maintenance of fire detection systems.",
+    description: "Fire alarm installation in Oman for offices, plants, hospitals, hotels, and villas. Addressable and conventional systems with testing, commissioning, and annual maintenance contracts.",
     icon: "Flame",
     iconImage: "/images/icon-fire.ico",
     features: ["Addressable Fire Alarm Systems", "Conventional Fire Alarm Systems", "Emergency Lighting Systems", "Smoke & Heat Detectors", "Annual Maintenance Contracts"],
@@ -45,7 +45,7 @@ export const SERVICES = [
   {
     title: "Fire Protection Systems",
     slug: "fire-protection",
-    description: "Comprehensive fire protection solutions including sprinklers, hydrants, pumps, and suppression systems.",
+    description: "Fire fighting contractors in Muscat and across Oman for hydrants, sprinklers, fire pumps, FM-200 suppression, hose reels, and extinguishers — installed to NFPA and Civil Defense standards.",
     icon: "Shield",
     iconImage: "/images/icon-protected.webp",
     features: ["Fire Hydrant Systems", "Fire Sprinkler Systems", "Fire Pump Systems", "FM-200 Suppression Systems", "Fire Extinguishers"],

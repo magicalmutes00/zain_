@@ -9,37 +9,68 @@ interface SEOProps {
 }
 
 export function SEO({
-  title = "ZAIN Technical & Integrated Services LLC",
-  description = "Professional fire detection, fire protection, electrical, CCTV, and plumbing services in Oman. Design, supply, installation, testing, commissioning, and maintenance.",
-  image = "/og-image.svg",
+  title = "Fire Protection Company in Oman | ZAIN Technical",
+  description = "Civil Defense-aligned fire protection company in Oman for alarms, sprinklers, suppression, testing & AMC. Serving Muscat, Barka & Sohar. Get a free quote.",
+  image = "/og-image.png",
   type = "website",
 }: SEOProps) {
   const location = useLocation();
   const canonicalUrl = `https://zaintechoman.com${location.pathname}`;
   const pageTitle = title.includes("ZAIN") ? title : `${title} | ZAIN Technical`;
+  const absoluteImage = image.startsWith("http") ? image : `https://zaintechoman.com${image}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "ZAIN Technical & Integrated Services LLC",
-    url: "https://zaintechoman.com",
-    logo: "https://zaintechoman.com/images/logo.png",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "P.O.Box: 124, P.C:112, Barka, Sumuhan",
-      addressLocality: "South Al Batinah",
-      addressCountry: "OM",
-    },
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: "+968-92144367",
-      contactType: "customer service",
-      availableLanguage: ["English", "Arabic"],
-    },
-    sameAs: [
-      "https://facebook.com/zaintechnicaloman",
-      "https://instagram.com/zaintechnicaloman",
-      "https://linkedin.com/company/zaintechnicaloman",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://zaintechoman.com/#org",
+        name: "ZAIN Technical & Integrated Services LLC",
+        url: "https://zaintechoman.com/",
+        logo: "https://zaintechoman.com/images/logo-z.png",
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+968-92144367",
+          contactType: "customer service",
+          areaServed: "OM",
+          availableLanguage: ["en", "ar"],
+        },
+        sameAs: [
+          "https://facebook.com/zaintechnicaloman",
+          "https://instagram.com/zaintechnicaloman",
+          "https://linkedin.com/company/zaintechnicaloman",
+        ],
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://zaintechoman.com/#local",
+        name: "ZAIN Technical & Integrated Services LLC",
+        image: "https://zaintechoman.com/images/logo-z.png",
+        url: "https://zaintechoman.com/",
+        priceRange: "$$",
+        telephone: "+968-92144367",
+        email: "info@zaintechoman.com",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "P.O. Box 124, Barka, Sumuhan",
+          addressLocality: "Barka",
+          addressRegion: "South Al Batinah",
+          postalCode: "112",
+          addressCountry: "OM",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 23.67,
+          longitude: 57.26,
+        },
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+          opens: "08:00",
+          closes: "18:00",
+        },
+        areaServed: ["Muscat", "Barka", "Sohar", "Salalah", "Nizwa", "Duqm"],
+      },
     ],
   };
 
@@ -56,59 +87,18 @@ export function SEO({
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={absoluteImage} />
       <meta property="og:site_name" content="ZAIN Technical" />
       <meta property="og:locale" content="en_US" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={absoluteImage} />
 
       <script type="application/ld+json">
         {JSON.stringify(jsonLd)}
       </script>
     </Helmet>
-  );
-}
-
-export function OrganizationSchema() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "ZAIN Technical & Integrated Services LLC",
-    image: "https://zaintechoman.com/images/logo.png",
-    priceRange: "$$",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Barka",
-      addressRegion: "South Al Batinah",
-      addressCountry: "OM",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "23.67",
-      longitude: "57.26",
-    },
-    telephone: "+968-92144367",
-    email: "info@zaintechoman.com",
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-      opens: "08:00",
-      closes: "18:00",
-    },
-    areaServed: {
-      "@type": "Country",
-      name: "Oman",
-    },
-    serviceType: ["Fire Detection", "Fire Protection", "Electrical", "CCTV", "Plumbing"],
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
   );
 }

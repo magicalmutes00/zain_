@@ -17,7 +17,7 @@ const projects = [
   { title: "Grand Hotel Fire Safety System", category: "Fire Protection", location: "Muscat, Oman", year: "2023", client: "Grand Hotel Group", scope: "Sprinkler system, hydrants & fire pumps", status: "completed", image: "/images/HALA HOTEL SUITES – Modern Hotel Building Exterior.webp" },
   { title: "Duqm Warehouse Fire Protection", category: "Fire Protection", location: "Duqm, Oman", year: "2024", client: "Duqm Logistics", scope: "Warehouse sprinkler & suppression systems", status: "completed", image: "/images/Modern Industrial Warehouse and Factory Building Exterior.webp" },
   { title: "Nizwa Fort Fire Detection System", category: "Fire Detection", location: "Nizwa, Oman", year: "2025", client: "Ministry of Heritage & Tourism", scope: "Heritage building addressable fire detection & alarm system", status: "ongoing", image: "/images/Multi-Story Building with Exterior Scaffolding During Facade Finishing.webp" },
-  { title: "Ibri Industrial City Electrical Infrastructure", category: "Electrical", location: "Ibri, Oman", year: "2025", client: "Ibri Industrial Estate", scope: "High voltage power distribution & substation installation", status: "ongoing", image: "/images/Industrial Fire Pump Room with Electric Fire Pump,.webp" },
+  { title: "Ibri Industrial City Electrical Infrastructure", category: "Electrical", location: "Ibri, Oman", year: "2025", client: "Ibri Industrial Estate", scope: "High voltage power distribution & substation installation", status: "ongoing", image: "/images/industrial-fire-pump-room-oman.webp" },
   { title: "Sur Corniche CCTV Surveillance Project", category: "CCTV", location: "Sur, Oman", year: "2025", client: "Sur Municipality", scope: "Public area CCTV surveillance & monitoring system", status: "ongoing", image: "/images/Modern Commercial Building Exterior with Glass Facade.webp" },
 ];
 
@@ -41,7 +41,7 @@ export default function ProjectsPage() {
   return (
     <>
       <SEO
-        title="Our Projects | Fire Safety & Engineering Installations"
+        title="Fire Safety Projects Oman | ZAIN Technical"
         description="Explore our portfolio of completed fire protection, fire detection, electrical, CCTV, and plumbing projects across Oman. Quality installations you can trust."
       />
 

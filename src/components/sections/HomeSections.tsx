@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card } from "@/components/ui/Card";
@@ -17,7 +18,7 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <img src="https://images.pexels.com/photos/2030190/pexels-photo-2030190.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1" alt="Firefighter in protective gear ensuring fire safety" className="w-full h-full object-cover object-center" />
+        <img src="/images/Outdoor%20Diesel%20Fire%20Pump%20Station%20Maintenance%20with%20Fire%20Water%20Storage%20Tank.webp" alt="Fire pump station installation with water storage tank in Oman by ZAIN Technical" className="w-full h-full object-cover object-center" fetchPriority="high" width="1920" height="1080" />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A2647]/95 via-[#0A2647]/85 to-[#0A2647]/90" />
       </div>
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF6B35]/20 rounded-full blur-3xl" />
@@ -31,11 +32,11 @@ export function Hero() {
               <span className="text-white/90 text-sm font-medium">شريك موثوق في السلامة من الحرائق في عمان</span>
             </div>
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Comprehensive{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">Fire Safety</span> & Engineering Solutions
+              Fire Protection Company in Oman —{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">Detection, Suppression & Engineering</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-lg text-white/80 mb-8 max-w-xl">
-              Professional design, supply, installation, testing, commissioning, and maintenance of fire detection, fire protection, electrical, CCTV, and plumbing systems.
+              ZAIN Technical designs, supplies, installs, tests, commissions, and maintains fire detection, suppression, electrical, CCTV, and plumbing systems for commercial, industrial, government, and residential projects across Oman — with 24/7 emergency support.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-wrap gap-4">
               <button onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} className="px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold hover:bg-[#FF8F5E] transition-colors">
@@ -88,19 +89,19 @@ export function About() {
 }
 
 export function Services() {
-  type ServiceItem = { title: string; desc: string; Icon: typeof IconFlame };
+  type ServiceItem = { title: string; desc: string; link: string; linkText: string; Icon: typeof IconFlame };
   const serviceItems: ServiceItem[] = [
-    { title: "Fire Detection", desc: "Addressable and conventional fire alarm systems", Icon: IconFlame },
-    { title: "Fire Protection", desc: "Sprinklers, hydrants, pumps, and suppression systems", Icon: IconShield },
-    { title: "Electrical", desc: "Commercial, industrial, and residential electrical services", Icon: IconBolt },
-    { title: "CCTV & ELV", desc: "CCTV, access control, and networking solutions", Icon: IconCamera },
-    { title: "Plumbing", desc: "Comprehensive plumbing with 24/7 emergency support", Icon: IconDroplet }
+    { title: "Fire Detection", desc: "Addressable and conventional fire alarm installation in Oman", link: "/services/fire-detection", linkText: "Fire alarm installation in Oman", Icon: IconFlame },
+    { title: "Fire Protection", desc: "Sprinklers, hydrants, pumps, and FM-200 suppression by fire fighting contractors in Muscat", link: "/services/fire-protection", linkText: "Fire fighting contractors in Muscat", Icon: IconShield },
+    { title: "Electrical", desc: "Commercial, industrial, and residential electrical contractor services across Oman", link: "/services/electrical", linkText: "Electrical contractor in Oman", Icon: IconBolt },
+    { title: "CCTV & ELV", desc: "CCTV installation in Oman: cameras, access control, and networking", link: "/services/cctv", linkText: "CCTV installation in Oman", Icon: IconCamera },
+    { title: "Plumbing", desc: "Plumbing services in Oman with 24/7 emergency support", link: "/services/plumbing", linkText: "Plumbing services in Oman", Icon: IconDroplet }
   ];
 
   return (
     <section className="py-20 lg:py-32 bg-gray-50 dark:bg-[#0D1B2A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader title="Our Services" subtitle="Comprehensive engineering solutions" />
+        <SectionHeader title="Our Services" subtitle="Fire safety & engineering solutions across Oman" />
         <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {serviceItems.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
@@ -109,7 +110,10 @@ export function Services() {
                   <s.Icon size={32} stroke={1.5} className="text-[#FF6B35]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-2">{s.title}</h3>
-                <p className="text-[#64748B] dark:text-gray-400 text-sm">{s.desc}</p>
+                <p className="text-[#64748B] dark:text-gray-400 text-sm mb-4">{s.desc}</p>
+                <Link to={s.link} className="inline-flex items-center gap-1 text-sm font-semibold text-[#FF6B35] hover:gap-2 transition-all" aria-label={s.linkText}>
+                  {s.linkText} <span aria-hidden="true">→</span>
+                </Link>
               </Card>
             </motion.div>
           ))}

@@ -35,8 +35,8 @@ export default function ProductsPage() {
   return (
     <>
       <SEO
-        title="Products | Fire Safety & Engineering Equipment"
-        description="Browse our range of fire detection, fire protection, electrical, CCTV, and plumbing products from leading brands."
+        title="Fire Safety Products Oman | ZAIN Technical"
+        description="Shop fire safety products in Oman: alarm panels, detectors, pumps, extinguishers, hose reels & suppression from Honeywell, Gent, Tyco & NAFFCO."
       />
       
       <section className="pt-32 pb-20 bg-white dark:bg-[#0A2647]">

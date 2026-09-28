@@ -8,9 +8,12 @@ export function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.pexels.com/photos/2030190/pexels-photo-2030190.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1"
-          alt="Fireman"
+          src="/images/Outdoor%20Diesel%20Fire%20Pump%20Station%20Maintenance%20with%20Fire%20Water%20Storage%20Tank.webp"
+          alt="Fire pump station installation with water storage tank in Oman by ZAIN Technical"
           className="w-full h-full object-cover object-center"
+          fetchPriority="high"
+          width="1920"
+          height="1080"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A2647]/95 via-[#0A2647]/85 to-[#0A2647]/90" />
       </div>
@@ -37,9 +40,8 @@ export function Hero() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
             >
-              Comprehensive{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">Fire Safety</span>{" "}
-              & Engineering Solutions
+              Fire Protection Company in Oman —{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">Detection, Suppression & Engineering</span>
             </motion.h1>
 
             <motion.p
@@ -48,7 +50,7 @@ export function Hero() {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="text-lg text-white/80 mb-8 max-w-xl"
             >
-              Professional design, supply, installation, testing, commissioning, and maintenance of fire detection, fire protection, electrical, CCTV, and plumbing systems for commercial, industrial, and residential projects.
+              ZAIN Technical designs, supplies, installs, tests, commissions, and maintains fire detection, suppression, electrical, CCTV, and plumbing systems for commercial, industrial, government, and residential projects across Oman — with 24/7 emergency support.
             </motion.p>
 
             <motion.div

@@ -21,9 +21,9 @@ interface CertImage {
 }
 
 const certificateImages: CertImage[] = [
-  { src: "/images/Extinguishers%20licence.webp", title: "Extinguishers License", orientation: "portrait" as const },
-  { src: "/images/installisation%20of%20fffa.webp", title: "Installation of FFFA", orientation: "portrait" as const },
-  { src: "/images/lpg%20system.webp", title: "LPG System Certification", orientation: "landscape" as const }
+  { src: "/images/fire-extinguisher-license-oman.webp", title: "Extinguishers License", orientation: "portrait" as const },
+  { src: "/images/fire-alarm-installation-oman.webp", title: "Installation of FFFA", orientation: "portrait" as const },
+  { src: "/images/lpg-system-certification-oman.webp", title: "LPG System Certification", orientation: "landscape" as const }
 ];
 
 const certifications = [
