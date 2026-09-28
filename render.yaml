@@ -1,0 +1,17 @@
+# Render blueprint for zaintechoman.com (React Vite SPA)
+# NOTE: render.yaml only applies when creating a service from a blueprint.
+# For the existing service, add the same rewrite in the dashboard once:
+# Static Site → Redirects/Rewrites → Add Rule → Source "/*",
+# Destination "/index.html", Action "Rewrite".
+# Existing static files (robots.txt, sitemap.xml, assets) keep serving normally;
+# the rewrite only fires for paths with no matching file (the SPA routes).
+services:
+  - type: web
+    name: zain-technical-oman
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
