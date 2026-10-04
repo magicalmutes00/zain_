@@ -10,7 +10,7 @@ interface IconBoxProps {
   iconColor?: string;
 }
 
-export function IconBox({ icon: Icon, title, description, className, iconColor = "#DC2626" }: IconBoxProps) {
+export function IconBox({ icon: Icon, title, description, className, iconColor = "#FF6B35" }: IconBoxProps) {
   return (
     <motion.div
       whileHover={{ y: -4 }}

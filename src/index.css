@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --color-primary: #18181B;
-    --color-secondary: #DC2626;
+    --color-primary: #0A2647;
+    --color-secondary: #FF6B35;
   }
 
   .dark {
-    --color-primary: #27272A;
+    --color-primary: #144272;
     --color-background: #051525;
   }
 
@@ -128,7 +128,7 @@
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #DC2626, #F87171);
+  background: linear-gradient(90deg, #FF6B35, #FF8F5E);
   z-index: 9999;
   transform-origin: left;
 }
