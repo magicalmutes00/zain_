@@ -22,7 +22,22 @@ const locs = [...sitemap.matchAll(/<loc>(https:\/\/zaintechoman\.com(\/[^<]*)?)<
   (m) => m[2] || "/"
 );
 
-const routes = [...new Set(locs)].filter((p) => p !== "/");
+// Client-side routes intentionally absent from the sitemap (e.g. /admin must
+// stay out of search results) still need real files on hosts without an SPA
+// fallback rewrite, otherwise they return 404.
+const EXTRA_ROUTES = [
+  "/admin",
+  "/admin/login",
+  "/admin/projects",
+  "/admin/certifications",
+  "/admin/services",
+  "/admin/products",
+  "/admin/faqs",
+  "/admin/hero",
+  "/admin/inquiries",
+];
+
+const routes = [...new Set([...locs, ...EXTRA_ROUTES])].filter((p) => p !== "/");
 let count = 0;
 
 for (const route of routes) {
