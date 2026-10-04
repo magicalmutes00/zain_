@@ -1,19 +1,31 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Linkedin, Twitter, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Linkedin, Twitter, ArrowUpRight, ShieldCheck, Award, Headset } from "lucide-react";
 import { COMPANY, NAV_LINKS, SERVICES } from "@/data/company";
 import OptimizedImage from "@/components/ui/OptimizedImage";
 
 export function Footer() {
   return (
-    <footer className="bg-[#0A2647] text-white" role="contentinfo">
+    <footer className="bg-navy text-white" role="contentinfo">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-8 border-b border-white/10 text-sm text-white/80" aria-label="Trust highlights">
+          {[
+            { Icon: ShieldCheck, text: "Civil Defense-aligned" },
+            { Icon: Award, text: "NFPA Standards" },
+            { Icon: Headset, text: "24/7 Emergency Support" },
+          ].map(({ Icon, text }) => (
+            <span key={text} className="inline-flex items-center gap-2">
+              <Icon size={18} className="text-brand-soft" aria-hidden="true" />
+              {text}
+            </span>
+          ))}
+        </div>
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <Link to="/" className="flex items-center gap-3 mb-6" aria-label="ZAIN Technical Home">
               <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-12 h-12 object-contain rounded-xl" />
               <div>
                 <span className="font-bold text-white text-sm block">{COMPANY.shortName}</span>
-                <span className="text-white/60 text-xs"> & Inegrated Services LLC</span>
+                <span className="text-white/60 text-xs"> & Integrated Services LLC</span>
               </div>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
@@ -24,7 +36,7 @@ export function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-[#FF6B35] transition-colors"
+                  className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center hover:bg-brand transition-colors"
                   aria-label={`Follow us on ${Icon.name}`}
                 >
                   <Icon size={18} aria-hidden="true" />
@@ -40,7 +52,7 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     to={link.path}
-                    className="text-white/70 hover:text-[#FF6B35] transition-colors flex items-center gap-2 text-sm"
+                    className="text-white/70 hover:text-brand-soft transition-colors flex items-center gap-2 text-sm"
                   >
                     {link.label}
                     <ArrowUpRight size={14} aria-hidden="true" />
@@ -57,7 +69,7 @@ export function Footer() {
                 <li key={service.slug}>
                   <Link
                     to={`/services/${service.slug}`}
-                    className="text-white/70 hover:text-[#FF6B35] transition-colors flex items-center gap-2 text-sm"
+                    className="text-white/70 hover:text-brand-soft transition-colors flex items-center gap-2 text-sm"
                   >
                     {service.title}
                     <ArrowUpRight size={14} aria-hidden="true" />
@@ -71,7 +83,7 @@ export function Footer() {
             <h3 className="font-semibold text-lg mb-6">Contact Us</h3>
             <ul className="space-y-4" aria-label="Contact information">
               <li className="flex items-start gap-3">
-                <MapPin size={20} className="text-[#FF6B35] flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <MapPin size={20} className="text-brand flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <address className="text-white/70 text-sm not-italic">
                   {COMPANY.address.area}, {COMPANY.address.region}<br />
                   {COMPANY.address.country}
@@ -79,22 +91,22 @@ export function Footer() {
               </li>
               {COMPANY.phones.map((phone) => (
                 <li key={phone} className="flex items-center gap-3">
-                  <Phone size={20} className="text-[#FF6B35] flex-shrink-0" aria-hidden="true" />
-                  <a href={`tel:${phone}`} className="text-white/70 hover:text-[#FF6B35] transition-colors text-sm">
+                  <Phone size={20} className="text-brand flex-shrink-0" aria-hidden="true" />
+                  <a href={`tel:${phone}`} className="text-white/70 hover:text-brand-soft transition-colors text-sm">
                     {phone}
                   </a>
                 </li>
               ))}
               {COMPANY.emails.map((email) => (
                 <li key={email} className="flex items-center gap-3">
-                  <Mail size={20} className="text-[#FF6B35] flex-shrink-0" aria-hidden="true" />
-                  <a href={`mailto:${email}`} className="text-white/70 hover:text-[#FF6B35] transition-colors text-sm">
+                  <Mail size={20} className="text-brand flex-shrink-0" aria-hidden="true" />
+                  <a href={`mailto:${email}`} className="text-white/70 hover:text-brand-soft transition-colors text-sm">
                     {email}
                   </a>
                 </li>
               ))}
               <li className="flex items-center gap-3">
-                <Clock size={20} className="text-[#FF6B35] flex-shrink-0" aria-hidden="true" />
+                <Clock size={20} className="text-brand flex-shrink-0" aria-hidden="true" />
                 <span className="text-white/70 text-sm">{COMPANY.workingHours}</span>
               </li>
             </ul>
@@ -107,10 +119,10 @@ export function Footer() {
               © {new Date().getFullYear()} {COMPANY.name}. All rights reserved.
             </p>
             <nav aria-label="Legal links" className="flex items-center gap-6">
-              <Link to="/policy" className="text-white/60 hover:text-[#FF6B35] text-sm transition-colors">
+              <Link to="/policy" className="text-white/60 hover:text-brand-soft text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-white/60 hover:text-[#FF6B35] text-sm transition-colors">
+              <Link to="/terms" className="text-white/60 hover:text-brand-soft text-sm transition-colors">
                 Terms & Conditions
               </Link>
             </nav>

@@ -32,7 +32,7 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0A2647] to-[#144272] px-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-navy to-navy-deep px-4">
           <div className="text-center">
             <h1 className="text-6xl font-bold text-white/20 mb-4">Oops!</h1>
             <h2 className="text-3xl font-bold text-white mb-4">Something went wrong</h2>
@@ -42,7 +42,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="flex flex-wrap justify-center gap-4">
               <button
                 onClick={() => window.location.reload()}
-                className="px-6 py-3 bg-[#FF6B35] text-white rounded-lg font-semibold hover:bg-[#FF8F5E] transition-colors"
+                className="px-6 py-3 bg-brand text-white rounded-lg font-semibold hover:bg-brand-soft transition-colors"
               >
                 Refresh Page
               </button>
@@ -76,7 +76,7 @@ export function LoadingSpinner({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
 
   return (
     <div className="flex items-center justify-center">
-      <div className={`${sizes[size]} border-4 border-gray-200 border-t-[#FF6B35] rounded-full animate-spin`} />
+      <div className={`${sizes[size]} border-4 border-gray-200 border-t-brand rounded-full animate-spin`} />
     </div>
   );
 }
@@ -84,7 +84,7 @@ export function LoadingSpinner({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
 export function PageLoader() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-[#051525]">
-      <div className="w-16 h-16 border-4 border-[#FF6B35] border-t-transparent rounded-full animate-spin mb-4" />
+      <div className="w-16 h-16 border-4 border-brand border-t-transparent rounded-full animate-spin mb-4" />
       <p className="text-gray-600 dark:text-gray-300">Loading...</p>
     </div>
   );

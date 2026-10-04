@@ -39,7 +39,7 @@ export default function FAQPage() {
       <script type="application/ld+json">
         {JSON.stringify(faqJsonLd)}
       </script>
-      <section className="pt-32 pb-20 bg-gradient-to-br from-[#0A2647] to-[#144272]">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Fire Safety FAQs for Oman</h1>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">Costs, approvals, AMC coverage, and servicing intervals — answered by our engineering team.</p>
@@ -54,17 +54,17 @@ export default function FAQPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-[#144272] rounded-xl border border-gray-100 dark:border-white/10 overflow-hidden"
+                className="bg-white dark:bg-navy-deep rounded-xl border border-gray-100 dark:border-white/10 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                   className="w-full flex items-center justify-between p-6 text-left"
                   aria-expanded={openIndex === i}
                 >
-                  <span className="font-semibold text-[#0A2647] dark:text-white pr-4">{faq.q}</span>
+                  <span className="font-semibold text-navy dark:text-white pr-4">{faq.q}</span>
                   <ChevronDown
                     size={20}
-                    className={`text-[#FF6B35] flex-shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`}
+                    className={`text-brand flex-shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`}
                     aria-hidden="true"
                   />
                 </button>
@@ -78,7 +78,7 @@ export default function FAQPage() {
           </div>
           <p className="mt-8 text-center text-sm text-[#64748B] dark:text-gray-400">
             Answered by the ZAIN Technical engineering team, Barka, Oman. Last verified: September 2026. Still have questions?{" "}
-            <Link to="/contact" className="text-[#FF6B35] hover:underline font-medium">
+            <Link to="/contact" className="text-brand-ember dark:text-brand-soft hover:underline font-medium">
               Contact us for a free consultation
             </Link>
             .

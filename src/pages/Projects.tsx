@@ -45,14 +45,14 @@ export default function ProjectsPage() {
         description="Explore our portfolio of completed fire protection, fire detection, electrical, CCTV, and plumbing projects across Oman. Quality installations you can trust."
       />
 
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-[#0A2647] to-[#144272] overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF6B35]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#FF6B35]/5 rounded-full blur-3xl" />
+      <section className="relative pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-brand/5 rounded-full blur-3xl" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[#FF6B35] font-medium mb-4 tracking-wider uppercase"
+            className="text-brand-ember dark:text-brand-soft font-medium mb-4 tracking-wider uppercase"
           >
             Our Portfolio
           </motion.p>
@@ -75,7 +75,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white dark:bg-[#0A2647]">
+      <section className="py-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {statusTabs.map((tab) => (
@@ -84,15 +84,15 @@ export default function ProjectsPage() {
                 onClick={() => { setActiveStatus(tab); setActiveCategory("All"); }}
                 className={`px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
                   activeStatus === tab
-                    ? "bg-[#0A2647] dark:bg-[#FF6B35] text-white shadow-lg"
-                    : "bg-gray-100 dark:bg-[#144272] text-[#64748B] dark:text-gray-300 hover:bg-[#0A2647]/10 hover:text-[#0A2647] dark:hover:text-white"
+                    ? "bg-navy dark:bg-brand text-white shadow-lg"
+                    : "bg-gray-100 dark:bg-navy-deep text-[#64748B] dark:text-gray-300 hover:bg-navy/10 hover:text-navy dark:hover:text-white"
                 }`}
               >
                 {tab}
                 <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                   activeStatus === tab
                     ? "bg-white/20 text-white"
-                    : "bg-[#0A2647]/10 dark:bg-white/10 text-[#64748B] dark:text-gray-400"
+                    : "bg-navy/10 dark:bg-white/10 text-[#64748B] dark:text-gray-400"
                 }`}>
                   {projects.filter((p) => p.status === tab.toLowerCase()).length}
                 </span>
@@ -107,8 +107,8 @@ export default function ProjectsPage() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   activeCategory === cat
-                    ? "bg-[#FF6B35] text-white shadow-lg shadow-[#FF6B35]/25"
-                    : "bg-gray-100 dark:bg-[#144272] text-[#64748B] dark:text-gray-300 hover:bg-[#FF6B35]/10 hover:text-[#FF6B35]"
+                    ? "bg-brand text-white shadow-lg shadow-brand/25"
+                    : "bg-gray-100 dark:bg-navy-deep text-[#64748B] dark:text-gray-300 hover:bg-brand/10 hover:text-brand-ember dark:hover:text-brand-soft"
                 }`}
               >
                 {cat}
@@ -133,7 +133,7 @@ export default function ProjectsPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                   whileHover={{ y: -6 }}
-                  className="group bg-white dark:bg-[#144272] rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+                  className="group bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <img
@@ -142,9 +142,9 @@ export default function ProjectsPage() {
                       loading="lazy"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A2647]/90 via-[#0A2647]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
                     <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="px-3 py-1.5 bg-[#FF6B35] text-white text-xs font-semibold rounded-full shadow-lg">
+                      <span className="px-3 py-1.5 bg-brand text-white text-xs font-semibold rounded-full shadow-lg">
                         {project.category}
                       </span>
                       <span className={`px-3 py-1.5 text-white text-xs font-semibold rounded-full shadow-lg ${
@@ -162,20 +162,20 @@ export default function ProjectsPage() {
                   <div className="p-5 space-y-4">
                     <div className="flex items-center gap-4 text-sm text-[#64748B] dark:text-gray-400">
                       <span className="flex items-center gap-1.5">
-                        <MapPin size={14} className="text-[#FF6B35]" aria-hidden="true" />
+                        <MapPin size={14} className="text-brand" aria-hidden="true" />
                         {project.location}
                       </span>
                       <span className="flex items-center gap-1.5">
-                        <Calendar size={14} className="text-[#FF6B35]" aria-hidden="true" />
+                        <Calendar size={14} className="text-brand" aria-hidden="true" />
                         {project.year}
                       </span>
                     </div>
                     <div className="pt-3 border-t border-gray-100 dark:border-white/10">
                       <p className="text-sm text-[#64748B] dark:text-gray-400">
-                        <span className="font-semibold text-[#0A2647] dark:text-white">Client:</span> {project.client}
+                        <span className="font-semibold text-navy dark:text-white">Client:</span> {project.client}
                       </p>
                       <p className="text-sm text-[#64748B] dark:text-gray-400 mt-1">
-                        <span className="font-semibold text-[#0A2647] dark:text-white">Scope:</span> {project.scope}
+                        <span className="font-semibold text-navy dark:text-white">Scope:</span> {project.scope}
                       </p>
                     </div>
                   </div>
@@ -201,12 +201,12 @@ export default function ProjectsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="text-center p-8 bg-white dark:bg-[#144272] rounded-2xl border border-gray-100 dark:border-white/10 hover:shadow-lg transition-shadow"
+                className="text-center p-8 bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 hover:shadow-lg transition-shadow"
               >
-                <div className="w-14 h-14 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center mx-auto mb-4">
-                  <stat.icon size={28} className="text-[#FF6B35]" aria-hidden="true" />
+                <div className="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
+                  <stat.icon size={28} className="text-brand" aria-hidden="true" />
                 </div>
-                <span className="text-3xl lg:text-4xl font-bold text-[#0A2647] dark:text-white block">
+                <span className="text-3xl lg:text-4xl font-bold text-navy dark:text-white block">
                   {stat.value}
                 </span>
                 <p className="text-[#64748B] dark:text-gray-400 mt-2 text-sm">{stat.label}</p>
@@ -216,8 +216,8 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-32 bg-[#0A2647] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/10 to-transparent" />
+      <section className="py-20 lg:py-32 bg-navy relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -245,7 +245,7 @@ export default function ProjectsPage() {
           >
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF6B35] text-white rounded-lg font-semibold hover:bg-[#FF8F5E] transition-colors shadow-xl"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-brand text-white rounded-lg font-semibold hover:bg-brand-soft transition-colors shadow-xl"
             >
               Get Free Quote <ArrowRight size={18} />
             </Link>

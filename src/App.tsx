@@ -6,7 +6,9 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingButtons } from "@/components/layout/FloatingButtons";
 import { AnimationProvider } from "@/components/AnimationProvider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { MotionConfig } from "framer-motion";
 import { ErrorBoundary, PageLoader } from "@/components/ErrorBoundary";
+import { ToastProvider } from "@/components/ui/Toast";
 import { useScrollProgress } from "@/hooks/useCustomHooks";
 
 const Home = lazy(() => import("@/pages/Home"));
@@ -77,7 +79,11 @@ export default function App() {
       <HelmetProvider>
         <AnimationProvider>
           <LanguageProvider>
-            <AppContent />
+            <ToastProvider>
+              <MotionConfig reducedMotion="user">
+                <AppContent />
+              </MotionConfig>
+            </ToastProvider>
           </LanguageProvider>
         </AnimationProvider>
       </HelmetProvider>

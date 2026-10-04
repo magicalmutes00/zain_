@@ -39,7 +39,7 @@ export default function ProductsPage() {
         description="Shop fire safety products in Oman: alarm panels, detectors, pumps, extinguishers, hose reels & suppression from Honeywell, Gent, Tyco & NAFFCO."
       />
       
-      <section className="pt-32 pb-20 bg-white dark:bg-[#0A2647]">
+      <section className="pt-32 pb-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Our Products"
@@ -55,16 +55,16 @@ export default function ProductsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gray-50 dark:bg-[#144272] rounded-2xl p-6 hover:shadow-xl transition-shadow"
+                className="bg-gray-50 dark:bg-navy-deep rounded-2xl p-6 hover:shadow-xl transition-shadow"
               >
-                <div className="w-14 h-14 rounded-xl bg-[#FF6B35]/10 dark:bg-[#FF6B35]/20 flex items-center justify-center mb-4">
-                  <category.icon size={28} className="text-[#FF6B35]" />
+                <div className="w-14 h-14 rounded-xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center mb-4">
+                  <category.icon size={28} className="text-brand" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-4">{category.title}</h3>
+                <h3 className="text-xl font-bold text-navy dark:text-white mb-4">{category.title}</h3>
                 <ul className="space-y-2">
                   {category.items.map((item) => (
                     <li key={item} className="flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm">
-                      <CheckCircle2 size={16} className="text-[#FF6B35] flex-shrink-0" />
+                      <CheckCircle2 size={16} className="text-brand flex-shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -87,9 +87,9 @@ export default function ProductsPage() {
             {BRANDS.map((brand) => (
               <div
                 key={brand}
-                className="px-8 py-4 bg-white dark:bg-[#144272] rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="px-8 py-4 bg-white dark:bg-navy-deep rounded-xl shadow-sm hover:shadow-md transition-shadow"
               >
-                <span className="text-lg font-semibold text-[#0A2647] dark:text-white">{brand}</span>
+                <span className="text-lg font-semibold text-navy dark:text-white">{brand}</span>
               </div>
             ))}
           </div>

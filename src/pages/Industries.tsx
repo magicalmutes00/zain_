@@ -55,7 +55,7 @@ export default function IndustriesPage() {
         description="ZAIN Technical serves commercial, industrial, residential, and government sectors across Oman with specialized fire safety and engineering solutions."
       />
       
-      <section className="pt-32 pb-20 bg-white dark:bg-[#0A2647]">
+      <section className="pt-32 pb-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Industries We Serve"
@@ -71,17 +71,17 @@ export default function IndustriesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group bg-gray-50 dark:bg-[#144272] rounded-2xl p-8 hover:shadow-xl transition-all duration-300"
+                className="group bg-gray-50 dark:bg-navy-deep rounded-2xl p-8 hover:shadow-xl transition-all duration-300"
               >
-                <div className="w-16 h-16 rounded-2xl bg-[#FF6B35]/10 dark:bg-[#FF6B35]/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <industry.icon size={32} className="text-[#FF6B35]" />
+                <div className="w-16 h-16 rounded-2xl bg-brand/10 dark:bg-brand/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <industry.icon size={32} className="text-brand" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-3">{industry.name}</h3>
+                <h3 className="text-xl font-bold text-navy dark:text-white mb-3">{industry.name}</h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{industry.description}</p>
                 <ul className="space-y-2">
                   {industry.services.map((service) => (
                     <li key={service} className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B35]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand" />
                       {service}
                     </li>
                   ))}
@@ -94,7 +94,7 @@ export default function IndustriesPage() {
 
       <section className="py-20 bg-gray-50 dark:bg-[#0D1B2A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0A2647] dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-navy dark:text-white mb-4">
             Need a Custom Solution?
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -102,7 +102,7 @@ export default function IndustriesPage() {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF6B35] text-white rounded-xl font-semibold hover:bg-[#E85A2A] transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-brand text-white rounded-xl font-semibold hover:bg-[#E85A2A] transition-colors"
           >
             Get in Touch
           </a>

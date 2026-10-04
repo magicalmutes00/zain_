@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Phone } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Sun, Moon } from "lucide-react";
 import { NAV_LINKS, SERVICES } from "@/data/company";
 import { cn } from "@/lib/utils";
+import { useDarkMode } from "@/hooks/useCustomHooks";
 
 import OptimizedImage from "@/components/ui/OptimizedImage";
 import { IconFlame, IconShield, IconBolt, IconCamera, IconDroplet } from "@tabler/icons-react";
@@ -21,6 +22,7 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const location = useLocation();
+  const { isDarkMode, toggle: toggleDark } = useDarkMode();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -40,19 +42,24 @@ export function Navbar() {
       </a>
 
       <nav
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 shadow-lg bg-white dark:bg-[#0A2647]"
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          isScrolled
+            ? "bg-white/90 dark:bg-navy/90 backdrop-blur-xl shadow-lift"
+            : "bg-white dark:bg-navy shadow-lg"
+        )}
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-24">
+          <div className={cn("flex items-center justify-between transition-all duration-300", isScrolled ? "h-16" : "h-24")}>
             <Link to="/" className="flex items-center gap-3" aria-label="ZAIN Technical Home">
               <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-16 h-16 object-contain rounded-xl" />
               <div className="block">
-                <span className="font-bold text-[#FF6B35] text-sm sm:text-lg leading-tight block">
+                <span className="font-bold text-brand text-sm sm:text-lg leading-tight block">
                   ZAIN TECHNICAL
                 </span>
-                <span className="text-[8px] sm:text-[10px] text-[#FF6B35] uppercase tracking-wider whitespace-nowrap">
+                <span className="text-[8px] sm:text-[10px] text-brand uppercase tracking-wider whitespace-nowrap">
                   & Integrated Services LLC
                 </span>
               </div>
@@ -70,10 +77,10 @@ export function Navbar() {
                       aria-expanded={isServicesOpen}
                       aria-haspopup="true"
                       className={cn(
-                        "flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                        "relative flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                         location.pathname.startsWith(link.path)
-                          ? "text-[#FF6B35]"
-                          : "text-[#0A2647] dark:text-white hover:text-[#FF6B35]"
+                          ? "text-brand"
+                          : "text-navy dark:text-white hover:text-brand"
                       )}
                     >
                       {link.label}
@@ -82,33 +89,55 @@ export function Navbar() {
                         className={cn("transition-transform", isServicesOpen && "rotate-180")}
                         aria-hidden="true"
                       />
+                      {location.pathname.startsWith(link.path) && (
+                        <motion.span
+                          layoutId="nav-underline"
+                          className="absolute -bottom-0.5 left-4 right-4 h-0.5 rounded-full bg-brand"
+                          aria-hidden="true"
+                        />
+                      )}
                     </button>
                   ) : (
                     <Link
                       to={link.path}
                       role="menuitem"
                       className={cn(
-                        "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                        "relative px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                         location.pathname === link.path
-                          ? "text-[#FF6B35]"
-                          : "text-[#0A2647] dark:text-white hover:text-[#FF6B35]"
+                          ? "text-brand"
+                          : "text-navy dark:text-white hover:text-brand"
                       )}
                     >
                       {link.label}
+                      {location.pathname === link.path && (
+                        <motion.span
+                          layoutId="nav-underline"
+                          className="absolute -bottom-0.5 left-4 right-4 h-0.5 rounded-full bg-brand"
+                          aria-hidden="true"
+                        />
+                      )}
                     </Link>
                   )}
                 </div>
               ))}
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleDark}
+                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+                className="p-2 rounded-lg text-navy dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
+              >
+                {isDarkMode ? <Sun size={20} aria-hidden="true" /> : <Moon size={20} aria-hidden="true" />}
+              </button>
+
               <a
                 href="tel:+96892144367"
-                className="hidden md:flex items-center gap-2 px-4 py-2 bg-[#FF6B35] text-white rounded-lg font-medium hover:bg-[#FF8F5E] transition-colors"
+                className="hidden md:flex items-center gap-2 px-4 py-2 bg-brand text-white rounded-xl text-sm font-medium hover:bg-brand-soft shadow-glow transition-all"
                 aria-label="Get a quote"
               >
                 <Phone size={16} aria-hidden="true" />
-                <span className="text-sm">Get Quote</span>
+                <span>Get Quote</span>
               </a>
 
               <button
@@ -131,7 +160,7 @@ export function Navbar() {
               exit={{ opacity: 0, y: -10 }}
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
-              className="absolute top-full left-0 right-0 bg-white dark:bg-[#0A2647] shadow-xl border-t border-gray-100 dark:border-white/10"
+              className="absolute top-full left-0 right-0 bg-white dark:bg-navy shadow-xl border-t border-gray-100 dark:border-white/10"
               role="menu"
             >
               <div className="max-w-7xl mx-auto px-4 py-6">
@@ -145,10 +174,10 @@ export function Navbar() {
                         className="flex flex-col items-center p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group"
                         role="menuitem"
                       >
-                        <div className="w-12 h-12 rounded-xl bg-[#FF6B35]/10 flex items-center justify-center mb-3 group-hover:bg-[#FF6B35]/20 transition-colors">
-                          {ServiceIcon && <ServiceIcon size={24} stroke={1.5} className="text-[#FF6B35]" />}
+                        <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-3 group-hover:bg-brand/20 transition-colors">
+                          {ServiceIcon && <ServiceIcon size={24} stroke={1.5} className="text-brand" />}
                         </div>
-                        <span className="text-sm font-medium text-[#0A2647] dark:text-white text-center">
+                        <span className="text-sm font-medium text-navy dark:text-white text-center">
                           {service.title}
                         </span>
                       </Link>
@@ -167,7 +196,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-[#0A2647] lg:hidden"
+            className="fixed inset-0 z-50 bg-navy lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile menu"
@@ -176,7 +205,7 @@ export function Navbar() {
               <div className="flex items-center justify-between mb-12">
                 <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
                   <OptimizedImage name="logo-clean" alt="ZAIN Technical" className="w-16 h-16 object-contain rounded-xl" />
-                  <span className="text-[#FF6B35] font-bold text-lg">ZAIN TECHNICAL</span>
+                  <span className="text-brand font-bold text-lg">ZAIN TECHNICAL</span>
                 </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -210,7 +239,7 @@ export function Navbar() {
               <div className="mt-auto">
                 <a
                   href="tel:+96892144367"
-                  className="flex items-center justify-center gap-2 w-full py-4 bg-[#FF6B35] text-white rounded-xl font-medium"
+                  className="flex items-center justify-center gap-2 w-full py-4 bg-brand text-white rounded-xl font-medium"
                 >
                   <Phone size={20} aria-hidden="true" />
                   Call Now

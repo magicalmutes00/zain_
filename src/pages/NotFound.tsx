@@ -14,7 +14,7 @@ export default function NotFound() {
 
   return (
     <section
-      className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0A2647] via-[#0A2647] to-[#144272] px-4"
+      className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy via-navy to-navy-deep px-4"
       role="alert"
       aria-live="polite"
     >
@@ -27,7 +27,7 @@ export default function NotFound() {
       </h1>
 
       <div className="relative max-w-3xl w-full text-center">
-        <span className="inline-block px-4 py-1.5 mb-6 rounded-full bg-[#FF6B35]/15 text-[#FF6B35] text-xs font-semibold tracking-widest uppercase border border-[#FF6B35]/30">
+        <span className="inline-block px-4 py-1.5 mb-6 rounded-full bg-brand/15 text-brand-ember dark:text-brand-soft text-xs font-semibold tracking-widest uppercase border border-brand/30">
           Lost in our service area
         </span>
 
@@ -43,7 +43,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#FF6B35] hover:bg-[#FF8C42] text-white rounded-lg font-semibold transition-colors shadow-lg shadow-orange-500/20"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand hover:bg-[#FF8C42] text-white rounded-lg font-semibold transition-colors shadow-lg shadow-orange-500/20"
           >
             <Home size={18} />
             Go to Homepage

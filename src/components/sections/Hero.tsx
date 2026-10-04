@@ -15,11 +15,11 @@ export function Hero() {
           width="1920"
           height="1080"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A2647]/95 via-[#0A2647]/85 to-[#0A2647]/90" />
+        <div className="absolute inset-0 bg-gradient-to-br from-navy/95 via-navy/85 to-navy/90" />
       </div>
 
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#FF6B35]/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-[#FF6B35]/10 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-brand/10 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -30,8 +30,8 @@ export function Hero() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm mb-6"
             >
-              <Shield size={16} className="text-[#FF6B35]" />
-              <span className="text-white/90 text-sm font-medium">شريك موثوق في السلامة من الحرائق في عمان</span>
+              <Shield size={16} className="text-brand" />
+              <span className="text-white/90 text-sm font-medium font-arabic" lang="ar" dir="rtl">شريك موثوق في السلامة من الحرائق في عمان</span>
             </motion.div>
 
             <motion.h1
@@ -41,7 +41,7 @@ export function Hero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6"
             >
               Fire Protection Company in Oman —{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8F5E]">Detection, Suppression & Engineering</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-soft">Detection, Suppression & Engineering</span>
             </motion.h1>
 
             <motion.p
@@ -86,7 +86,7 @@ export function Hero() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="hidden lg:block relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FF6B35]/20 to-transparent rounded-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent rounded-3xl" />
             <div className="relative bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
               <div className="grid grid-cols-2 gap-4">
                 {[

@@ -90,14 +90,14 @@ export function LanguageSwitcher() {
     <div className="flex items-center gap-2">
       <button
         onClick={() => setLanguage("en")}
-        className={`px-2 py-1 text-sm rounded ${language === "en" ? "bg-[#FF6B35] text-white" : "text-gray-600 hover:text-[#FF6B35]"}`}
+        className={`px-2 py-1 text-sm rounded ${language === "en" ? "bg-brand text-white" : "text-gray-600 hover:text-brand-ember"}`}
         aria-label="Switch to English"
       >
         EN
       </button>
       <button
         onClick={() => setLanguage("ar")}
-        className={`px-2 py-1 text-sm rounded ${language === "ar" ? "bg-[#FF6B35] text-white" : "text-gray-600 hover:text-[#FF6B35]"}`}
+        className={`px-2 py-1 text-sm rounded ${language === "ar" ? "bg-brand text-white" : "text-gray-600 hover:text-brand-ember"}`}
         aria-label="Switch to Arabic"
       >
         العربية

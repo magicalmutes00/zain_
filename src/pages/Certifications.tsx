@@ -134,9 +134,9 @@ export default function CertificationsPage() {
         description="ZAIN Technical maintains ISO certifications and complies with international fire safety standards including NFPA, BS5839, and Oman Civil Defense regulations."
       />
 
-      <section className="relative pt-36 pb-20 bg-gradient-to-br from-[#0A2647] via-[#144272] to-[#0A2647] overflow-hidden">
+      <section className="relative pt-36 pb-20 bg-gradient-to-br from-navy via-navy-deep to-navy overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-[#FF6B35] blur-3xl" />
+          <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand blur-3xl" />
           <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-[#2C8EBD] blur-3xl" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -155,7 +155,7 @@ export default function CertificationsPage() {
         </div>
       </section>
 
-      <section className="pt-16 pb-20 bg-white dark:bg-[#0A2647]">
+      <section className="pt-16 pb-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Certifications & Standards"
@@ -171,12 +171,12 @@ export default function CertificationsPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gray-50 dark:bg-[#144272] rounded-2xl p-8 text-center hover:shadow-xl transition-shadow"
+                className="bg-gray-50 dark:bg-navy-deep rounded-2xl p-8 text-center hover:shadow-xl transition-shadow"
               >
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF6B35] to-[#E85A2A] flex items-center justify-center mx-auto mb-6">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-brand to-[#E85A2A] flex items-center justify-center mx-auto mb-6">
                   <cert.icon size={36} stroke={1.5} className="text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-3">{cert.title}</h3>
+                <h3 className="text-xl font-bold text-navy dark:text-white mb-3">{cert.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">{cert.description}</p>
               </motion.div>
             ))}
@@ -205,16 +205,16 @@ export default function CertificationsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="group relative block overflow-hidden rounded-xl bg-white dark:bg-[#144272] shadow-md hover:shadow-2xl transition-shadow text-left cursor-zoom-in h-full"
+                    className="group relative block overflow-hidden rounded-xl bg-white dark:bg-navy-deep shadow-md hover:shadow-2xl transition-shadow text-left cursor-zoom-in h-full"
                   >
                     <div className="relative aspect-[3/4] overflow-hidden">
                       <img
                         src={cert.src}
                         alt={cert.title}
                         loading="lazy"
-                        className="w-full h-full object-contain bg-gray-100 dark:bg-[#0A2647]/40 transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-contain bg-gray-100 dark:bg-navy/40 transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-[#0A2647]/0 group-hover:bg-[#0A2647]/70 transition-colors duration-300 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/70 transition-colors duration-300 flex items-center justify-center">
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center text-white px-4">
                           <IconZoomIn size={36} stroke={1.5} className="mx-auto mb-2" />
                           <p className="font-semibold text-sm">Click to enlarge</p>
@@ -222,7 +222,7 @@ export default function CertificationsPage() {
                       </div>
                     </div>
                     <div className="p-5 text-center">
-                      <h3 className="text-lg font-bold text-[#0A2647] dark:text-white">{cert.title}</h3>
+                      <h3 className="text-lg font-bold text-navy dark:text-white">{cert.title}</h3>
                     </div>
                   </motion.button>
                 ))}
@@ -238,16 +238,16 @@ export default function CertificationsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="group relative block overflow-hidden rounded-xl bg-white dark:bg-[#144272] shadow-md hover:shadow-2xl transition-shadow text-left cursor-zoom-in"
+              className="group relative block overflow-hidden rounded-xl bg-white dark:bg-navy-deep shadow-md hover:shadow-2xl transition-shadow text-left cursor-zoom-in"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   src={certificateImages.find((c) => c.orientation === "landscape")!.src}
                   alt={certificateImages.find((c) => c.orientation === "landscape")!.title}
                   loading="lazy"
-                  className="w-full h-full object-contain bg-gray-100 dark:bg-[#0A2647]/40 transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain bg-gray-100 dark:bg-navy/40 transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-[#0A2647]/0 group-hover:bg-[#0A2647]/70 transition-colors duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/70 transition-colors duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center text-white px-4">
                     <IconZoomIn size={36} stroke={1.5} className="mx-auto mb-2" />
                     <p className="font-semibold text-sm">Click to enlarge</p>
@@ -255,7 +255,7 @@ export default function CertificationsPage() {
                 </div>
               </div>
               <div className="p-5 text-center">
-                <h3 className="text-lg font-bold text-[#0A2647] dark:text-white">
+                <h3 className="text-lg font-bold text-navy dark:text-white">
                   {certificateImages.find((c) => c.orientation === "landscape")!.title}
                 </h3>
               </div>
@@ -264,7 +264,7 @@ export default function CertificationsPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white dark:bg-[#0A2647]">
+      <section className="py-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             title="Standards We Follow"
@@ -280,19 +280,19 @@ export default function CertificationsPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="flex items-start gap-4 bg-gray-50 dark:bg-[#144272] rounded-xl p-6"
+                className="flex items-start gap-4 bg-gray-50 dark:bg-navy-deep rounded-xl p-6"
               >
-                <div className="w-10 h-10 rounded-lg bg-[#FF6B35]/10 dark:bg-[#FF6B35]/20 flex items-center justify-center flex-shrink-0">
-                  <IconCircleCheck size={20} stroke={1.5} className="text-[#FF6B35]" />
+                <div className="w-10 h-10 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center flex-shrink-0">
+                  <IconCircleCheck size={20} stroke={1.5} className="text-brand" />
                 </div>
-                <span className="text-[#0A2647] dark:text-white font-medium">{standard}</span>
+                <span className="text-navy dark:text-white font-medium">{standard}</span>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-[#0A2647]">
+      <section className="py-20 bg-navy">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Committed to Excellence
@@ -302,7 +302,7 @@ export default function CertificationsPage() {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF6B35] text-white rounded-xl font-semibold hover:bg-[#E85A2A] transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-brand text-white rounded-xl font-semibold hover:bg-[#E85A2A] transition-colors"
           >
             Discuss Your Project
           </a>

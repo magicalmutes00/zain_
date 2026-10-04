@@ -20,7 +20,7 @@ export function SectionHeader({ title, subtitle, description, centered = true, l
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className={`text-lg md:text-xl mb-4 ${light ? "text-white/80" : isDark ? "text-gray-400" : "text-[#FF6B35]"}`}
+          className={`text-lg md:text-xl mb-4 ${light ? "text-white/80" : isDark ? "text-gray-400" : "text-brand"}`}
         >
           {subtitle}
         </motion.p>
@@ -30,7 +30,7 @@ export function SectionHeader({ title, subtitle, description, centered = true, l
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? "text-white" : isDark ? "text-white" : "text-[#0A2647]"}`}
+        className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${light ? "text-white" : isDark ? "text-white" : "text-navy"}`}
       >
         {title}
       </motion.h2>
@@ -50,7 +50,7 @@ export function SectionHeader({ title, subtitle, description, centered = true, l
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className={`h-1 w-20 rounded-full mt-6 ${light ? "bg-white" : "bg-[#FF6B35]"} ${centered ? "mx-auto" : ""}`}
+        className={`h-1 w-20 rounded-full mt-6 ${light ? "bg-white" : "bg-brand"} ${centered ? "mx-auto" : ""}`}
       />
     </div>
   );

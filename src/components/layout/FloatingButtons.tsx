@@ -48,7 +48,7 @@ export function FloatingButtons() {
           href={`tel:${COMPANY.phones[0]}`}
           initial={{ scale: 0 }}
           animate={{ scale: 1, transition: { delay: 0.1 } }}
-          className="w-14 h-14 rounded-full bg-[#FF6B35] text-white shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform"
+          className="w-14 h-14 rounded-full bg-brand text-white shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform"
           aria-label="Call us"
         >
           <Phone size={28} aria-hidden="true" />
@@ -61,7 +61,7 @@ export function FloatingButtons() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               onClick={scrollToTop}
-              className="w-14 h-14 rounded-full bg-white dark:bg-[#0A2647] text-[#0A2647] dark:text-white shadow-lg flex items-center justify-center hover:bg-gray-100 dark:hover:bg-[#144272] transition-colors"
+              className="w-14 h-14 rounded-full bg-white dark:bg-navy text-navy dark:text-white shadow-lg flex items-center justify-center hover:bg-gray-100 dark:hover:bg-navy-deep transition-colors"
               aria-label="Back to top"
             >
               <ArrowUp size={28} aria-hidden="true" />
@@ -76,21 +76,21 @@ export function FloatingButtons() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-[#0A2647] shadow-2xl border-t border-gray-100 dark:border-white/10 p-4"
+            className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-navy shadow-2xl border-t border-gray-100 dark:border-white/10 p-4"
             role="dialog"
             aria-label="Cookie consent"
           >
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-sm text-gray-600 dark:text-gray-300 text-center sm:text-left">
                 We use cookies to improve your experience. By using our site, you agree to our{" "}
-                <Link to="/policy" className="text-[#FF6B35] hover:underline font-medium">
+                <Link to="/policy" className="text-brand-ember dark:text-brand-soft hover:underline font-medium">
                   Privacy Policy
                 </Link>
                 .
               </p>
               <button
                 onClick={acceptCookies}
-                className="px-6 py-2 bg-[#0A2647] dark:bg-[#FF6B35] text-white rounded-lg font-medium hover:opacity-90 transition-opacity whitespace-nowrap"
+                className="px-6 py-2 bg-navy dark:bg-brand text-white rounded-lg font-medium hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 Accept
               </button>

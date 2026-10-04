@@ -44,34 +44,34 @@ export default function ServicesPage() {
     return (
       <>
         <SEO title={seo.title} description={seo.description} />
-        <section className="pt-32 pb-20 bg-gradient-to-br from-[#0A2647] to-[#144272]">
+        <section className="pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep">
           <div className="max-w-7xl mx-auto px-4">
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">{service.title} in Oman</h1>
             <p className="text-white/80 text-lg max-w-2xl">{service.description}</p>
           </div>
         </section>
-        <section className="py-20 bg-white dark:bg-[#0A2647]">
+        <section className="py-20 bg-white dark:bg-navy">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
-                <h2 className="text-2xl font-bold text-[#0A2647] dark:text-white mb-6">Our {service.title} Services</h2>
+                <h2 className="text-2xl font-bold text-navy dark:text-white mb-6">Our {service.title} Services</h2>
                 <div className="grid grid-cols-2 gap-4">
                   {service.features.map((f) => (
                     <div key={f} className="flex items-center gap-2">
-                      <CheckCircle2 size={18} className="text-[#FF6B35] flex-shrink-0" />
-                      <span className="text-[#0A2647] dark:text-white">{f}</span>
+                      <CheckCircle2 size={18} className="text-brand flex-shrink-0" />
+                      <span className="text-navy dark:text-white">{f}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <Card className="sticky top-32 h-fit">
-                <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-4">Need {service.title}?</h3>
+                <h3 className="text-xl font-bold text-navy dark:text-white mb-4">Need {service.title}?</h3>
                 <p className="text-[#64748B] dark:text-gray-400 text-sm mb-6">Contact us for a free consultation.</p>
-                <a href="tel:+96892144367" className="flex items-center gap-3 text-[#0A2647] dark:text-white mb-4">
-                  <Phone size={20} className="text-[#FF6B35]" />
+                <a href="tel:+96892144367" className="flex items-center gap-3 text-navy dark:text-white mb-4">
+                  <Phone size={20} className="text-brand" />
                   +968 92144367
                 </a>
-                <a href="#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FF6B35] text-white rounded-lg font-semibold w-full hover:bg-[#FF8F5E] transition-colors">
+                <a href="#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand text-white rounded-lg font-semibold w-full hover:bg-brand-soft transition-colors">
                   Get Free Quote <ArrowRight size={18} />
                 </a>
               </Card>
@@ -90,7 +90,7 @@ export default function ServicesPage() {
         title="Fire Safety Services Oman | ZAIN Technical"
         description="Fire safety services in Oman: detection, protection, electrical, CCTV & plumbing. Design, installation, testing, commissioning & AMC. Get a free quote."
       />
-      <section className="pt-32 pb-20 bg-gradient-to-br from-[#0A2647] to-[#144272]">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Our Services in Oman</h1>
           <p className="text-white/80 text-lg">Comprehensive fire safety & engineering solutions across Oman</p>
@@ -105,12 +105,12 @@ export default function ServicesPage() {
               return (
                 <motion.div key={service.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                   <Card hover className="h-full">
-                    <div className="w-14 h-14 rounded-2xl bg-[#FF6B35]/10 flex items-center justify-center mb-6">
-                      {Icon && <Icon size={28} className="text-[#FF6B35]" />}
+                    <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center mb-6">
+                      {Icon && <Icon size={28} className="text-brand" />}
                     </div>
-                    <h3 className="text-xl font-bold text-[#0A2647] dark:text-white mb-3">{service.title}</h3>
+                    <h3 className="text-xl font-bold text-navy dark:text-white mb-3">{service.title}</h3>
                     <p className="text-[#64748B] dark:text-gray-400 text-sm mb-6">{service.description}</p>
-                    <Link to={`/services/${service.slug}`} aria-label={`Learn more about ${service.title} in Oman`} className="inline-flex items-center gap-2 text-[#FF6B35] font-medium hover:gap-3 transition-all">
+                    <Link to={`/services/${service.slug}`} aria-label={`Learn more about ${service.title} in Oman`} className="inline-flex items-center gap-2 text-brand-ember dark:text-brand-soft font-medium hover:gap-3 transition-all">
                       Learn More <ArrowRight size={18} />
                     </Link>
                   </Card>

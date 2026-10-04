@@ -9,6 +9,9 @@ import { supabase, supabaseConfigured } from "@/lib/supabase";
 import { api, apiConfigured } from "@/lib/api";
 import { ResourceAdmin, type ResourceConfig } from "@/components/admin/ResourceAdmin";
 import { ImageField } from "@/components/admin/ImageField";
+import { Input } from "@/components/ui/forms";
+import { Button } from "@/components/ui/Button";
+import { useToast } from "@/components/ui/Toast";
 
 // ---------- resource configs ----------
 
@@ -174,8 +177,8 @@ function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#0D1B2A] px-4 pt-24">
-      <form onSubmit={submit} className="w-full max-w-md bg-white dark:bg-[#144272] rounded-2xl border border-gray-100 dark:border-white/10 p-8" aria-label="Admin sign in">
-        <h1 className="text-2xl font-bold text-[#0A2647] dark:text-white mb-1">Admin Sign In</h1>
+      <form onSubmit={submit} className="w-full max-w-md bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 p-8" aria-label="Admin sign in">
+        <h1 className="text-2xl font-bold text-navy dark:text-white mb-1">Admin Sign In</h1>
         <p className="text-sm text-[#64748B] dark:text-gray-400 mb-6">ZAIN Technical control panel</p>
         {!supabaseConfigured && (
           <p className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm">
@@ -185,15 +188,15 @@ function AdminLogin() {
         {error && <p className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-sm">{error}</p>}
         <label className="block mb-4">
           <span className="block text-sm font-medium mb-1">Email</span>
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0A2647] dark:text-white outline-none focus:border-[#FF6B35]" />
+          <Input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         <label className="block mb-6">
           <span className="block text-sm font-medium mb-1">Password</span>
-          <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0A2647] dark:text-white outline-none focus:border-[#FF6B35]" />
+          <Input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
-        <button type="submit" disabled={busy} className="w-full px-6 py-3 bg-[#FF6B35] text-white rounded-lg font-semibold hover:bg-[#FF8F5E] disabled:opacity-50">
-          {busy ? "Signing in…" : "Sign In"}
-        </button>
+        <Button type="submit" loading={busy} className="w-full">
+          Sign In
+        </Button>
       </form>
     </div>
   );
@@ -231,7 +234,7 @@ function AdminLayout() {
             </button>
           </div>
           <aside className={`${open ? "block" : "hidden"} lg:block mb-6 lg:mb-0`}>
-            <nav className="bg-white dark:bg-[#144272] rounded-2xl border border-gray-100 dark:border-white/10 p-3 space-y-1" aria-label="Admin">
+            <nav className="bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 p-3 space-y-1" aria-label="Admin">
               {NAV.map(({ to, label, Icon, end }) => (
                 <NavLink
                   key={to}
@@ -241,8 +244,8 @@ function AdminLayout() {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-[#FF6B35]/10 text-[#FF6B35]"
-                        : "text-[#0A2647] dark:text-white hover:bg-gray-50 dark:hover:bg-white/5"
+                        ? "bg-brand/10 text-brand"
+                        : "text-navy dark:text-white hover:bg-gray-50 dark:hover:bg-white/5"
                     }`
                   }
                 >
@@ -255,7 +258,7 @@ function AdminLayout() {
               >
                 <LogOut size={18} /> Sign out
               </button>
-              <Link to="/" className="block px-4 py-2.5 text-xs text-[#64748B] hover:text-[#FF6B35]">
+              <Link to="/" className="block px-4 py-2.5 text-xs text-[#64748B] hover:text-brand-ember dark:hover:text-brand-soft">
                 ← Back to website
               </Link>
             </nav>
@@ -302,19 +305,19 @@ function Dashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-[#0A2647] dark:text-white mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-navy dark:text-white mb-6">Dashboard</h1>
       {!apiConfigured && (
         <p className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm">
           API not configured (VITE_API_URL missing) — data below is unavailable.
         </p>
       )}
       <div className="grid sm:grid-cols-2 gap-4">
-        <Link to="/admin/projects" className="p-6 rounded-2xl bg-white dark:bg-[#144272] border border-gray-100 dark:border-white/10">
-          <p className="text-4xl font-bold text-[#FF6B35]">{stats?.projects ?? "—"}</p>
+        <Link to="/admin/projects" className="p-6 rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10">
+          <p className="text-4xl font-bold text-brand">{stats?.projects ?? "—"}</p>
           <p className="text-sm text-[#64748B] dark:text-gray-400 mt-1">Projects in portfolio</p>
         </Link>
-        <Link to="/admin/inquiries" className="p-6 rounded-2xl bg-white dark:bg-[#144272] border border-gray-100 dark:border-white/10">
-          <p className="text-4xl font-bold text-[#FF6B35]">{stats?.unread ?? "—"}</p>
+        <Link to="/admin/inquiries" className="p-6 rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10">
+          <p className="text-4xl font-bold text-brand">{stats?.unread ?? "—"}</p>
           <p className="text-sm text-[#64748B] dark:text-gray-400 mt-1">Unread inquiries</p>
         </Link>
       </div>
@@ -339,6 +342,7 @@ function HeroAdmin() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const toast = useToast();
 
   useEffect(() => {
     api
@@ -359,7 +363,7 @@ function HeroAdmin() {
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Save failed");
+      toast(e instanceof Error ? e.message : "Save failed", "error");
     } finally {
       setSaving(false);
     }
@@ -372,13 +376,13 @@ function HeroAdmin() {
     setHero({ ...hero, stats: hero.stats.map((s, j) => (j === i ? { ...s, [field]: v } : s)) });
 
   const inputCls =
-    "w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white outline-none focus:border-[#FF6B35]";
+    "w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white outline-none focus:border-brand";
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-[#0A2647] dark:text-white">Homepage Hero</h1>
-        <button onClick={save} disabled={saving} className="px-5 py-2.5 rounded-lg bg-[#FF6B35] text-white font-semibold hover:bg-[#FF8F5E] disabled:opacity-50">
+        <h1 className="text-2xl font-bold text-navy dark:text-white">Homepage Hero</h1>
+        <button onClick={save} disabled={saving} className="px-5 py-2.5 rounded-lg bg-brand text-white font-semibold hover:bg-brand-soft disabled:opacity-50">
           {saving ? "Saving…" : "Save changes"}
         </button>
       </div>
@@ -444,6 +448,7 @@ function InquiriesAdmin() {
   const [items, setItems] = useState<Inquiry[]>([]);
   const [filter, setFilter] = useState("new");
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
 
   useEffect(() => {
     api
@@ -458,7 +463,7 @@ function InquiriesAdmin() {
       const updated = await api.update<Inquiry>("inquiries", id, { status });
       setItems((prev) => prev.map((i) => (i.id === id ? updated : i)));
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Update failed");
+      toast(e instanceof Error ? e.message : "Update failed", "error");
     }
   };
 
@@ -467,11 +472,11 @@ function InquiriesAdmin() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-[#0A2647] dark:text-white">Inquiries</h1>
+        <h1 className="text-2xl font-bold text-navy dark:text-white">Inquiries</h1>
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="px-4 py-2 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white"
+          className="px-4 py-2 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white"
           aria-label="Filter by status"
         >
           <option value="new">New</option>
@@ -483,9 +488,9 @@ function InquiriesAdmin() {
       {loading && <p className="text-[#64748B]">Loading…</p>}
       <div className="space-y-4">
         {visible.map((q) => (
-          <div key={q.id} className="p-5 rounded-2xl bg-white dark:bg-[#144272] border border-gray-100 dark:border-white/10">
+          <div key={q.id} className="p-5 rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-              <p className="font-semibold text-[#0A2647] dark:text-white">
+              <p className="font-semibold text-navy dark:text-white">
                 {q.name} <span className="font-normal text-sm text-[#64748B]">· {q.service || "General"}</span>
               </p>
               <select
@@ -500,13 +505,13 @@ function InquiriesAdmin() {
               </select>
             </div>
             <p className="text-sm text-[#64748B] dark:text-gray-400">
-              <a href={`mailto:${q.email}`} className="hover:text-[#FF6B35]">{q.email}</a>
-              {q.phone && <> · <a href={`tel:${q.phone}`} className="hover:text-[#FF6B35]">{q.phone}</a></>}
+              <a href={`mailto:${q.email}`} className="hover:text-brand-ember dark:hover:text-brand-soft">{q.email}</a>
+              {q.phone && <> · <a href={`tel:${q.phone}`} className="hover:text-brand-ember dark:hover:text-brand-soft">{q.phone}</a></>}
               {q.company && <> · {q.company}</>}
               {" · "}
               {new Date(q.created_at).toLocaleString()}
             </p>
-            <p className="mt-2 text-sm text-[#0A2647] dark:text-white whitespace-pre-wrap">{q.message}</p>
+            <p className="mt-2 text-sm text-navy dark:text-white whitespace-pre-wrap">{q.message}</p>
           </div>
         ))}
         {!loading && visible.length === 0 && <p className="text-[#64748B]">No inquiries with this status.</p>}

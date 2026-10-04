@@ -69,7 +69,7 @@ export function ImageField({ value, folder, onChange, onClear }: ImageFieldProps
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-gray-300 dark:border-white/20 text-sm text-[#64748B] dark:text-gray-300 hover:border-[#FF6B35] disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-dashed border-gray-300 dark:border-white/20 text-sm text-[#64748B] dark:text-gray-300 hover:border-brand disabled:opacity-50"
         >
           {uploading ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
           {uploading ? "Uploading…" : "Upload image"}

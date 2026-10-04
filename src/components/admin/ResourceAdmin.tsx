@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, X, Loader2 } from "lucide-react";
+import { Pencil, Trash2, Plus, X, Inbox } from "lucide-react";
 import { api } from "@/lib/api";
+import { useToast } from "@/components/ui/Toast";
 import { ImageField } from "./ImageField";
 
 export type FieldType = "text" | "textarea" | "select" | "number" | "checkbox" | "image" | "lines";
@@ -36,6 +37,9 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
   const [error, setError] = useState<string | null>(null);
   const [editing, setEditing] = useState<Row | null>(null);
   const [saving, setSaving] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const toast = useToast();
 
   const load = async () => {
     setLoading(true);
@@ -55,13 +59,18 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
   }, [config.resource]);
 
   const openNew = () => setEditing({ ...config.defaults });
-  const remove = async (id: string) => {
-    if (!window.confirm(`Delete this ${config.singular.toLowerCase()}?`)) return;
+  const confirmDelete = async () => {
+    if (!pendingDelete) return;
+    setDeleting(true);
     try {
-      await api.remove(config.resource, id);
-      setItems((prev) => prev.filter((r) => r.id !== id));
+      await api.remove(config.resource, pendingDelete);
+      setItems((prev) => prev.filter((r) => r.id !== pendingDelete));
+      toast(`${config.singular} deleted`, "success");
+      setPendingDelete(null);
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Delete failed");
+      toast(e instanceof Error ? e.message : "Delete failed", "error");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -77,8 +86,9 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
         setItems((prev) => [created, ...prev]);
       }
       setEditing(null);
+      toast(`${config.singular} saved`, "success");
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Save failed");
+      toast(e instanceof Error ? e.message : "Save failed", "error");
     } finally {
       setSaving(false);
     }
@@ -94,31 +104,33 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
       });
       setItems((prev) => prev.map((r) => (r.id === row.id ? updated : r)));
     } catch (e) {
-      alert(e instanceof Error ? e.message : "Update failed");
+      toast(e instanceof Error ? e.message : "Update failed", "error");
     }
   };
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-[#0A2647] dark:text-white">{config.title}</h1>
+        <h1 className="text-2xl font-bold text-navy dark:text-white">{config.title}</h1>
         <button
           onClick={openNew}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF6B35] text-white rounded-lg font-medium hover:bg-[#FF8F5E]"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white rounded-lg font-medium hover:bg-brand-soft"
         >
           <Plus size={18} /> New {config.singular}
         </button>
       </div>
 
       {loading && (
-        <p className="flex items-center gap-2 text-[#64748B]">
-          <Loader2 size={18} className="animate-spin" /> Loading…
-        </p>
+        <div className="space-y-3" aria-label="Loading">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="skeleton h-14 w-full" />
+          ))}
+        </div>
       )}
       {error && <p className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400">{error}</p>}
 
       {!loading && !error && (
-        <div className="overflow-x-auto rounded-2xl border border-gray-100 dark:border-white/10 bg-white dark:bg-[#144272]">
+        <div className="overflow-x-auto rounded-2xl border border-gray-100 dark:border-white/10 bg-white dark:bg-navy-deep">
           <table className="w-full text-sm">
             <thead>
               <tr className="text-left text-[#64748B] dark:text-gray-400 border-b border-gray-100 dark:border-white/10">
@@ -133,7 +145,7 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
               {items.map((row) => (
                 <tr key={str(row.id)} className="border-b border-gray-50 dark:border-white/5 last:border-0">
                   {config.columns.map((c) => (
-                    <td key={c.key} className="px-4 py-3 text-[#0A2647] dark:text-white max-w-xs truncate">
+                    <td key={c.key} className="px-4 py-3 text-navy dark:text-white max-w-xs truncate">
                       {c.key === "image_url" && row.image_url ? (
                         <img src={str(row.image_url)} alt="" className="w-12 h-12 rounded-lg object-cover" />
                       ) : (
@@ -162,10 +174,10 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
                         className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
                         aria-label="Edit"
                       >
-                        <Pencil size={16} className="text-[#0A2647] dark:text-white" />
+                        <Pencil size={16} className="text-navy dark:text-white" />
                       </button>
                       <button
-                        onClick={() => remove(str(row.id))}
+                        onClick={() => setPendingDelete(str(row.id))}
                         className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
                         aria-label="Delete"
                       >
@@ -177,8 +189,11 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
               ))}
               {items.length === 0 && (
                 <tr>
-                  <td colSpan={config.columns.length + 2} className="px-4 py-8 text-center text-[#64748B]">
-                    No {config.title.toLowerCase()} yet — click “New {config.singular}”.
+                  <td colSpan={config.columns.length + 2} className="px-4 py-10 text-center">
+                    <Inbox size={28} className="mx-auto mb-2 text-gray-300 dark:text-gray-600" aria-hidden="true" />
+                    <p className="text-[#64748B] dark:text-gray-400">
+                      No {config.title.toLowerCase()} yet — click “New {config.singular}”.
+                    </p>
                   </td>
                 </tr>
               )}
@@ -190,13 +205,13 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
       {editing && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setEditing(null)}>
           <div
-            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-[#0A2647] rounded-2xl p-6"
+            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-navy rounded-2xl p-6"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-label={`${editing.id ? "Edit" : "New"} ${config.singular}`}
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#0A2647] dark:text-white">
+              <h2 className="text-xl font-bold text-navy dark:text-white">
                 {editing.id ? "Edit" : "New"} {config.singular}
               </h2>
               <button onClick={() => setEditing(null)} aria-label="Close" className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10">
@@ -207,12 +222,12 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
             <div className="space-y-4">
               {config.fields.map((f) => (
                 <label key={f.name} className="block">
-                  <span className="block text-sm font-medium text-[#0A2647] dark:text-white mb-1">{f.label}</span>
+                  <span className="block text-sm font-medium text-navy dark:text-white mb-1">{f.label}</span>
                   {f.type === "text" && (
                     <input
                       value={str(editing[f.name])}
                       onChange={(e) => set(f.name, e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white outline-none focus:border-[#FF6B35]"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white outline-none focus:border-brand"
                     />
                   )}
                   {f.type === "number" && (
@@ -220,7 +235,7 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
                       type="number"
                       value={Number(editing[f.name] ?? 0)}
                       onChange={(e) => set(f.name, Number(e.target.value))}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white outline-none focus:border-[#FF6B35]"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white outline-none focus:border-brand"
                     />
                   )}
                   {f.type === "textarea" && (
@@ -228,14 +243,14 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
                       value={str(editing[f.name])}
                       onChange={(e) => set(f.name, e.target.value)}
                       rows={4}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white outline-none focus:border-[#FF6B35] resize-y"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white outline-none focus:border-brand resize-y"
                     />
                   )}
                   {f.type === "select" && (
                     <select
                       value={str(editing[f.name])}
                       onChange={(e) => set(f.name, e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white outline-none focus:border-[#FF6B35]"
+                      className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white outline-none focus:border-brand"
                     >
                       {(f.options ?? []).map((o) => (
                         <option key={o} value={o}>{o}</option>
@@ -247,7 +262,7 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
                       type="checkbox"
                       checked={Boolean(editing[f.name])}
                       onChange={(e) => set(f.name, e.target.checked)}
-                      className="w-5 h-5 accent-[#FF6B35]"
+                      className="w-5 h-5 accent-brand"
                     />
                   )}
                   {f.type === "lines" && (
@@ -259,7 +274,7 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
                         }
                         rows={5}
                         placeholder="One item per line"
-                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#144272] dark:text-white outline-none focus:border-[#FF6B35] resize-y"
+                        className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-navy-deep dark:text-white outline-none focus:border-brand resize-y"
                       />
                       {f.hint && <span className="text-xs text-[#64748B]">{f.hint}</span>}
                     </>
@@ -292,9 +307,41 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
               <button
                 onClick={save}
                 disabled={saving}
-                className="px-5 py-2.5 rounded-lg bg-[#FF6B35] text-white font-semibold hover:bg-[#FF8F5E] disabled:opacity-50"
+                className="px-5 py-2.5 rounded-lg bg-brand text-white font-semibold hover:bg-brand-soft disabled:opacity-50"
               >
                 {saving ? "Saving…" : "Save"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {pendingDelete && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={() => setPendingDelete(null)}>
+          <div
+            className="w-full max-w-sm bg-white dark:bg-navy rounded-2xl p-6"
+            onClick={(e) => e.stopPropagation()}
+            role="alertdialog"
+            aria-modal="true"
+            aria-label={`Delete ${config.singular}`}
+          >
+            <h2 className="text-lg font-bold text-navy dark:text-white mb-2">Delete {config.singular}?</h2>
+            <p className="text-sm text-[#64748B] dark:text-gray-400 mb-6">
+              This cannot be undone. The item and its uploaded image will be removed.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setPendingDelete(null)}
+                className="px-5 py-2.5 rounded-lg border border-gray-200 dark:border-white/10 font-medium"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={deleting}
+                className="px-5 py-2.5 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 disabled:opacity-50"
+              >
+                {deleting ? "Deleting…" : "Delete"}
               </button>
             </div>
           </div>
