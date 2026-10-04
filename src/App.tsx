@@ -21,6 +21,7 @@ const NotFound = lazy(() => import("@/pages/NotFound"));
 const ProductsPage = lazy(() => import("@/pages/Products"));
 const IndustriesPage = lazy(() => import("@/pages/Industries"));
 const CertificationsPage = lazy(() => import("@/pages/Certifications"));
+const Admin = lazy(() => import("@/pages/Admin"));
 
 function ScrollProgress() {
   const progress = useScrollProgress();
@@ -58,6 +59,7 @@ function AppContent() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/policy" element={<PolicyPage />} />
               <Route path="/terms" element={<TermsPage />} />
+              <Route path="/admin/*" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

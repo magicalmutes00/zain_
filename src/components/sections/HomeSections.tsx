@@ -241,15 +241,24 @@ export function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", company: "", service: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormData({ name: "", email: "", phone: "", company: "", service: "", message: "" });
-    setTimeout(() => setIsSuccess(false), 5000);
+    setSubmitError(null);
+    try {
+      const { api, apiConfigured } = await import("@/lib/api");
+      if (!apiConfigured) throw new Error("not-configured");
+      await api.submitInquiry(formData);
+      setIsSuccess(true);
+      setFormData({ name: "", email: "", phone: "", company: "", service: "", message: "" });
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch {
+      setSubmitError("Could not send your message online. Please call us directly at +968 92144367.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -297,6 +306,11 @@ export function Contact() {
             {isSuccess && (
               <div className="mb-4 p-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg" role="alert">
                 Thank you! Message sent successfully.
+              </div>
+            )}
+            {submitError && (
+              <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg" role="alert">
+                {submitError}
               </div>
             )}
             <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact form">

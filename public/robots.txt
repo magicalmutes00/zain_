@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 
 # Block common scrapers / abusers
 User-agent: AhrefsBot
