@@ -55,7 +55,7 @@ export function SEO({
           streetAddress: "P.O. Box 124, Barka, Sumuhan",
           addressLocality: "Barka",
           addressRegion: "South Al Batinah",
-          postalCode: "112",
+          postalCode: "122",
           addressCountry: "OM",
         },
         geo: {

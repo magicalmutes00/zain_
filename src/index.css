@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --color-primary: #0A2647;
-    --color-secondary: #FF6B35;
+    --color-primary: #18181B;
+    --color-secondary: #DC2626;
   }
 
   .dark {
-    --color-primary: #144272;
+    --color-primary: #27272A;
     --color-background: #051525;
   }
 
@@ -107,20 +107,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 28s linear infinite;
-}
-
-.marquee-mask {
-  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-}
-
 @keyframes cta-sheen {
   from { transform: translateX(-120%) skewX(-18deg); }
   to { transform: translateX(240%) skewX(-18deg); }
@@ -131,7 +117,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
   .group:hover .cta-sheen {
     animation: none;
   }
@@ -143,7 +128,7 @@
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #FF6B35, #FF8F5E);
+  background: linear-gradient(90deg, #DC2626, #F87171);
   z-index: 9999;
   transform-origin: left;
 }

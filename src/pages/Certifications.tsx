@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SEO } from "@/components/SEO";
+import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { QUALITY_POLICY, SAFETY_POLICY } from "@/data/company";
 import {
   IconRosette,
   IconRosetteDiscountCheck,
@@ -134,26 +136,7 @@ export default function CertificationsPage() {
         description="ZAIN Technical maintains ISO certifications and complies with international fire safety standards including NFPA, BS5839, and Oman Civil Defense regulations."
       />
 
-      <section className="relative pt-36 pb-20 bg-gradient-to-br from-navy via-navy-deep to-navy overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand blur-3xl" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-[#2C8EBD] blur-3xl" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold text-white"
-          >
-            Awards & Certifications
-          </motion.h1>
-          <nav className="mt-4 text-white/80 text-sm">
-            <a href="/" className="hover:text-white transition-colors">Home</a>
-            <span className="mx-2">|</span>
-            <span>Awards & Certifications</span>
-          </nav>
-        </div>
-      </section>
+      <PageHero title="Awards & Certifications" />
 
       <section className="pt-16 pb-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -205,7 +188,7 @@ export default function CertificationsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 0.5 }}
-                    className="group relative block overflow-hidden rounded-xl bg-white dark:bg-navy-deep shadow-md hover:shadow-2xl transition-shadow text-left cursor-zoom-in h-full"
+                    className="group relative block overflow-hidden rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all text-left cursor-zoom-in h-full"
                   >
                     <div className="relative aspect-[3/4] overflow-hidden">
                       <img
@@ -238,7 +221,7 @@ export default function CertificationsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="group relative block overflow-hidden rounded-xl bg-white dark:bg-navy-deep shadow-md hover:shadow-2xl transition-shadow text-left cursor-zoom-in"
+              className="group relative block overflow-hidden rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all text-left cursor-zoom-in"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -283,11 +266,54 @@ export default function CertificationsPage() {
                 className="flex items-start gap-4 bg-gray-50 dark:bg-navy-deep rounded-xl p-6"
               >
                 <div className="w-10 h-10 rounded-lg bg-brand/10 dark:bg-brand/20 flex items-center justify-center flex-shrink-0">
-                  <IconCircleCheck size={20} stroke={1.5} className="text-brand" />
+                  <IconCircleCheck size={20} stroke={1.5} className="text-brand-ember dark:text-brand-soft" />
                 </div>
                 <span className="text-navy dark:text-white font-medium">{standard}</span>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-white dark:bg-navy">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div>
+              <p className="inline-flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.2em] text-brand-ember dark:text-brand-soft mb-4">
+                <span aria-hidden="true" className="h-0.5 w-8 rounded-full bg-brand" />
+                Quality Policy
+              </p>
+              <h2 className="font-display text-3xl lg:text-4xl font-bold tracking-tight text-navy dark:text-white mb-6">
+                High standards on every job
+              </h2>
+              <ol className="space-y-4">
+                {QUALITY_POLICY.map((item, i) => (
+                  <li key={item} className="flex items-start gap-3 text-[#64748B] dark:text-gray-400 text-sm leading-relaxed">
+                    <span aria-hidden="true" className="flex-shrink-0 w-6 h-6 rounded-full bg-brand/10 text-brand-ember dark:text-brand-soft text-xs font-bold flex items-center justify-center">
+                      {i + 1}
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div>
+              <p className="inline-flex items-center gap-2.5 text-sm font-bold uppercase tracking-[0.2em] text-brand-ember dark:text-brand-soft mb-4">
+                <span aria-hidden="true" className="h-0.5 w-8 rounded-full bg-brand" />
+                Safety Policy
+              </p>
+              <h2 className="font-display text-3xl lg:text-4xl font-bold tracking-tight text-navy dark:text-white mb-6">
+                Safety is a line responsibility
+              </h2>
+              <ul className="space-y-4">
+                {SAFETY_POLICY.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-[#64748B] dark:text-gray-400 text-sm leading-relaxed">
+                    <IconShieldCheck size={20} stroke={1.5} className="text-brand-ember dark:text-brand-soft flex-shrink-0 mt-0.5" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -302,7 +328,7 @@ export default function CertificationsPage() {
           </p>
           <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-brand text-white rounded-xl font-semibold hover:bg-[#E85A2A] transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-brand text-white rounded-xl font-semibold hover:bg-brand-soft transition-colors"
           >
             Discuss Your Project
           </a>

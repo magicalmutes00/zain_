@@ -30,7 +30,7 @@ export function Hero() {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm mb-6"
             >
-              <Shield size={16} className="text-brand" />
+              <Shield size={16} className="text-brand-soft" />
               <span className="text-white/90 text-sm font-medium font-arabic" lang="ar" dir="rtl">شريك موثوق في السلامة من الحرائق في عمان</span>
             </motion.div>
 

@@ -43,7 +43,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-12">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand hover:bg-[#FF8C42] text-white rounded-lg font-semibold transition-colors shadow-lg shadow-orange-500/20"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand hover:bg-brand-soft text-white rounded-lg font-semibold transition-colors shadow-lg shadow-red-600/20"
           >
             <Home size={18} />
             Go to Homepage

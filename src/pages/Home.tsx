@@ -1,4 +1,4 @@
-import { Hero, About, Services, Process, Industries, Products, Certifications, Stats, CTA, Contact } from "@/components/sections/HomeSections";
+import { Hero, ProofBand, About, Services, SlimCTA, Process, Industries, Products, Certifications, CTA, Contact } from "@/components/sections/HomeSections";
 import { MissionVision, CoreValues, WhyChooseUs } from "@/components/sections/About";
 import { SEO } from "@/components/SEO";
 
@@ -7,12 +7,13 @@ export default function Home() {
     <>
       <SEO />
       <Hero />
-      <About />
+      <ProofBand />
       <Services />
+      <SlimCTA />
       <Industries />
-      <Products />
       <Process />
-      <Stats />
+      <Products />
+      <About />
       <Certifications />
       <CTA />
       <Contact />

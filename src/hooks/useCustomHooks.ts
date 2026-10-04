@@ -1,25 +1,5 @@
 import { useState, useEffect } from "react";
 
-export function useDarkMode() {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem("darkMode");
-    return saved === "true" || window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("darkMode", String(isDarkMode));
-  }, [isDarkMode]);
-
-  const toggle = () => setIsDarkMode(!isDarkMode);
-
-  return { isDarkMode, toggle };
-}
-
 export function useScrollProgress() {
   const [progress, setProgress] = useState(0);
 

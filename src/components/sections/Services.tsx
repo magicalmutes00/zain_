@@ -24,10 +24,10 @@ export function Services() {
             return (
               <motion.div key={service.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <Card hover className="h-full flex flex-col">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6" style={{ backgroundColor: "#FF6B3515" }}>
-                    <Icon size={32} stroke={1.5} className="text-brand" />
+                  <div className="w-14 h-14 rounded-2xl bg-navy/[0.07] dark:bg-white/10 group-hover:bg-brand flex items-center justify-center mb-6 transition-colors">
+                    <Icon size={32} stroke={1.5} className="text-navy dark:text-white group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-xl font-bold text-navy mb-3">{service.title}</h3>
+                  <h3 className="font-display text-xl font-bold text-navy dark:text-white mb-3">{service.title}</h3>
                   <p className="text-[#64748B] text-sm flex-grow">{service.description}</p>
                   <ul className="mt-4 space-y-2">
                     {service.features.slice(0, 4).map((feature) => (

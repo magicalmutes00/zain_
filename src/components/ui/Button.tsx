@@ -21,7 +21,7 @@ export function Button({
   const busy = disabled || loading;
 
   const variants = {
-    primary: "bg-brand text-white hover:bg-brand-soft shadow-lg shadow-orange-500/25",
+    primary: "bg-brand text-white hover:bg-brand-soft shadow-lg shadow-red-600/25",
     secondary: "bg-navy dark:bg-navy-deep text-white hover:bg-navy-deep dark:hover:bg-navy shadow-lg shadow-blue-950/20",
     outline: "border-2 border-navy dark:border-white/40 text-navy dark:text-white hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy",
     ghost: "text-navy dark:text-white hover:bg-navy/10 dark:hover:bg-white/10",

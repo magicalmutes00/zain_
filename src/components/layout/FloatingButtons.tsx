@@ -33,26 +33,36 @@ export function FloatingButtons() {
 
   return (
     <>
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3" aria-label="Quick actions">
-        <motion.button
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          className="w-14 h-14 rounded-full bg-[#25D366] text-white shadow-lg shadow-green-500/30 flex items-center justify-center hover:scale-110 transition-transform"
-          onClick={() => window.open(whatsappUrl, "_blank", "noopener,noreferrer")}
-          aria-label="Chat on WhatsApp"
-        >
-          <MessageCircle size={28} aria-hidden="true" />
-        </motion.button>
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3" aria-label="Quick actions">
+        <div className="relative group">
+          <motion.button
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="w-14 h-14 rounded-2xl bg-[#25D366] text-white shadow-lg shadow-green-500/30 flex items-center justify-center hover:scale-105 transition-transform"
+            onClick={() => window.open(whatsappUrl, "_blank", "noopener,noreferrer")}
+            aria-label="Chat on WhatsApp"
+          >
+            <MessageCircle size={26} aria-hidden="true" />
+          </motion.button>
+          <span aria-hidden="true" className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap px-3 py-1.5 rounded-lg bg-navy dark:bg-white text-white dark:text-navy text-xs font-semibold opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+            WhatsApp us
+          </span>
+        </div>
 
-        <motion.a
-          href={`tel:${COMPANY.phones[0]}`}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1, transition: { delay: 0.1 } }}
-          className="w-14 h-14 rounded-full bg-brand text-white shadow-lg shadow-orange-500/30 flex items-center justify-center hover:scale-110 transition-transform"
-          aria-label="Call us"
-        >
-          <Phone size={28} aria-hidden="true" />
-        </motion.a>
+        <div className="relative group">
+          <motion.a
+            href={`tel:${COMPANY.phones[0]}`}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1, transition: { delay: 0.1 } }}
+            className="w-14 h-14 rounded-2xl bg-brand text-white shadow-glow flex items-center justify-center hover:scale-105 transition-transform"
+            aria-label="Call us"
+          >
+            <Phone size={26} aria-hidden="true" />
+          </motion.a>
+          <span aria-hidden="true" className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 mr-3 whitespace-nowrap px-3 py-1.5 rounded-lg bg-navy dark:bg-white text-white dark:text-navy text-xs font-semibold opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+            {COMPANY.phones[0]}
+          </span>
+        </div>
 
         <AnimatePresence>
           {showBackToTop && (
@@ -61,10 +71,10 @@ export function FloatingButtons() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
               onClick={scrollToTop}
-              className="w-14 h-14 rounded-full bg-white dark:bg-navy text-navy dark:text-white shadow-lg flex items-center justify-center hover:bg-gray-100 dark:hover:bg-navy-deep transition-colors"
+              className="w-14 h-14 rounded-2xl bg-white dark:bg-navy text-navy dark:text-white shadow-lift border border-gray-100 dark:border-white/10 flex items-center justify-center hover:-translate-y-0.5 transition-transform"
               aria-label="Back to top"
             >
-              <ArrowUp size={28} aria-hidden="true" />
+              <ArrowUp size={26} aria-hidden="true" />
             </motion.button>
           )}
         </AnimatePresence>

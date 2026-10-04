@@ -111,7 +111,7 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-navy dark:text-white">{config.title}</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight text-navy dark:text-white">{config.title}</h1>
         <button
           onClick={openNew}
           className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white rounded-lg font-medium hover:bg-brand-soft"
@@ -171,14 +171,14 @@ export function ResourceAdmin({ config }: { config: ResourceConfig }) {
                     <div className="flex justify-end gap-2">
                       <button
                         onClick={() => setEditing({ ...row })}
-                        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
+                        className="min-w-11 min-h-11 inline-flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
                         aria-label="Edit"
                       >
                         <Pencil size={16} className="text-navy dark:text-white" />
                       </button>
                       <button
                         onClick={() => setPendingDelete(str(row.id))}
-                        className="p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+                        className="min-w-11 min-h-11 inline-flex items-center justify-center rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
                         aria-label="Delete"
                       >
                         <Trash2 size={16} className="text-red-500" />

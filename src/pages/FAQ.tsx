@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
+import { PageHero } from "@/components/ui/PageHero";
 import { CTA, Contact } from "@/components/sections/HomeSections";
 
 const faqs = [
@@ -39,12 +40,7 @@ export default function FAQPage() {
       <script type="application/ld+json">
         {JSON.stringify(faqJsonLd)}
       </script>
-      <section className="pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">Fire Safety FAQs for Oman</h1>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">Costs, approvals, AMC coverage, and servicing intervals — answered by our engineering team.</p>
-        </div>
-      </section>
+      <PageHero title="Fire Safety FAQs for Oman" sub="Costs, approvals, AMC coverage, and servicing intervals — answered by our engineering team." />
       <section className="py-20 bg-gray-50 dark:bg-[#0D1B2A]">
         <div className="max-w-4xl mx-auto px-4">
           <div className="space-y-4">
@@ -54,17 +50,17 @@ export default function FAQPage() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-white dark:bg-navy-deep rounded-xl border border-gray-100 dark:border-white/10 overflow-hidden"
+                className="bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden hover:border-brand/25 hover:shadow-soft transition-all"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                   className="w-full flex items-center justify-between p-6 text-left"
                   aria-expanded={openIndex === i}
                 >
-                  <span className="font-semibold text-navy dark:text-white pr-4">{faq.q}</span>
+                  <span className="font-display font-semibold text-navy dark:text-white pr-4">{faq.q}</span>
                   <ChevronDown
                     size={20}
-                    className={`text-brand flex-shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`}
+                    className={`text-brand-ember dark:text-brand-soft flex-shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`}
                     aria-hidden="true"
                   />
                 </button>

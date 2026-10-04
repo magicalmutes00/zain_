@@ -178,7 +178,7 @@ function AdminLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#0D1B2A] px-4 pt-24">
       <form onSubmit={submit} className="w-full max-w-md bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 p-8" aria-label="Admin sign in">
-        <h1 className="text-2xl font-bold text-navy dark:text-white mb-1">Admin Sign In</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight text-navy dark:text-white mb-1">Admin Sign In</h1>
         <p className="text-sm text-[#64748B] dark:text-gray-400 mb-6">ZAIN Technical control panel</p>
         {!supabaseConfigured && (
           <p className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm">
@@ -244,7 +244,7 @@ function AdminLayout() {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-brand/10 text-brand"
+                        ? "bg-brand/10 text-brand-ember dark:text-brand-soft"
                         : "text-navy dark:text-white hover:bg-gray-50 dark:hover:bg-white/5"
                     }`
                   }
@@ -305,7 +305,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-navy dark:text-white mb-6">Dashboard</h1>
+      <h1 className="font-display text-2xl font-bold tracking-tight text-navy dark:text-white mb-6">Dashboard</h1>
       {!apiConfigured && (
         <p className="mb-4 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm">
           API not configured (VITE_API_URL missing) — data below is unavailable.
@@ -313,11 +313,11 @@ function Dashboard() {
       )}
       <div className="grid sm:grid-cols-2 gap-4">
         <Link to="/admin/projects" className="p-6 rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10">
-          <p className="text-4xl font-bold text-brand">{stats?.projects ?? "—"}</p>
+          <p className="text-4xl font-bold text-brand-ember dark:text-brand-soft">{stats?.projects ?? "—"}</p>
           <p className="text-sm text-[#64748B] dark:text-gray-400 mt-1">Projects in portfolio</p>
         </Link>
         <Link to="/admin/inquiries" className="p-6 rounded-2xl bg-white dark:bg-navy-deep border border-gray-100 dark:border-white/10">
-          <p className="text-4xl font-bold text-brand">{stats?.unread ?? "—"}</p>
+          <p className="text-4xl font-bold text-brand-ember dark:text-brand-soft">{stats?.unread ?? "—"}</p>
           <p className="text-sm text-[#64748B] dark:text-gray-400 mt-1">Unread inquiries</p>
         </Link>
       </div>
@@ -381,7 +381,7 @@ function HeroAdmin() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-navy dark:text-white">Homepage Hero</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight text-navy dark:text-white">Homepage Hero</h1>
         <button onClick={save} disabled={saving} className="px-5 py-2.5 rounded-lg bg-brand text-white font-semibold hover:bg-brand-soft disabled:opacity-50">
           {saving ? "Saving…" : "Save changes"}
         </button>
@@ -472,7 +472,7 @@ function InquiriesAdmin() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-navy dark:text-white">Inquiries</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight text-navy dark:text-white">Inquiries</h1>
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}

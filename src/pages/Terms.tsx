@@ -1,14 +1,11 @@
 import { CTA } from "@/components/sections/HomeSections";
 import { Contact } from "@/components/sections/HomeSections";
+import { PageHero } from "@/components/ui/PageHero";
 
 export default function TermsPage() {
   return (
     <>
-      <section className="pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-white">Terms & Conditions</h1>
-        </div>
-      </section>
+      <PageHero title="Terms & Conditions" />
       <section className="py-20 bg-gray-50 dark:bg-[#0D1B2A]">
         <div className="max-w-4xl mx-auto px-4">
           <div className="bg-white dark:bg-navy-deep p-8 rounded-2xl border border-gray-100 dark:border-white/10 space-y-8">

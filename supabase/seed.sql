@@ -10,7 +10,8 @@
   ('fire-protection', 'Fire Protection Systems', 'Fire fighting contractors in Muscat and across Oman for hydrants, sprinklers, fire pumps, FM-200 suppression, hose reels, and extinguishers — installed to NFPA and Civil Defense standards.', 'Shield', '["Fire Hydrant Systems", "Fire Sprinkler Systems", "Fire Pump Systems", "FM-200 Suppression Systems", "Fire Extinguishers"]', 2),
   ('electrical', 'Electrical Services', 'Full range of commercial, industrial, and residential electrical installation and maintenance services.', 'Zap', '["Commercial Installations", "Industrial Installations", "Power Distribution", "Office Fit-outs", "Emergency Repairs"]', 3),
   ('cctv', 'CCTV & ELV Systems', 'Professional CCTV installation, access control, networking, and integrated security solutions.', 'Video', '["CCTV Installation", "Access Control", "Structured Cabling", "Fiber Optic Cabling", "IT Infrastructure"]', 4),
-  ('plumbing', 'Plumbing Services', 'Comprehensive residential, commercial, and industrial plumbing services with 24/7 emergency support.', 'Droplets', '["Bathroom & Kitchen Plumbing", "Leak Detection", "Water Heater Services", "Drain Cleaning", "24/7 Emergency Support"]', 5)
+  ('plumbing', 'Plumbing Services', 'Comprehensive residential, commercial, and industrial plumbing services with 24/7 emergency support.', 'Droplets', '["Bathroom & Kitchen Plumbing", "Leak Detection", "Water Heater Services", "Drain Cleaning", "24/7 Emergency Support"]', 5),
+  ('lpg-systems', 'LPG Systems', 'Design, supply, installation, testing, and maintenance of LPG systems with leak detection and statutory compliance across Oman.', 'Gas', '["LPG System Design", "Supply & Installation", "Leak Detection Systems", "Testing & Commissioning", "Preventive Maintenance"]', 6)
   on conflict (slug) do update set
     title = excluded.title, description = excluded.description, icon = excluded.icon,
     features = excluded.features, display_order = excluded.display_order,

@@ -1,5 +1,6 @@
 import { SEO } from "@/components/SEO";
-import { About, MissionVision, CoreValues, WhyChooseUs } from "@/components/sections/About";
+import { PageHero } from "@/components/ui/PageHero";
+import { About, MissionVision, Ethos, Workforce, CoreValues, WhyChooseUs } from "@/components/sections/About";
 import { CTA, Contact } from "@/components/sections/HomeSections";
 
 export default function AboutPage() {
@@ -9,14 +10,11 @@ export default function AboutPage() {
         title="About Us"
         description="ZAIN Technical & Integrated Services LLC - Professional fire detection, fire protection, electrical, CCTV, and plumbing services in Oman since 2021."
       />
-      <section className="pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">About Us</h1>
-          <p className="text-white/80 text-lg">ZAIN TECHNICAL & INTEGRATED SERVICES LLC</p>
-        </div>
-      </section>
+      <PageHero title="About Us" sub="ZAIN TECHNICAL & INTEGRATED SERVICES LLC" />
       <About />
+      <Ethos />
       <MissionVision />
+      <Workforce />
       <CoreValues />
       <WhyChooseUs />
       <CTA />

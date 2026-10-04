@@ -7,14 +7,6 @@ import { ChevronRight } from "lucide-react";
 export function PageHero({ title, sub, crumb = "Home" }: { title: string; sub?: string; crumb?: string }) {
   return (
     <section className="relative pt-32 pb-16 lg:pb-20 bg-gradient-to-br from-navy via-navy-deep to-navy overflow-hidden">
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
-      />
       <div aria-hidden="true" className="absolute -top-24 right-0 w-96 h-96 rounded-full bg-brand/20 blur-3xl" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.nav
@@ -31,7 +23,7 @@ export function PageHero({ title, sub, crumb = "Home" }: { title: string; sub?: 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="text-4xl lg:text-5xl font-bold text-white mb-4"
+          className="font-display text-4xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white mb-5"
         >
           {title}
         </motion.h1>

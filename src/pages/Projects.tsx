@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SEO } from "@/components/SEO";
+import { PageHero } from "@/components/ui/PageHero";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { MapPin, Calendar, Building2, Factory, Warehouse, Hotel, Hospital, ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -45,35 +46,7 @@ export default function ProjectsPage() {
         description="Explore our portfolio of completed fire protection, fire detection, electrical, CCTV, and plumbing projects across Oman. Quality installations you can trust."
       />
 
-      <section className="relative pt-32 pb-20 bg-gradient-to-br from-navy to-navy-deep overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-brand/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-brand/5 rounded-full blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-brand-ember dark:text-brand-soft font-medium mb-4 tracking-wider uppercase"
-          >
-            Our Portfolio
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl lg:text-5xl font-bold text-white mb-4"
-          >
-            Projects We've Delivered
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-white/80 text-lg max-w-2xl mx-auto"
-          >
-            From iconic commercial buildings to critical industrial facilities, our work speaks for itself.
-          </motion.p>
-        </div>
-      </section>
+      <PageHero title="Projects We've Delivered" sub="From iconic commercial buildings to critical industrial facilities, our work speaks for itself." />
 
       <section className="py-20 bg-white dark:bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,7 +106,7 @@ export default function ProjectsPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                   whileHover={{ y: -6 }}
-                  className="group bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
+                  className="group bg-white dark:bg-navy-deep rounded-3xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-soft hover:shadow-lift hover:-translate-y-1.5 transition-all duration-300"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <img
@@ -144,7 +117,7 @@ export default function ProjectsPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
                     <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="px-3 py-1.5 bg-brand text-white text-xs font-semibold rounded-full shadow-lg">
+                      <span className="px-3 py-1.5 bg-brand-ember text-white text-xs font-semibold rounded-full shadow-lg">
                         {project.category}
                       </span>
                       <span className={`px-3 py-1.5 text-white text-xs font-semibold rounded-full shadow-lg ${
@@ -154,7 +127,7 @@ export default function ProjectsPage() {
                       </span>
                     </div>
                     <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-white font-bold text-lg leading-tight drop-shadow-lg">
+                      <h3 className="font-display text-white font-bold text-lg leading-tight drop-shadow-lg">
                         {project.title}
                       </h3>
                     </div>
@@ -162,11 +135,11 @@ export default function ProjectsPage() {
                   <div className="p-5 space-y-4">
                     <div className="flex items-center gap-4 text-sm text-[#64748B] dark:text-gray-400">
                       <span className="flex items-center gap-1.5">
-                        <MapPin size={14} className="text-brand" aria-hidden="true" />
+                        <MapPin size={14} className="text-brand-ember dark:text-brand-soft" aria-hidden="true" />
                         {project.location}
                       </span>
                       <span className="flex items-center gap-1.5">
-                        <Calendar size={14} className="text-brand" aria-hidden="true" />
+                        <Calendar size={14} className="text-brand-ember dark:text-brand-soft" aria-hidden="true" />
                         {project.year}
                       </span>
                     </div>
@@ -203,10 +176,10 @@ export default function ProjectsPage() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center p-8 bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 hover:shadow-lg transition-shadow"
               >
-                <div className="w-14 h-14 rounded-xl bg-brand/10 flex items-center justify-center mx-auto mb-4">
-                  <stat.icon size={28} className="text-brand" aria-hidden="true" />
+                <div className="w-14 h-14 rounded-xl bg-navy/[0.07] dark:bg-white/10 flex items-center justify-center mx-auto mb-4">
+                  <stat.icon size={28} className="text-navy dark:text-white" aria-hidden="true" />
                 </div>
-                <span className="text-3xl lg:text-4xl font-bold text-navy dark:text-white block">
+                <span className="font-display text-3xl lg:text-4xl font-bold text-navy dark:text-white block">
                   {stat.value}
                 </span>
                 <p className="text-[#64748B] dark:text-gray-400 mt-2 text-sm">{stat.label}</p>

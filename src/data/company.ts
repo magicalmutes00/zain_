@@ -3,19 +3,19 @@ export const COMPANY = {
   shortName: "ZAIN TECHNICAL",
   established: 2021,
   address: {
-    area: "P.O.Box: 124, P.C:112, Barka, Sumuhan",
+    area: "P.O.Box: 124, P.C:122, Barka, Sumuhan",
     region: "South Al Batinah",
     country: "Sultanate of Oman",
     near: "Near ROP Barka",
     poBox: "124",
-    postalCode: "112",
+    postalCode: "122",
   },
   phones: ["+968 92144367", 
            "+968 71744429"
   ],
   emails: [
     "info@zaintechoman.com",
-    // "zainprojectsoman@gmail.com",
+    "zainprojectsoman@gmail.com",
     "zaintechnicaloman@gmail.com",
   ],
   workingHours: "Sunday - Thursday: 8:00 AM - 6:00 PM",
@@ -74,6 +74,13 @@ export const SERVICES = [
     iconImage: "/images/icon-repair.webp",
     features: ["Bathroom & Kitchen Plumbing", "Leak Detection", "Water Heater Services", "Drain Cleaning", "24/7 Emergency Support"],
   },
+  {
+    title: "LPG Systems",
+    slug: "lpg-systems",
+    description: "Design, supply, installation, testing, and maintenance of LPG systems with leak detection and statutory compliance across Oman.",
+    icon: "Gas",
+    features: ["LPG System Design", "Supply & Installation", "Leak Detection Systems", "Testing & Commissioning", "Preventive Maintenance"],
+  },
 ];
 
 export const PRODUCTS = [
@@ -82,7 +89,7 @@ export const PRODUCTS = [
   "Fire Detection Equipment", "Emergency Lights", "Smoke Detectors", "Suppression Systems"
 ];
 
-export const BRANDS = ["Tyco", "Honeywell", "Gent", "NAFFCO", "Dahua", "AL Aman", "Elite", "Bonfire"];
+export const BRANDS = ["Tyco", "Honeywell", "Gent", "NAFFCO", "Dahua", "AL Aman", "Elite", "Bonfire", "SHIELD"];
 
 export const INDUSTRIES = [
   "Commercial Buildings", "Industrial Plants", "Factories", "Warehouses", "Residential Villas",
@@ -108,3 +115,42 @@ export const PROCESS_STEPS = [
   "Consultation", "Site Survey", "System Design", "Engineering Approval",
   "Material Supply", "Installation", "Testing", "Commissioning", "Inspection", "Training"
 ];
+
+export const ETHOS_HEADLINE = "Do it once, do it right!";
+
+export const ETHOS = [
+  { title: "Think efficiency", text: "Is there a way to get the job done more efficiently?" },
+  { title: "Enjoy what you do", text: "We believe everyone should enjoy what they do. Every action has an effect on others." },
+  { title: "Earn recommendations", text: "We believe every job well done will result in our clients recommending us to their friends and family." },
+  { title: "Meet and greet", text: "Let clients know who we are and what we do. Be polite." },
+  { title: "Tidy workplace", text: "Tools and vehicles tidy and clean. Always leave the site as tidy as we find it, or better." },
+  { title: "Accountability", text: "We are accountable for our actions. If something needs fixing, we get it done." },
+];
+
+export const QUALITY_POLICY = [
+  "High standards of service in fire detection and protection, electrical, plumbing and CCTV systems.",
+  "High customer satisfaction through quality products and services.",
+  "Continued research into improving our products and services.",
+  "Quality inspection of all materials, machines and equipment used on each project.",
+  "Verifying and validating both existing and new programs.",
+  "Regular internal quality audits and management reviews.",
+  "Site quality procedures well communicated among all employees.",
+];
+
+export const SAFETY_POLICY = [
+  "A safe workplace: environment, facilities, equipment and substances under safe systems of work.",
+  "Defensive driving techniques by all car drivers and machinery operators.",
+  "Continuous monitoring of safety policy effectiveness.",
+  "Personal responsibility: everyone avoids and prevents hazards to themselves and others.",
+  "Safety as a line management responsibility.",
+];
+
+export const WORKFORCE = [
+  "CEO", "GM", "Managers", "Accounts", "Sales", "Maintenance",
+  "Projects Engineer", "Supervisor / Technician", "Labours",
+];
+
+export const PRODUCT_BRANDS: Record<string, string[]> = {
+  "Fire Detection": ["SHIELD", "Gent", "NAFFCO", "Dahua", "Honeywell"],
+  "Fire Protection": ["Tyco", "AL Aman", "NAFFCO", "Elite"],
+};
