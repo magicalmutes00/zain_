@@ -35,7 +35,7 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Playfair Display", "Georgia", "serif"],
+        display: ["IBM Plex Sans", "Inter", "system-ui", "sans-serif"],
         arabic: ["Noto Sans Arabic", "system-ui", "sans-serif"],
       },
       boxShadow: {

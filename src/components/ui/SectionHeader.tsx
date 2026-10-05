@@ -19,7 +19,7 @@ export function SectionHeader({ title, subtitle, description, centered = true, l
       {index && (
         <span
           aria-hidden="true"
-          className={`pointer-events-none select-none absolute -top-14 font-display text-7xl lg:text-8xl font-extrabold leading-none ${
+          className={`pointer-events-none select-none absolute -top-14 font-display text-7xl lg:text-8xl font-bold leading-none ${
             centered ? "left-1/2 -translate-x-1/2" : "left-0"
           } ${light || isDark ? "text-white/[0.08]" : "text-navy/[0.06] dark:text-white/[0.07]"}`}
         >

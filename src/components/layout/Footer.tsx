@@ -31,7 +31,7 @@ export function Footer() {
             <Link to="/" className="inline-flex items-center gap-3 mb-5" aria-label="ZAIN Technical Home">
               <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-14 h-14 object-contain rounded-xl bg-white/5" />
               <div className="leading-tight">
-                <span className="font-display font-extrabold tracking-tight text-white text-lg block">{COMPANY.shortName}</span>
+                <span className="font-display font-bold tracking-tight text-white text-lg block">{COMPANY.shortName}</span>
                 <span className="text-white/60 text-xs font-medium">& Integrated Services LLC</span>
               </div>
             </Link>

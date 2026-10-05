@@ -31,7 +31,7 @@ export default function NotFound() {
           Lost in our service area
         </span>
 
-        <h2 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
+        <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
           Page Not Found
         </h2>
 

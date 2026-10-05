@@ -91,7 +91,7 @@ export function Navbar() {
               <Link to="/" className="flex items-center gap-3.5 shrink-0" aria-label="ZAIN Technical Home">
                 <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-xl drop-shadow-sm" />
                 <div className="leading-tight">
-                  <span className="font-display font-extrabold tracking-tight text-brand-ember text-xl sm:text-2xl block">
+                  <span className="font-display font-bold tracking-tight text-brand-ember text-xl sm:text-2xl block">
                     ZAIN TECHNICAL
                   </span>
                   <span className="text-[10px] sm:text-xs font-semibold text-navy/75 uppercase tracking-[0.18em] whitespace-nowrap">
@@ -250,7 +250,7 @@ export function Navbar() {
               <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-white/10">
                 <Link to="/" className="flex items-center gap-2.5" onClick={() => setIsMobileMenuOpen(false)}>
                   <OptimizedImage name="logo-z" alt="ZAIN Technical" className="w-12 h-12 object-contain rounded-xl" />
-                  <span className="font-display text-lg font-extrabold tracking-tight text-white">ZAIN TECHNICAL</span>
+                  <span className="font-display text-lg font-bold tracking-tight text-white">ZAIN TECHNICAL</span>
                 </Link>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
