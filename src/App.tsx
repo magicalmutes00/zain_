@@ -1,92 +1,39 @@
 import { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { FloatingButtons } from "@/components/layout/FloatingButtons";
-import { AnimationProvider } from "@/components/AnimationProvider";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import { MotionConfig } from "framer-motion";
-import { ErrorBoundary, PageLoader } from "@/components/ErrorBoundary";
-import { ToastProvider } from "@/components/ui/Toast";
-import { useScrollProgress } from "@/hooks/useCustomHooks";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SiteLayout } from "./layouts/SiteLayout";
+import { Home } from "./pages/Home";
 
-const Home = lazy(() => import("@/pages/Home"));
-const AboutPage = lazy(() => import("@/pages/About"));
-const ServicesPage = lazy(() => import("@/pages/Services"));
-const ContactPage = lazy(() => import("@/pages/Contact"));
-const ProjectsPage = lazy(() => import("@/pages/Projects"));
-const FAQPage = lazy(() => import("@/pages/FAQ"));
-const PolicyPage = lazy(() => import("@/pages/Policy"));
-const TermsPage = lazy(() => import("@/pages/Terms"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
-const ProductsPage = lazy(() => import("@/pages/Products"));
-const IndustriesPage = lazy(() => import("@/pages/Industries"));
-const CertificationsPage = lazy(() => import("@/pages/Certifications"));
-const Admin = lazy(() => import("@/pages/Admin"));
+const About = lazy(() => import("./pages/About").then((m) => ({ default: m.About })));
+const ServicesIndex = lazy(() => import("./pages/ServicesIndex").then((m) => ({ default: m.ServicesIndex })));
+const ServiceDetail = lazy(() => import("./pages/ServiceDetail").then((m) => ({ default: m.ServiceDetail })));
+const Products = lazy(() => import("./pages/Products").then((m) => ({ default: m.Products })));
+const Projects = lazy(() => import("./pages/Projects").then((m) => ({ default: m.Projects })));
+const Contact = lazy(() => import("./pages/Contact").then((m) => ({ default: m.Contact })));
+const NotFound = lazy(() => import("./pages/NotFound").then((m) => ({ default: m.NotFound })));
 
-function ScrollProgress() {
-  const progress = useScrollProgress();
+function PageFallback() {
   return (
-    <div
-      className="scroll-progress"
-      style={{ transform: `scaleX(${progress})` }}
-      role="progressbar"
-      aria-valuenow={Math.round(progress * 100)}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-label="Page scroll progress"
-    />
-  );
-}
-
-function AppContent() {
-  return (
-    <>
-      <ScrollProgress />
-      <Navbar />
-      <main id="main-content">
-        <ErrorBoundary>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/services" element={<ServicesPage />} />
-              <Route path="/services/:slug" element={<ServicesPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/industries" element={<IndustriesPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
-              <Route path="/certifications" element={<CertificationsPage />} />
-              <Route path="/faq" element={<FAQPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/policy" element={<PolicyPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/admin/*" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </ErrorBoundary>
-      </main>
-      <Footer />
-      <FloatingButtons />
-    </>
+    <div className="container section" aria-busy="true" aria-label="Loading page">
+      <p className="lead">Loading…</p>
+    </div>
   );
 }
 
 export default function App() {
   return (
-    <ErrorBoundary>
-      <HelmetProvider>
-        <AnimationProvider>
-          <LanguageProvider>
-            <ToastProvider>
-              <MotionConfig reducedMotion="user">
-                <AppContent />
-              </MotionConfig>
-            </ToastProvider>
-          </LanguageProvider>
-        </AnimationProvider>
-      </HelmetProvider>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<SiteLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<Suspense fallback={<PageFallback />}><About /></Suspense>} />
+          <Route path="services" element={<Suspense fallback={<PageFallback />}><ServicesIndex /></Suspense>} />
+          <Route path="services/:slug" element={<Suspense fallback={<PageFallback />}><ServiceDetail /></Suspense>} />
+          <Route path="products" element={<Suspense fallback={<PageFallback />}><Products /></Suspense>} />
+          <Route path="projects" element={<Suspense fallback={<PageFallback />}><Projects /></Suspense>} />
+          <Route path="contact" element={<Suspense fallback={<PageFallback />}><Contact /></Suspense>} />
+          <Route path="*" element={<Suspense fallback={<PageFallback />}><NotFound /></Suspense>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

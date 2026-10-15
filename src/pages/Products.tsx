@@ -1,111 +1,77 @@
-import { motion } from "framer-motion";
-import { SEO } from "@/components/SEO";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { PRODUCTS, BRANDS } from "@/data/company";
-import { CheckCircle2, Shield, Zap, Thermometer, Radio, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
+import { PRODUCT_GROUPS } from "../data/content";
+import { Reveal, SectionHeading } from "../components/Reveal";
+import { CtaBand } from "../components/CtaBand";
+import { Iconly } from "../components/Icon";
 
-const iconMap: Record<string, React.ComponentType<any>> = {
-  Shield, Zap, Thermometer, Radio, Eye, CheckCircle2
-};
-
-const productCategories = [
-  {
-    title: "Fire Detection",
-    items: ["Fire Alarm Panels", "Smoke Detectors", "Heat Detectors", "Manual Call Points", "Notification Devices"],
-    icon: Eye,
-    brands: ["SHIELD", "Gent", "NAFFCO", "Dahua", "Honeywell"]
-  },
-  {
-    title: "Fire Protection",
-    items: ["Fire Pumps", "Sprinkler Systems", "Fire Hydrants", "FM-200 Systems", "Fire Extinguishers"],
-    icon: Shield,
-    brands: ["Tyco", "AL Aman", "NAFFCO", "Elite"]
-  },
-  {
-    title: "Electrical",
-    items: ["Circuit Breakers", "Power Distribution", "Emergency Lighting", "Fire Alarm Cabling", "Conduit & Trunking"],
-    icon: Zap
-  },
-  {
-    title: "CCTV & Security",
-    items: ["CCTV Cameras", "DVR/NVR Systems", "Access Control", "Monitor Systems", "Structured Cabling"],
-    icon: Radio
-  }
-];
-
-export default function ProductsPage() {
+export function Products() {
   return (
     <>
-      <SEO
-        title="Fire Safety Products Oman | ZAIN Technical"
-        description="Shop fire safety products in Oman: alarm panels, detectors, pumps, extinguishers, hose reels & suppression from Honeywell, Gent, Tyco & NAFFCO."
-      />
-      
-      <PageHero title="Our Products" sub="Quality products from internationally recognized brands" />
-
-      <section className="pt-16 pb-20 bg-white dark:bg-navy">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Our Products"
-            subtitle="Quality products from internationally recognized brands"
-            description="We supply and install premium fire safety, electrical, CCTV, and plumbing equipment from trusted manufacturers."
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {productCategories.map((category, index) => (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-gray-50 dark:bg-navy-deep rounded-3xl p-6 border border-transparent hover:border-brand/25 hover:shadow-lift hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-navy/[0.07] dark:bg-white/10 flex items-center justify-center mb-4 group-hover:bg-brand transition-colors">
-                  <category.icon size={28} className="text-navy dark:text-white group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="font-display text-xl font-bold text-navy dark:text-white mb-4">{category.title}</h3>
-                <ul className="space-y-2">
-                  {category.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-gray-600 dark:text-gray-300 text-sm">
-                      <CheckCircle2 size={16} className="text-brand-ember dark:text-brand-soft flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                {"brands" in category && Array.isArray(category.brands) && (
-                  <p className="mt-4 pt-4 border-t border-gray-100 dark:border-white/10 text-xs text-gray-500 dark:text-gray-400">
-                    <span className="font-bold uppercase tracking-wider text-navy dark:text-white">Brands: </span>
-                    {(category.brands as string[]).join(" · ")}
-                  </p>
-                )}
-              </motion.div>
-            ))}
-          </div>
+      <div className="page-hero">
+        <div className="container">
+          <nav className="breadcrumbs" aria-label="Breadcrumb">
+            <Link to="/">Home</Link> <span aria-hidden="true">/</span> <span aria-current="page">Products &amp; Brands</span>
+          </nav>
+          <span className="eyebrow">Products — traded, supplied, installed &amp; maintained</span>
+          <h1>Established manufacturers. Quality-inspected supply.</h1>
+          <p className="lead" style={{ maxWidth: "54rem" }}>
+            ZAIN trades, supplies, installs &amp; maintains products &amp; accessories from established
+            manufacturers — with materials, machines &amp; equipment subjected to quality inspection
+            before use. Brand names below belong to their respective owners and denote sourcing, not ownership.
+          </p>
         </div>
-      </section>
+      </div>
 
-      <section className="py-20 bg-gray-50 dark:bg-[#0D1B2A]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Brands We Work With"
-            subtitle="Trusted Partners"
-            description="We partner with industry-leading brands to ensure the highest quality products for our clients."
-          />
-          
-          <div className="flex flex-wrap justify-center gap-8 mt-12">
-            {BRANDS.map((brand) => (
-              <div
-                key={brand}
-                className="px-8 py-4 bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-lift hover:-translate-y-0.5 hover:border-brand/30 transition-all"
-              >
-                <span className="font-display text-lg font-bold text-navy dark:text-white">{brand}</span>
+      <section className="section" aria-label="Product groups">
+        <div className="container">
+          <Reveal>
+            <SectionHeading eyebrow="Range" title="Fire-range product groups from the company profile." />
+          </Reveal>
+          <Reveal>
+            <table className="prod-table">
+              <caption className="form-note" style={{ textAlign: "left", paddingBottom: "0.5rem" }}>
+                Source: company profile “Our Products” section. Confirm exact model availability when requesting a quote.
+              </caption>
+              <thead>
+                <tr><th scope="col">Group</th><th scope="col">Makes / coverage</th></tr>
+              </thead>
+              <tbody>
+                {PRODUCT_GROUPS.map((p) => (
+                  <tr key={p.group}>
+                    <th scope="row" style={{ background: "transparent", textTransform: "none", letterSpacing: 0, fontSize: "0.95rem" }}>{p.group}</th>
+                    <td>{p.items}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Reveal>
+
+          <div className="sector-grid" style={{ marginTop: "1.6rem" }}>
+            {[
+              { t: "Detection & alarm", d: "GENT · SHIELD / NAFFCO · DAHUA / HONEYWELL control panels with addressable & conventional devices." },
+              { t: "Suppression & pumps", d: "FM-200 (TYCO · AL AMAN) · UL/FM-approved pumps (AL AMAN · VOLUTE · METAL PUMPS) with controllers." },
+              { t: "Extinguishers & equipment", d: "NAFFCO · BONFIRE · ZAIN · ELITE · FIRE KING · AL AMAN — foam, powder, CO₂ and water types." },
+            ].map((c) => (
+              <div className="sector" key={c.t}>
+                <b><Iconly name="ShieldDone" size={18} />{c.t}</b>
+                <p>{c.d}</p>
               </div>
             ))}
           </div>
+
+          <Reveal>
+            <div className="card" style={{ padding: "1.4rem", marginTop: "1.6rem" }}>
+              <h2 style={{ fontSize: "1.2rem" }}>Need a product quotation?</h2>
+              <p>Send the schedule, datasheet or a photo of the existing nameplate — ZAIN will confirm equivalents, availability and installation scope.</p>
+              <div style={{ marginTop: "1rem" }}>
+                <Link className="btn btn-primary" to="/contact?intent=quote">Request product quote</Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
+
+      <CtaBand />
     </>
   );
 }

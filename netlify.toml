@@ -1,0 +1,42 @@
+# Netlify deployment configuration.
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  command = "npm run build:static"
+  publish = "dist"
+
+# Static per-route HTML is written to dist/<route>/index.html by scripts/prerender.mjs
+# (run by `npm run build:static`), so hosts serve correct per-page <title>/description/OG
+# tags to crawlers that do not run JavaScript. Because a real file exists for every route,
+# Netlify serves it in preference to the fallback below.
+#
+# SPA fallback — still REQUIRED for a single-page app on Netlify (it is NOT on by default).
+# It now only handles unknown paths (e.g. a typo), which React Router renders as the
+# "Page not found" screen, instead of the host returning its own 404.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Fingerprinted build output is content-addressed, so it can be cached forever.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The HTML shell must be revalidated so new deploys are picked up immediately.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

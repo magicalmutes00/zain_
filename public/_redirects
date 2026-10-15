@@ -1,0 +1,5 @@
+# SPA fallback for Netlify and Cloudflare Pages (both read this file from the build root).
+# Per-route HTML is prerendered into dist/<route>/index.html by scripts/prerender.mjs, and
+# a real file is always served in preference to this rule, so it now only catches unknown
+# paths — which React Router renders as the "Page not found" screen instead of the host 404.
+/*    /index.html   200

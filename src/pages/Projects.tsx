@@ -1,236 +1,152 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SEO } from "@/components/SEO";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { MapPin, Calendar, Building2, Factory, Warehouse, Hotel, Hospital, ShieldCheck, ArrowRight, CheckCircle2 } from "lucide-react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  PROJECT_CATEGORIES,
+  PROJECT_STATUSES,
+  PROJECTS,
+  type ProjectCategory,
+  type ProjectStatus,
+} from "../data/content";
+import { Reveal, SectionHeading } from "../components/Reveal";
+import { CtaBand } from "../components/CtaBand";
 
-const statusTabs = ["Completed", "Ongoing"];
+export function Projects() {
+  const [status, setStatus] = useState<ProjectStatus>("Completed");
+  const [category, setCategory] = useState<"All" | ProjectCategory>("All");
 
-const categories = ["All", "Fire Protection", "Fire Detection", "Electrical", "CCTV"];
-
-const projects = [
-  { title: "Al Madina Complex Fire Protection", category: "Fire Protection", location: "Muscat, Oman", year: "2024", client: "Al Madina Group", scope: "Complete fire protection system design, supply & installation", status: "completed", image: "/images/Diesel Fire Pump Installation with Fire Protection Piping and Control Panel.webp" },
-  { title: "Royal Hospital Fire Detection Upgrade", category: "Fire Detection", location: "Salalah, Oman", year: "2024", client: "Ministry of Health", scope: "Addressable fire alarm system & emergency lighting", status: "completed", image: "/images/Modern Institutional Building Under Construction.webp" },
-  { title: "Sohar Industrial Zone Electrical", category: "Electrical", location: "Sohar, Oman", year: "2023", client: "Sohar Industrial Estate", scope: "Power distribution & electrical infrastructure", status: "completed", image: "/images/Industrial Fire Pump Room Installation.webp" },
-  { title: "Al Mouj Villa CCTV Installation", category: "CCTV", location: "Muscat, Oman", year: "2024", client: "Private Client", scope: "HD CCTV system with remote monitoring", status: "completed", image: "/images/Completed Mid-Rise Commercial and Residential Building Exterior.webp" },
-  { title: "Grand Hotel Fire Safety System", category: "Fire Protection", location: "Muscat, Oman", year: "2023", client: "Grand Hotel Group", scope: "Sprinkler system, hydrants & fire pumps", status: "completed", image: "/images/HALA HOTEL SUITES – Modern Hotel Building Exterior.webp" },
-  { title: "Duqm Warehouse Fire Protection", category: "Fire Protection", location: "Duqm, Oman", year: "2024", client: "Duqm Logistics", scope: "Warehouse sprinkler & suppression systems", status: "completed", image: "/images/Modern Industrial Warehouse and Factory Building Exterior.webp" },
-  { title: "Nizwa Fort Fire Detection System", category: "Fire Detection", location: "Nizwa, Oman", year: "2025", client: "Ministry of Heritage & Tourism", scope: "Heritage building addressable fire detection & alarm system", status: "ongoing", image: "/images/Multi-Story Building with Exterior Scaffolding During Facade Finishing.webp" },
-  { title: "Ibri Industrial City Electrical Infrastructure", category: "Electrical", location: "Ibri, Oman", year: "2025", client: "Ibri Industrial Estate", scope: "High voltage power distribution & substation installation", status: "ongoing", image: "/images/industrial-fire-pump-room-oman.webp" },
-  { title: "Sur Corniche CCTV Surveillance Project", category: "CCTV", location: "Sur, Oman", year: "2025", client: "Sur Municipality", scope: "Public area CCTV surveillance & monitoring system", status: "ongoing", image: "/images/Modern Commercial Building Exterior with Glass Facade.webp" },
-];
-
-const stats = [
-  { icon: Building2, value: "200+", label: "Projects Completed" },
-  { icon: ShieldCheck, value: "50+", label: "Happy Clients" },
-  { icon: MapPin, value: "10+", label: "Cities Across Oman" },
-  { icon: Calendar, value: "5+", label: "Years of Excellence" },
-];
-
-export default function ProjectsPage() {
-  const [activeStatus, setActiveStatus] = useState("Completed");
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filteredProjects = projects.filter((p) => {
-    const statusMatch = p.status === activeStatus.toLowerCase();
-    const categoryMatch = activeCategory === "All" || p.category === activeCategory;
-    return statusMatch && categoryMatch;
-  });
+  const visible = useMemo(
+    () =>
+      PROJECTS.filter(
+        (p) => p.status === status && (category === "All" || p.category === category)
+      ),
+    [status, category]
+  );
 
   return (
     <>
-      <SEO
-        title="Fire Safety Projects Oman | ZAIN Technical"
-        description="Explore our portfolio of completed fire protection, fire detection, electrical, CCTV, and plumbing projects across Oman. Quality installations you can trust."
-      />
+      <div className="page-hero">
+        <div className="container">
+          <nav className="breadcrumbs" aria-label="Breadcrumb">
+            <Link to="/">Home</Link> <span aria-hidden="true">/</span>{" "}
+            <span aria-current="page">Projects</span>
+          </nav>
+          <span className="eyebrow">Projects</span>
+          <h1>Project scopes ZAIN delivers across Oman.</h1>
+          <p className="lead" style={{ maxWidth: "54rem" }}>
+            Representative fire protection, fire detection, electrical and CCTV &amp; ELV scopes for
+            commercial, industrial, government and residential facilities. Facility types are shown
+            instead of client names.
+          </p>
+        </div>
+      </div>
 
-      <PageHero title="Projects We've Delivered" sub="From iconic commercial buildings to critical industrial facilities, our work speaks for itself." />
+      <section className="section" aria-label="Project scopes">
+        <div className="container">
+          <Reveal>
+            <SectionHeading
+              eyebrow="By discipline"
+              title="Browse project scopes by discipline and delivery status."
+            />
+          </Reveal>
 
-      <section className="py-20 bg-white dark:bg-navy">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {statusTabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => { setActiveStatus(tab); setActiveCategory("All"); }}
-                className={`px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 ${
-                  activeStatus === tab
-                    ? "bg-navy dark:bg-brand text-white shadow-lg"
-                    : "bg-gray-100 dark:bg-navy-deep text-[#64748B] dark:text-gray-300 hover:bg-navy/10 hover:text-navy dark:hover:text-white"
-                }`}
-              >
-                {tab}
-                <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                  activeStatus === tab
-                    ? "bg-white/20 text-white"
-                    : "bg-navy/10 dark:bg-white/10 text-[#64748B] dark:text-gray-400"
-                }`}>
-                  {projects.filter((p) => p.status === tab.toLowerCase()).length}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                  activeCategory === cat
-                    ? "bg-brand text-white shadow-lg shadow-brand/25"
-                    : "bg-gray-100 dark:bg-navy-deep text-[#64748B] dark:text-gray-300 hover:bg-brand/10 hover:text-brand-ember dark:hover:text-brand-soft"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filteredProjects.map((project, i) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  whileHover={{ y: -6 }}
-                  className="group bg-white dark:bg-navy-deep rounded-3xl border border-gray-100 dark:border-white/10 overflow-hidden shadow-soft hover:shadow-lift hover:-translate-y-1.5 transition-all duration-300"
+          <Reveal>
+            <div className="proj-tabs" role="group" aria-label="Filter by status">
+              {PROJECT_STATUSES.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className="proj-tab"
+                  aria-pressed={status === s}
+                  onClick={() => setStatus(s)}
                 >
-                  <div className="relative h-56 overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/20 to-transparent" />
-                    <div className="absolute top-4 left-4 flex gap-2">
-                      <span className="px-3 py-1.5 bg-brand-ember text-white text-xs font-semibold rounded-full shadow-lg">
-                        {project.category}
-                      </span>
-                      <span className={`px-3 py-1.5 text-white text-xs font-semibold rounded-full shadow-lg ${
-                        project.status === "completed" ? "bg-green-500" : "bg-yellow-500"
-                      }`}>
-                        {project.status === "completed" ? "Completed" : "Ongoing"}
-                      </span>
-                    </div>
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="font-display text-white font-bold text-lg leading-tight drop-shadow-lg">
-                        {project.title}
-                      </h3>
-                    </div>
-                  </div>
-                  <div className="p-5 space-y-4">
-                    <div className="flex items-center gap-4 text-sm text-[#64748B] dark:text-gray-400">
-                      <span className="flex items-center gap-1.5">
-                        <MapPin size={14} className="text-brand-ember dark:text-brand-soft" aria-hidden="true" />
-                        {project.location}
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Calendar size={14} className="text-brand-ember dark:text-brand-soft" aria-hidden="true" />
-                        {project.year}
-                      </span>
-                    </div>
-                    <div className="pt-3 border-t border-gray-100 dark:border-white/10">
-                      <p className="text-sm text-[#64748B] dark:text-gray-400">
-                        <span className="font-semibold text-navy dark:text-white">Client:</span> {project.client}
-                      </p>
-                      <p className="text-sm text-[#64748B] dark:text-gray-400 mt-1">
-                        <span className="font-semibold text-navy dark:text-white">Scope:</span> {project.scope}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
+                  {s}
+                  <span className="proj-tab-count">
+                    {PROJECTS.filter((p) => p.status === s).length}
+                  </span>
+                </button>
               ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </section>
+            </div>
 
-      <section className="py-20 bg-gray-50 dark:bg-[#0D1B2A]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            title="Our Impact by the Numbers"
-            subtitle="Project Statistics"
-            description="A track record of successful project deliveries across Oman"
-          />
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center p-8 bg-white dark:bg-navy-deep rounded-2xl border border-gray-100 dark:border-white/10 hover:shadow-lg transition-shadow"
-              >
-                <div className="w-14 h-14 rounded-xl bg-navy/[0.07] dark:bg-white/10 flex items-center justify-center mx-auto mb-4">
-                  <stat.icon size={28} className="text-navy dark:text-white" aria-hidden="true" />
-                </div>
-                <span className="font-display text-3xl lg:text-4xl font-bold text-navy dark:text-white block">
-                  {stat.value}
-                </span>
-                <p className="text-[#64748B] dark:text-gray-400 mt-2 text-sm">{stat.label}</p>
-              </motion.div>
+            <div className="proj-filters" role="group" aria-label="Filter by discipline">
+              {PROJECT_CATEGORIES.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  className="chip"
+                  aria-pressed={category === c}
+                  onClick={() => setCategory(c)}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </Reveal>
+
+          <p className="proj-results" role="status" aria-live="polite">
+            Showing {visible.length} {status.toLowerCase()} project scope
+            {visible.length === 1 ? "" : "s"}
+            {category === "All" ? "" : ` in ${category}`}.
+          </p>
+
+          {visible.length === 0 ? (
+            <p className="proj-empty">
+              No {status.toLowerCase()}
+              {category === "All" ? "" : ` ${category}`} project scopes are listed. Choose another
+              discipline or status.
+            </p>
+          ) : null}
+
+          <div className="proj-grid">
+            {visible.map((p, i) => (
+              <Reveal key={p.title} delay={(i % 3) * 70}>
+                <article className="proj-card">
+                  <div className="proj-media">
+                    <img
+                      src={p.image}
+                      alt={`${p.facility} — ${p.category} installation works`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="proj-badges">
+                      <span className="proj-badge cat">{p.category}</span>
+                      <span className={`proj-badge ${p.status === "Completed" ? "done" : "live"}`}>
+                        {p.status}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="proj-body">
+                    <h3>{p.title}</h3>
+                    <dl className="proj-meta">
+                      <div>
+                        <dt>Facility</dt>
+                        <dd>{p.facility}</dd>
+                      </div>
+                      <div>
+                        <dt>Location</dt>
+                        <dd>{p.location}</dd>
+                      </div>
+                      <div>
+                        <dt>Status</dt>
+                        <dd>
+                          {p.status} · {p.year}
+                        </dd>
+                      </div>
+                    </dl>
+                    <p className="proj-scope">{p.scope}</p>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
+
+          <p className="form-note" style={{ marginTop: "1.6rem", maxWidth: "52rem" }}>
+            These entries describe representative project scopes across ZAIN&rsquo;s divisions.
+            Specific client names are not published here.
+          </p>
         </div>
       </section>
 
-      <section className="py-20 lg:py-32 bg-navy relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand/10 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl lg:text-4xl font-bold text-white mb-4"
-          >
-            Ready to Start Your Project?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-white/70 text-lg max-w-2xl mx-auto mb-8"
-          >
-            Let's discuss your requirements and provide a tailored solution for your project.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-brand text-white rounded-lg font-semibold hover:bg-brand-soft transition-colors shadow-xl"
-            >
-              Get Free Quote <ArrowRight size={18} />
-            </Link>
-            <Link
-              to="/services"
-              className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white/30 text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
-            >
-              View Our Services
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <CtaBand />
     </>
   );
 }

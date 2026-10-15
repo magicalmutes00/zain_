@@ -1,236 +1,830 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ZAIN Technical & Integrated Services LLC — design system
+   Derived from logo identity: deep navy + brand blue + teal + signal orange.
+   Predominantly light UI, navy contrast sections, restrained teal, orange for action only. */
 
-@layer base {
-  :root {
-    --color-primary: #0A2647;
-    --color-secondary: #FF6B35;
-  }
+:root {
+  --navy-950: #071f3a;
+  --navy-900: #0c3159;
+  --navy-800: #12406f;
+  --brand-blue: #174d91;
+  --brand-blue-600: #1d5fae;
+  --teal-700: #0c6f7a;
+  --teal-500: #1a8e99;
+  --teal-100: #ddf1f3;
+  --orange-600: #dd810f;
+  --orange-500: #f5941f;
+  --orange-100: #fdeeda;
+  --white: #ffffff;
+  --off-white: #f5f7fa;
+  --surface-2: #eef2f7;
+  --ink: #16283e;
+  --body: #526174;
+  /* Small secondary text must clear 4.5:1 on white and on the off-white surfaces. */
+  --muted: #5f6d82;
+  --border: #dce3eb;
+  --border-strong: #bfcddc;
 
-  .dark {
-    --color-primary: #144272;
-    --color-background: #051525;
-  }
+  --font-display: "Sora", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
-  html {
-    scroll-behavior: smooth;
-  }
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2.125rem;
+  --text-4xl: 2.75rem;
+  --text-hero: clamp(2.25rem, 4.6vw + 1rem, 3.9rem);
 
-  body {
-    @apply bg-white text-primary antialiased transition-colors duration-300;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4.5rem;
+  --space-12: 6rem;
 
-  .dark body {
-    @apply bg-[#051525] text-white;
-  }
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(12, 49, 89, 0.08);
+  --shadow-sm: 0 6px 18px rgba(12, 49, 89, 0.09);
+  --shadow-md: 0 14px 38px rgba(12, 49, 89, 0.14);
+  --shadow-navy: 0 24px 60px rgba(7, 26, 51, 0.35);
+
+  --content: 76rem;
+  --content-narrow: 52rem;
+
+  /* How far the floating nav rises over a hero. Set to the navbar's block height (the
+     pill plus its top and bottom margins) at each breakpoint, so a hero's background can
+     be extended up behind the header by exactly the amount the header occupies — see
+     .hero and .page-hero. Update alongside the pill height. */
+  --nav-overlay: 86px;
+
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 520ms;
+  --ease: cubic-bezier(0.22, 0.7, 0.28, 1);
+
+  --bp-sm: 560px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1440px;
 }
 
-@layer components {
-  .glass {
-    @apply bg-white/85 backdrop-blur-xl border border-white/20;
-  }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html:focus-within { scroll-behavior: smooth; }
 
-  .dark .glass {
-    @apply bg-navy/85;
-  }
-
-  .btn-primary {
-    @apply px-6 py-3 bg-brand text-white rounded-lg font-semibold 
-           hover:bg-brand-soft transition-all duration-200 
-           focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2;
-  }
-
-  .btn-secondary {
-    @apply px-6 py-3 bg-navy text-white rounded-lg font-semibold 
-           hover:bg-navy-deep transition-all duration-200
-           focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2;
-  }
-
-  .card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm 
-           hover:shadow-xl hover:-translate-y-1 transition-all duration-300;
-  }
-
-  .dark .card {
-    @apply bg-navy border-white/10;
-  }
-
-  .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4;
-  }
-
-  .dark .section-title {
-    @apply text-white;
-  }
-
-  .section-subtitle {
-    @apply text-lg text-gray-600 max-w-2xl;
-  }
-
-  .dark .section-subtitle {
-    @apply text-gray-300;
-  }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--body);
+  background: var(--white);
+  line-height: 1.65;
+  font-size: var(--text-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand to-brand-soft;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
-  }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0;
 }
+p { margin: 0; }
+a { color: var(--brand-blue); }
+img, svg { display: block; max-width: 100%; }
+::selection { background: var(--orange-500); color: var(--navy-950); }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cta-sheen {
-  from { transform: translateX(-120%) skewX(-18deg); }
-  to { transform: translateX(240%) skewX(-18deg); }
-}
-
-.group:hover .cta-sheen {
-  animation: cta-sheen 0.9s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .group:hover .cta-sheen {
-    animation: none;
-  }
-}
-
-/* Scroll progress bar */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #FF6B35, #FF8F5E);
-  z-index: 9999;
-  transform-origin: left;
-}
-
-/* Skeleton loader */
-.skeleton {
-  @apply bg-gray-200 animate-pulse rounded;
-}
-
-.dark .skeleton {
-  @apply bg-gray-700;
-}
-
-/* Focus visible for accessibility */
+/* Focus ring: navy reads at 7:1 on light UI; the orange halo keeps it visible when
+   focus lands on a navy section (where a navy ring alone would disappear). */
 :focus-visible {
-  @apply outline-none ring-2 ring-brand ring-offset-2;
+  outline: 3px solid var(--navy-900);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(245, 148, 31, 0.6);
+  border-radius: 4px;
 }
 
-/* Global reduced-motion guard: disables CSS transitions/animations and
-   smooth scrolling for users who prefer reduced motion. JS-driven
-   framer-motion animations are guarded separately via MotionConfig. */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* Skip to main content link for accessibility */
 .skip-link {
-  @apply absolute -top-10 left-0 bg-brand text-white px-4 py-2 z-50 
-         transition-transform duration-200;
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--navy-900);
+  color: #fff;
+  padding: 0.7rem 1.1rem;
+  border-radius: 0 0 10px 0;
+  z-index: 200;
+}
+.skip-link:focus { left: 0; }
+
+.container {
+  width: min(100% - 2.5rem, var(--content));
+  margin-inline: auto;
+}
+.container-narrow {
+  width: min(100% - 2.5rem, var(--content-narrow));
+  margin-inline: auto;
 }
 
-.skip-link:focus {
-  @apply top-0;
+.section { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+.section-tight { padding: clamp(2.5rem, 5vw, 4rem) 0; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal-700);
+  margin-bottom: 0.9rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--orange-500), var(--teal-500));
+}
+.eyebrow.on-dark { color: #ffd9a8; }
+
+.lead { font-size: var(--text-lg); color: var(--body); }
+.on-dark h1, .on-dark h2, .on-dark h3 { color: #fff; }
+.on-dark p, .on-dark li { color: #c3d0e0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.9rem 1.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  min-height: 48px;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--orange-500);
+  /* Navy on orange: 7.3:1. White on this orange measured only 2.3:1. */
+  color: var(--navy-950);
+  box-shadow: 0 10px 24px rgba(245, 148, 31, 0.35);
+}
+.btn-primary:hover { background: var(--orange-600); box-shadow: 0 12px 28px rgba(221, 129, 15, 0.4); }
+.btn-navy { background: var(--navy-900); color: #fff; }
+.btn-navy:hover { background: var(--navy-800); }
+.btn-ghost {
+  background: #fff;
+  border-color: var(--border-strong);
+  color: var(--navy-900);
+}
+.btn-ghost:hover { border-color: var(--navy-900); }
+.btn-light {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+.btn-light:hover { background: rgba(255, 255, 255, 0.18); }
+
+.card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
 }
 
-/* Arabic RTL support */
-[dir="rtl"] {
-  direction: rtl;
-  text-align: right;
+/* Header — the sticky wrapper stays transparent. The glass lives on the bars
+   themselves, so the nav can float as a capsule over the page instead of reading as
+   one flat full-width strip. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar {
+  /* Dark glass: the utility bar keeps its navy identity but frosts the page behind. */
+  background: rgba(12, 49, 89, 0.84);
+  backdrop-filter: blur(22px) saturate(180%) brightness(1.05);
+  color: #c9d6e7;
+  font-size: 0.82rem;
+}
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+}
+.topbar a { color: #fff; text-decoration: none; font-weight: 600; }
+.topbar a:hover { color: #ffcf99; }
+/* 24px minimum target height (WCAG 2.5.8) for the utility-bar links. */
+.topbar a.topbar-item { min-height: 24px; }
+.topbar-contacts { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
+.topbar-item { display: inline-flex; align-items: center; gap: 0.45rem; }
+.topbar-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(245, 148, 31, 0.16);
+  border: 1px solid rgba(245, 148, 31, 0.45);
+  color: #ffd9a8;
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  /* Liquid glass, pill-ended: the radius is half the bar's height at every width, so
+     the caps are true semicircles. Two stacked gradients: a specular sheen across the
+     top, then the pane. */
+  margin: 0.6rem auto 0.85rem;
+  padding: 0.4rem 0.55rem 0.4rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.07));
+  backdrop-filter: blur(22px) saturate(180%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.45),
+    0 0 0 1px rgba(12, 49, 89, 0.05),
+    0 2px 6px rgba(12, 49, 89, 0.06),
+    0 12px 32px rgba(12, 49, 89, 0.14);
+}
+.site-header.is-scrolled .navbar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.18));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.5),
+    0 0 0 1px rgba(12, 49, 89, 0.05),
+    0 3px 8px rgba(12, 49, 89, 0.07),
+    0 18px 44px rgba(12, 49, 89, 0.18);
+}
+/* Safari before 18 only understands the prefixed property. It lives in its own rule
+   on purpose: written next to each other, the production CSS minifier treats the
+   prefixed and unprefixed pair as one declaration and silently drops the standard
+   `backdrop-filter`, which left Chromium and Firefox with no blur at all. */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  .topbar,
+  .navbar,
+  .mobile-menu,
+  .nav-drop-menu {
+    -webkit-backdrop-filter: blur(22px) saturate(180%) brightness(1.05);
+  }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .topbar { background: rgba(12, 49, 89, 0.97); }
+  .navbar,
+  .mobile-menu { background: #fff; }
+}
+.brand { display: inline-flex; align-items: center; text-decoration: none; }
+/* The bar's height is driven by this box, so this is the number that sets it: 48px
+   (was 72px) yields a ~63px pill. The wordmark is ~4.66:1, so a width cap — not the
+   height — is what keeps it from crowding the nav links; object-fit: contain fits the
+   lockup inside the capped box, centred, without distorting it. The cap is fluid
+   because the room the brand can take shrinks with the viewport: 17vw clears the
+   tightest band (769–900px), reaching the full width from ~1410px up. */
+.brand img { height: 48px; width: auto; max-width: min(240px, 17vw); object-fit: contain; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+.nav-links a, .nav-drop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+.nav-links a:hover, .nav-drop-btn:hover { background: rgba(12, 49, 89, 0.07); color: var(--brand-blue); }
+.nav-links a.active { color: var(--brand-blue); background: rgba(12, 49, 89, 0.11); }
+.nav-drop { position: relative; }
+.nav-drop-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 340px;
+  /* Glass to match the capsule. It hangs below the header box, so it carries its
+     own blur; the prefix is added by the shared @supports block above. */
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(22px) saturate(180%) brightness(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), var(--shadow-md);
+  padding: 0.5rem;
+  list-style: none;
+  margin: 0;
+}
+.nav-drop-menu a {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.75rem;
+  border-radius: 10px;
+}
+.nav-drop-menu a small { display: block; color: var(--muted); font-weight: 500; }
+.nav-cta { display: flex; align-items: center; gap: 0.7rem; }
+/* Compact header buttons — shorter and slimmer than the body .btn so the bar stays
+   thin, but still a comfortable target. nowrap keeps the labels on one line so a
+   tight bar never stretches the button into two rows. */
+.nav-cta .btn { min-height: 40px; padding: 0.5rem 1.05rem; font-size: 0.88rem; white-space: nowrap; }
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(12, 49, 89, 0.12);
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  color: var(--navy-900);
+}
+.mobile-menu {
+  display: none;
+  /* Floating glass panel matching the capsule above it. */
+  margin: 0 1.25rem 0.9rem;
+  padding: 0.4rem 0.9rem 0.8rem;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.6));
+  backdrop-filter: blur(22px) saturate(180%) brightness(1.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 36px rgba(12, 49, 89, 0.16);
+}
+/* The inner .container insets itself for the page grid; inside the panel it fills. */
+.mobile-menu > .container { width: 100%; }
+.mobile-menu.open { display: block; }
+/* If the viewport grows past the mobile breakpoint while the menu is open, hide it
+   again — the toggle is not reachable at those widths, so it must not linger. */
+@media (min-width: 769px) {
+  .mobile-menu.open { display: none; }
+}
+.mobile-menu a, .mobile-menu .m-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0.2rem;
+  color: var(--ink);
+  font-weight: 650;
+  text-decoration: none;
+  border-bottom: 1px solid var(--surface-2);
+}
+.mobile-menu a.active { color: var(--brand-blue); }
+
+/* Hero */
+.hero {
+  position: relative;
+  /* A 16:9 band, capped so it can never be taller than the copy it holds. A bare 16:9
+     band at 1440–1920px is 810–1080px tall while the hero's content is ~600–720px, so
+     the centred copy was left stranded ~120–190px below the nav. `max-height: max-content`
+     keeps the 16:9 shape wherever the content actually fills it and otherwise stops the
+     band from growing — so the copy keeps a constant, small gap to the nav at every width.
+     Everything inside is sized to fit the band — see the "Hero 16:9 fit" rules further
+     down, which is where content is reduced (never clipped) as the band gets shorter.
+     The nav floats over the hero's top: content-box + a top padding of exactly the
+     nav's height, cancelled by an equal negative margin. The band's gradient therefore
+     reaches up behind the header while the content box — and every pixel inside it —
+     stays exactly where it was. */
+  box-sizing: content-box;
+  padding-top: var(--nav-overlay);
+  margin-top: calc(-1 * var(--nav-overlay));
+  aspect-ratio: 16 / 9;
+  max-height: max-content;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 420px at 85% -10%, rgba(26, 142, 153, 0.16), transparent 60%),
+    radial-gradient(760px 380px at -10% 20%, rgba(23, 77, 145, 0.1), transparent 55%),
+    linear-gradient(180deg, #f7fafd 0%, #ffffff 70%);
+  border-bottom: 1px solid var(--border);
+}
+/* Hero entrance — CSS-only (no animation library needed for a single reveal). */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-enter { animation: heroRise 560ms var(--ease) both; }
+.hero-enter-delayed { animation: heroRise 660ms var(--ease) 120ms both; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: center;
+  /* No height: 100% — the row must be free to report its own height so the band can hug
+     it (see .hero's max-height). The vertical padding is the band's breathing room: it is
+     what separates the copy from the nav above and from the next section below. */
+  padding: clamp(0.85rem, 2.2vw, 2.4rem) 0;
+}
+.hero h1 { font-size: clamp(1.05rem, 2.3vw + 0.6rem, 3.25rem); margin-bottom: clamp(0.45rem, 0.9vw, 1.1rem); }
+.hero h1 .accent { color: var(--brand-blue); position: relative; white-space: nowrap; }
+.hero h1 .accent::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 2px;
+  height: 10px;
+  background: linear-gradient(90deg, rgba(245, 148, 31, 0.35), rgba(14, 124, 136, 0.25));
+  z-index: -1;
+  border-radius: 4px;
+}
+/* Deeper teal than the site token: the hero's tinted washes lighten the background
+   behind the eyebrow just enough to drop the token under 4.5:1 at phone widths. */
+.hero .eyebrow { color: #0a5a63; margin-bottom: clamp(0.45rem, 0.9vw, 0.9rem); }
+.hero-sub { font-size: clamp(0.82rem, 0.45vw + 0.62rem, 1.08rem); max-width: 38rem; margin-bottom: clamp(0.6rem, 1.1vw, 1.4rem); }
+.hero-ctas { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: clamp(0.6rem, 1.2vw, 1.6rem); }
+.hero-proof {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: clamp(0.6rem, 1vw, 1.2rem);
+}
+.hero-proof div strong { display: block; color: var(--navy-900); font-family: var(--font-display); font-size: 1.15rem; }
+.hero-proof div span { font-size: 0.85rem; color: var(--muted); }
+.hero-visual {
+  position: relative;
+  background: linear-gradient(160deg, var(--navy-900), var(--navy-800) 55%, #12457e);
+  border-radius: 22px;
+  padding: 1.4rem;
+  box-shadow: var(--shadow-navy);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.hero-visual::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: radial-gradient(70% 70% at 50% 30%, black, transparent);
+}
+.hero-panel { position: relative; background: rgba(255,255,255,0.96); border-radius: 16px; padding: 1.1rem; }
+.hero-panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.9rem; }
+.live-dot { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; color: #0c7a3d; }
+.live-dot::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 0 5px rgba(22,163,74,0.18); }
+.sys-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+  padding: 0.7rem 0.8rem; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 0.6rem;
+  background: #fff;
+}
+.sys-row b { color: var(--ink); font-size: 0.92rem; display: block; }
+.sys-row small { color: var(--muted); font-size: 0.8rem; }
+.pill { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; padding: 0.28rem 0.65rem; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: #e3f5e9; color: #0c7a3d; border: 1px solid #bfe6cc; }
+.pill.warn { background: var(--orange-100); color: #9a5b06; border: 1px solid #f5cf99; }
+.pill.info { background: #e5eefb; color: var(--brand-blue); border: 1px solid #c3d5ee; }
+.hero-standards { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.9rem; position: relative; }
+.std-chip {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+  border: 1px solid rgba(255,255,255,0.28); color: #e7eef7;
+  padding: 0.3rem 0.65rem; border-radius: 999px; background: rgba(255,255,255,0.08);
+}
+.rise-bar { display: flex; align-items: flex-end; gap: 8px; height: 64px; margin-top: 1rem; position: relative; }
+.rise-bar i { flex: 1; border-radius: 6px 6px 3px 3px; background: linear-gradient(180deg, var(--orange-500), #bd6c06); opacity: 0.95; }
+.rise-bar i:nth-child(2n) { background: linear-gradient(180deg, var(--teal-500), #05616a); }
+
+/* Grids + cards */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.8rem, 4vw, 3.5rem); align-items: center; }
+.kicker-list { list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 0.7rem; }
+.kicker-list li { display: flex; gap: 0.7rem; align-items: flex-start; background: var(--off-white); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 0.9rem; }
+.kicker-list b { color: var(--ink); }
+
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 2rem; }
+.svc-card {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 1.4rem; display: flex; flex-direction: column; gap: 0.7rem;
+  transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease);
+  text-decoration: none;
+}
+.svc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.svc-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(150deg, var(--navy-900), var(--brand-blue));
+  color: #fff;
+}
+.svc-card:nth-child(2) .svc-icon { background: linear-gradient(150deg, #bd6c06, var(--orange-500)); }
+.svc-card:nth-child(3) .svc-icon { background: linear-gradient(150deg, #04606a, var(--teal-700)); }
+.svc-card h3 { font-size: 1.12rem; margin: 0; }
+.svc-card h3 a { color: inherit; text-decoration: none; }
+.svc-card p { font-size: 0.94rem; }
+.svc-link { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; font-size: 0.9rem; color: var(--brand-blue); margin-top: auto; }
+
+.cap-band { background: var(--navy-900); border-radius: 22px; padding: clamp(1.8rem, 4vw, 3rem); position: relative; overflow: hidden; }
+.cap-band::after {
+  content: "";
+  position: absolute; right: -80px; top: -80px; width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(245, 148, 31, 0.35), transparent 65%);
+}
+.cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; position: relative; z-index: 1; margin-top: 1.6rem; }
+.cap-item { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 16px; padding: 1.2rem; }
+.cap-item h3 { color: #fff; font-size: 1.02rem; margin: 0.7rem 0 0.4rem; }
+.cap-item p { font-size: 0.9rem; color: #c3d0e0; }
+.cap-ic { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(242,140,24,0.18); color: #ffc98a; border: 1px solid rgba(242,140,24,0.35); }
+
+.steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; margin-top: 2rem; counter-reset: step; }
+.step { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.1rem; position: relative; }
+.step::before {
+  counter-increment: step; content: "0" counter(step);
+  font-family: var(--font-display); font-weight: 800; color: var(--orange-500); font-size: 0.85rem; letter-spacing: 0.1em;
+}
+.step h3 { font-size: 1rem; margin: 0.4rem 0; }
+.step p { font-size: 0.87rem; }
+
+.sector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.sector { border: 1px solid var(--border); border-radius: 14px; padding: 1.1rem 1.2rem; background: var(--off-white); }
+.sector b { color: var(--navy-900); display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.3rem; }
+.sector p { font-size: 0.9rem; }
+
+.cta-band {
+  background: linear-gradient(120deg, var(--navy-900) 55%, var(--brand-blue));
+  border-radius: 22px;
+  padding: clamp(2rem, 5vw, 3.4rem);
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 2rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::before {
+  content: "";
+  position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+  background: linear-gradient(180deg, var(--orange-500), var(--teal-500));
+}
+.cta-actions { display: flex; flex-direction: column; gap: 0.8rem; }
+.contact-line { display: flex; gap: 0.9rem; align-items: center; color: #dbe6f4; text-decoration: none; }
+.contact-line strong { color: #fff; }
+
+/* Page hero. Same overlay trick as .hero: the band is pulled up by the nav's height and
+   given that height back as top padding, so the tinted background starts behind the
+   header and the breadcrumbs/heading below it do not move. */
+.page-hero {
+  background: linear-gradient(180deg, #eef3f9, #fff);
+  border-bottom: 1px solid var(--border);
+  margin-top: calc(-1 * var(--nav-overlay));
+  padding: calc(clamp(2.2rem, 5vw, 3.8rem) + var(--nav-overlay)) 0 clamp(2.2rem, 5vw, 3.8rem);
+}
+.breadcrumbs { display: flex; gap: 0.5rem; align-items: center; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.8rem; }
+.breadcrumbs a { color: var(--brand-blue); text-decoration: none; font-weight: 600; display: inline-block; padding-block: 0.3rem; }
+.page-hero h1 { font-size: clamp(2rem, 3.6vw + 1rem, 3.1rem); margin-bottom: 0.7rem; }
+
+/* Tables / certs */
+.cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.8rem; }
+.cert-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.3rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.cert-card .no { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; color: var(--teal-700); text-transform: uppercase; }
+.cert-card h3 { font-size: 1rem; }
+.cert-card dl { margin: 0; display: grid; gap: 0.35rem; font-size: 0.87rem; }
+.cert-card dt { font-weight: 700; color: var(--ink); display: inline; }
+.cert-card dd { display: inline; margin: 0; }
+
+/* Forms */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-weight: 700; font-size: 0.88rem; color: var(--ink); }
+.field input, .field select, .field textarea {
+  font: inherit;
+  padding: 0.8rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+.field textarea { min-height: 140px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--brand-blue); outline: 3px solid rgba(23,77,145,0.18); }
+.field [aria-invalid="true"] { border-color: #c0392b; }
+.field-error { color: #a93226; font-size: 0.83rem; font-weight: 600; }
+.form-note { font-size: 0.85rem; color: var(--muted); }
+.alert { border-radius: 12px; padding: 0.9rem 1rem; font-size: 0.92rem; font-weight: 600; }
+.alert.ok { background: #e3f5e9; color: #0c5c2e; border: 1px solid #bfe6cc; }
+.alert.err { background: #fdecea; color: #922b21; border: 1px solid #f5c6c0; }
+
+/* Footer */
+.site-footer { background: var(--navy-950); color: #b9c7da; margin-top: 0; }
+.footer-grid { display: grid; grid-template-columns: 1.3fr 0.7fr 0.7fr 1fr; gap: 2rem; padding: 3.2rem 0 2rem; }
+.site-footer h2, .site-footer h3, .site-footer .footer-heading { color: #fff; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem; }
+.site-footer a { color: #c9d6e7; text-decoration: none; font-size: 0.93rem; }
+.site-footer a:hover { color: #ffc98a; }
+.footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+.footer-links a { display: inline-block; padding-block: 0.2rem; }
+.footer-brand img { height: 84px; width: auto; }
+.footer-logo-plaque {
+  display: inline-block;
+  background: #fff;
+  border-radius: 14px;
+  padding: 0.7rem 0.95rem;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.12); padding: 1.2rem 0; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.85rem; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(18px); }
+.reveal.is-visible { opacity: 1; transform: none; transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
+
+.detail-layout { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
+.toc { position: sticky; top: 110px; background: var(--off-white); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; }
+.toc h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.7rem; }
+.toc a { display: block; padding: 0.45rem 0; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.9rem; border-bottom: 1px solid var(--border); }
+.toc a:last-child { border-bottom: 0; }
+.checklist { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.6rem; }
+.checklist li { display: flex; gap: 0.6rem; align-items: flex-start; }
+.prod-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.92rem; }
+.prod-table th, .prod-table td { text-align: left; padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border); }
+.prod-table th { background: var(--off-white); color: var(--navy-900); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Projects */
+.proj-tabs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.6rem; }
+.proj-tab {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font: inherit; font-weight: 700; font-size: 0.92rem;
+  padding: 0.7rem 1.2rem; min-height: 48px;
+  border-radius: var(--radius-pill); cursor: pointer;
+  border: 1px solid var(--border-strong); background: #fff; color: var(--ink);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.proj-tab:hover { border-color: var(--navy-900); }
+.proj-tab[aria-pressed="true"] { background: var(--navy-900); color: #fff; border-color: var(--navy-900); }
+.proj-tab-count {
+  font-size: 0.75rem; font-weight: 800; padding: 0.1rem 0.5rem; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink);
+}
+.proj-tab[aria-pressed="true"] .proj-tab-count { background: rgba(255, 255, 255, 0.22); color: #fff; }
+.proj-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+.chip {
+  font: inherit; font-weight: 650; font-size: 0.88rem;
+  padding: 0.55rem 1rem; min-height: 44px;
+  border-radius: var(--radius-pill); cursor: pointer;
+  border: 1px solid var(--border-strong); background: #fff; color: var(--ink);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.chip:hover { border-color: var(--brand-blue); color: var(--brand-blue); }
+.chip[aria-pressed="true"] { background: var(--brand-blue); border-color: var(--brand-blue); color: #fff; }
+.proj-results { margin-top: 1.3rem; font-size: 0.9rem; color: var(--muted); }
+.proj-empty {
+  margin-top: 1rem; padding: 1.6rem; text-align: center;
+  background: var(--off-white); border: 1px dashed var(--border-strong);
+  border-radius: 14px; color: var(--muted);
+}
+.proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 1rem; }
+.proj-grid > .reveal { height: 100%; }
+.proj-card {
+  height: 100%; display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease);
+}
+.proj-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+/* Fixed 4:3 media box, reserved up front so nothing shifts as photos load. The <img> is
+   absolutely positioned so its intrinsic size — several of these photos are portrait —
+   can never stretch the box; the ratio wins and object-fit crops instead. */
+.proj-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-2); }
+.proj-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.proj-badges { position: absolute; top: 0.7rem; left: 0.7rem; right: 0.7rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.proj-badge {
+  font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 0.3rem 0.65rem; border-radius: 999px;
+}
+/* Solid badges keep label contrast independent of the photo behind them. */
+.proj-badge.cat { background: var(--navy-900); color: #fff; }
+.proj-badge.done { background: #0c5c2e; color: #fff; }
+.proj-badge.live { background: #7a4a05; color: #fff; }
+.proj-body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.proj-body h3 { font-size: 1.06rem; }
+.proj-meta { margin: 0; display: grid; gap: 0.35rem; font-size: 0.85rem; color: var(--muted); }
+.proj-meta div { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.proj-meta dt { font-weight: 700; color: var(--ink); }
+.proj-meta dd { margin: 0; }
+.proj-scope { margin-top: auto; font-size: 0.9rem; color: var(--body); border-top: 1px solid var(--border); padding-top: 0.75rem; }
+
+/* Between tablet and small-laptop widths the full nav is a tight fit, so the link
+   targets tighten up before anything is dropped or wrapped onto a second line. */
+@media (max-width: 1200px) {
+  .nav-links a, .nav-drop-btn { padding: 0.55rem 0.62rem; font-size: 0.88rem; }
 }
 
-[dir="rtl"] .rtl\:flip {
-  transform: scaleX(-1);
+/* 769–900px is the one band where six labels plus the CTA genuinely do not fit: with
+   the webfont applied the row overflowed by up to 37px, because the labels' min-content
+   — not the logo — sets the floor. A tighter target here buys the ~40px needed (the
+   capsule height and the logo size are untouched) and from ~850px up it also puts the
+   labels back onto a single line. */
+@media (min-width: 769px) and (max-width: 900px) {
+  .nav-links a, .nav-drop-btn { padding: 0.45rem 0.5rem; font-size: 0.82rem; }
 }
 
-/* Smooth scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  /* The secondary header CTA steps aside before the primary one has to shrink; the
+     same destination is still reachable from the About menu. */
+  .nav-cta .btn-ghost { display: none; }
+  .svc-grid, .cap-grid, .sector-grid, .cert-grid, .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .split, .cta-band, .detail-layout { grid-template-columns: 1fr; }
+  .toc { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .topbar-badge { display: none; }
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+@media (max-width: 768px) {
+  .nav-links, .nav-cta .btn-ghost { display: none; }
+  .menu-toggle { display: inline-flex; }
+  .nav-cta .btn { padding: 0.45rem 0.95rem; font-size: 0.85rem; min-height: 40px; }
+  .brand img { height: 40px; max-width: min(150px, 30vw); }
+  .footer-brand img { height: 68px; }
+  /* Hide the secondary contacts on narrow screens (email is an <a>, location a <span>,
+     so target the class rather than the tag). */
+  .topbar-contacts .hide-m { display: none; }
+  /* Keep the remaining topbar contact a comfortable touch target. */
+  .topbar a.topbar-item { min-height: 44px; }
+  .footer-links { gap: 0.75rem; }
 }
 
-.dark ::-webkit-scrollbar-track {
-  @apply bg-gray-800;
+@media (max-width: 560px) {
+  .svc-grid, .cap-grid, .sector-grid, .cert-grid, .proj-grid, .steps, .form-grid, .footer-grid { grid-template-columns: 1fr; }
+  .proj-tab, .chip { width: 100%; justify-content: center; }
+  .hero-ctas .btn { width: 100%; }
+  .container { width: min(100% - 1.75rem, var(--content)); }
+  /* Keep the floating menu panel aligned with the capsule at this gutter. */
+  .mobile-menu { margin: 0 0.875rem 0.9rem; }
+  .cap-band, .cta-band, .hero-visual { border-radius: 16px; }
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 rounded-full;
+@media (max-width: 430px) {
+  /* The pill is 59px here (the 44px toggle drives it), so the overlay shrinks with it. */
+  :root { --nav-overlay: 82px; }
+  .brand img { height: 34px; }
+  .nav-cta .btn { padding: 0.4rem 0.8rem; font-size: 0.8rem; min-height: 38px; }
+  .menu-toggle { width: 44px; height: 44px; }
+  .navbar { gap: 0.6rem; }
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  @apply bg-gray-600;
+/* Hero 16:9 fit. The band's height is fixed by its width, so as the band gets
+   shorter the least load-bearing content leaves first: the fact strip and the
+   panel's decorative bar chart / standards chips below 1200px, the illustrative
+   panel itself below 1025px (where the layout is single-column any way), and the
+   supporting paragraph on phones. The eyebrow, headline and buttons stay at every
+   width. Nothing is ever clipped: the band's height comes from the ratio alone, so
+   content is reduced rather than cut off. */
+@media (max-width: 1200px) {
+  .hero-proof { display: none; }
+  .hero-visual .rise-bar,
+  .hero-visual .hero-standards { display: none; }
+}
+@media (max-width: 1024px) {
+  .hero-visual { display: none; }
+}
+@media (max-width: 640px) {
+  .hero-sub { display: none; }
+  /* Both buttons share one row so the band stays inside its 16:9 height. */
+  .hero-ctas .btn { width: auto; }
+}
+@media (max-width: 430px) {
+  .hero-ctas .btn { padding: 0.6rem 0.85rem; font-size: 0.84rem; }
+}
+/* Phones narrower than 360 (band under 203px) need the eyebrow gone and the type a
+   notch smaller so the headline and buttons still fit the band. */
+@media (max-width: 359px) {
+  .hero .eyebrow { display: none; }
+  .hero h1 { font-size: 0.95rem; }
+  .hero-ctas .btn { padding: 0.5rem 0.7rem; font-size: 0.78rem; }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-400;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500;
-}
-
-/* Page transition */
-.page-transition-enter {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.page-transition-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 400ms, transform 400ms;
-}
-
-.page-transition-exit {
-  opacity: 1;
-}
-
-.page-transition-exit-active {
-  opacity: 0;
-  transition: opacity 200ms;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1; transform: none; }
 }

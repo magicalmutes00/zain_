@@ -1,15 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin
 
-# Block common scrapers / abusers
-User-agent: AhrefsBot
-Disallow: /
-User-agent: SemrushBot
-Disallow: /
-User-agent: MJ12bot
-Disallow: /
-User-agent: DotBot
-Disallow: /
-
-Sitemap: https://zaintechoman.com/sitemap.xml
+Sitemap: https://www.zaintechoman.com/sitemap.xml

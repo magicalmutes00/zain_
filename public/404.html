@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <title>Page not found — ZAIN Technical &amp; Integrated Services LLC</title>
+    <!--
+      Static fallback 404 for hosts that cannot rewrite unknown paths to index.html
+      (e.g. GitHub Pages, or an S3/storage bucket without a routing rule).
+      Hosts configured with the SPA fallback in netlify.toml / vercel.json /
+      public/_redirects never serve this file — the app renders its own 404 instead.
+      Kept self-contained (inline CSS, no hashed assets) so it works standalone.
+    -->
+    <style>
+      :root { color-scheme: light; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: #0c3159;
+        color: #16283e;
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+      .card {
+        width: 100%;
+        max-width: 34rem;
+        background: #fff;
+        border-radius: 16px;
+        padding: 2.25rem 2rem;
+        text-align: center;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      }
+      img { width: 220px; max-width: 70%; height: auto; margin: 0 auto 1.4rem; display: block; }
+      .code { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #0c6f7a; }
+      h1 { font-size: 1.5rem; margin: 0.4rem 0 0.7rem; }
+      p { margin: 0 0 1.5rem; color: #526174; line-height: 1.6; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center; }
+      a {
+        display: inline-block;
+        padding: 0.75rem 1.3rem;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        border: 1px solid #bfcddc;
+        color: #0c3159;
+        min-height: 44px;
+      }
+      a.primary { background: #0c3159; border-color: #0c3159; color: #fff; }
+      a:focus-visible { outline: 3px solid #0c3159; outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <img src="/assets/zain-logo.png" alt="ZAIN Technical &amp; Integrated Services LLC" />
+      <p class="code">Error 404</p>
+      <h1>That page doesn&rsquo;t exist.</h1>
+      <p>
+        The page you were looking for may have moved or the address may be mistyped.
+        Return to the homepage, or get in touch and we&rsquo;ll point you the right way.
+      </p>
+      <div class="actions">
+        <a class="primary" href="/">Back to homepage</a>
+        <a href="/contact">Contact ZAIN</a>
+      </div>
+    </main>
+  </body>
+</html>
