@@ -92,7 +92,7 @@ export function Header() {
               onMouseLeave={() => setDropOpen(false)}
             >
               <button
-                className="nav-drop-btn"
+                className={`nav-drop-btn${loc.pathname.startsWith("/services") ? " active" : ""}`}
                 aria-expanded={dropOpen}
                 aria-haspopup="true"
                 onClick={() => setDropOpen((v) => !v)}
@@ -102,17 +102,20 @@ export function Header() {
               {dropOpen ? (
                 <ul className="nav-drop-menu" aria-label="Services">
                   <li>
-                    <Link to="/services">
+                    <NavLink to="/services" end className={({ isActive }) => (isActive ? "active" : "")}>
                       <strong>All services</strong>
                       <small>Design → commissioning across 6 divisions</small>
-                    </Link>
+                    </NavLink>
                   </li>
                   {SERVICES.map((s) => (
                     <li key={s.slug}>
-                      <Link to={`/services/${s.slug}`}>
+                      <NavLink
+                        to={`/services/${s.slug}`}
+                        className={({ isActive }) => (isActive ? "active" : "")}
+                      >
                         <strong>{s.title}</strong>
                         <small>{s.short}</small>
-                      </Link>
+                      </NavLink>
                     </li>
                   ))}
                 </ul>

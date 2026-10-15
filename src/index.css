@@ -327,8 +327,55 @@ img, svg { display: block; max-width: 100%; }
   cursor: pointer;
   font-family: var(--font-body);
 }
-.nav-links a:hover, .nav-drop-btn:hover { background: rgba(12, 49, 89, 0.07); color: var(--brand-blue); }
-.nav-links a.active { color: var(--brand-blue); background: rgba(12, 49, 89, 0.11); }
+/* Hover / current-page treatment for the desktop row. Child-scoped on purpose: the plain
+   `.nav-links a` above also matches the dropdown's own links, which get their own, softer
+   version further down. Two states, deliberately different:
+     hover        — a frosted chip that lifts a hair and warms the label to brand blue;
+     current page — the same chip, a touch stronger, plus a bar under the label.
+   The fill is a navy tint rather than a white one because the capsule is translucent over
+   the hero and turns whiter once scrolled (.site-header.is-scrolled): a white chip would
+   read on the hero and vanish on the scrolled pane. Nothing here changes geometry —
+   padding, font-size and font-weight are untouched by both states — so a hover can never
+   reflow the row, which matters in the tight 769–900px band. */
+.nav-links > li > a,
+.nav-drop-btn {
+  position: relative;
+  border-radius: 999px;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+/* The current-page bar: centred under the label and grown from the middle with scaleX, so
+   it costs no layout and animates on its own once a route change flips the class. */
+.nav-links > li > a::after,
+.nav-drop-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--teal-500), var(--brand-blue));
+  transform: translateX(-50%) scaleX(0);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.nav-links > li > a:hover,
+.nav-drop-btn:hover,
+/* Pressed look while the Services panel is open. */
+.nav-drop-btn[aria-expanded="true"] {
+  background: rgba(12, 49, 89, 0.08);
+  color: var(--brand-blue);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 6px 14px -10px rgba(12, 49, 89, 0.55);
+  transform: translateY(-1px);
+}
+.nav-links > li > a.active,
+.nav-drop-btn.active {
+  background: rgba(12, 49, 89, 0.14);
+  color: var(--brand-blue);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 4px 12px -10px rgba(12, 49, 89, 0.5);
+}
+.nav-links > li > a.active::after,
+.nav-drop-btn.active::after { transform: translateX(-50%) scaleX(1); }
 .nav-drop { position: relative; }
 .nav-drop-menu {
   position: absolute;
@@ -352,8 +399,17 @@ img, svg { display: block; max-width: 100%; }
   align-items: flex-start;
   padding: 0.7rem 0.75rem;
   border-radius: 10px;
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
 }
 .nav-drop-menu a small { display: block; color: var(--muted); font-weight: 500; }
+/* Same two states as the capsule's own links, softened for a list: hover tints the row
+   and nudges it right; the division currently being read keeps the tint, a brand-blue
+   title and a teal tick down its left edge. */
+.nav-drop-menu a:hover { background: rgba(12, 49, 89, 0.06); transform: translateX(2px); }
+.nav-drop-menu a:hover strong { color: var(--brand-blue); }
+.nav-drop-menu a.active { background: rgba(12, 49, 89, 0.08); box-shadow: inset 3px 0 0 var(--teal-500); }
+.nav-drop-menu a.active strong { color: var(--brand-blue); }
 .nav-cta { display: flex; align-items: center; gap: 0.7rem; }
 /* Compact header buttons — shorter and slimmer than the body .btn so the bar stays
    thin, but still a comfortable target. nowrap keeps the labels on one line so a
@@ -370,7 +426,12 @@ img, svg { display: block; max-width: 100%; }
   background: rgba(255, 255, 255, 0.55);
   cursor: pointer;
   color: var(--navy-900);
+  transition: background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
 }
+.menu-toggle:hover { background: rgba(255, 255, 255, 0.9); border-color: rgba(12, 49, 89, 0.24); }
+/* Open: the toggle reads as pressed for as long as its panel is showing. */
+.menu-toggle[aria-expanded="true"] { background: rgba(12, 49, 89, 0.12); border-color: rgba(12, 49, 89, 0.24); }
 .mobile-menu {
   display: none;
   /* Floating glass panel matching the capsule above it. */
@@ -397,32 +458,41 @@ img, svg { display: block; max-width: 100%; }
   align-items: center;
   justify-content: space-between;
   padding: 0.85rem 0.2rem;
+  border-radius: 12px;
   color: var(--ink);
   font-weight: 650;
   text-decoration: none;
   border-bottom: 1px solid var(--surface-2);
 }
-.mobile-menu a.active { color: var(--brand-blue); }
+/* The capsule's hover/selected language, softened for full-width rows: a tint on hover;
+   the current page keeps the tint and gains a teal tick down its left edge. Both are
+   background/shadow only, so no row ever shifts under the finger. */
+.mobile-menu a {
+  transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.mobile-menu a:hover { background: rgba(12, 49, 89, 0.05); color: var(--brand-blue); }
+.mobile-menu a.active {
+  background: rgba(12, 49, 89, 0.08);
+  color: var(--brand-blue);
+  box-shadow: inset 3px 0 0 var(--teal-500);
+}
 
 /* Hero */
 .hero {
   position: relative;
-  /* A 16:9 band, capped so it can never be taller than the copy it holds. A bare 16:9
-     band at 1440–1920px is 810–1080px tall while the hero's content is ~600–720px, so
-     the centred copy was left stranded ~120–190px below the nav. `max-height: max-content`
-     keeps the 16:9 shape wherever the content actually fills it and otherwise stops the
-     band from growing — so the copy keeps a constant, small gap to the nav at every width.
-     Everything inside is sized to fit the band — see the "Hero 16:9 fit" rules further
-     down, which is where content is reduced (never clipped) as the band gets shorter.
-     The nav floats over the hero's top: content-box + a top padding of exactly the
-     nav's height, cancelled by an equal negative margin. The band's gradient therefore
-     reaches up behind the header while the content box — and every pixel inside it —
-     stays exactly where it was. */
+  /* The band hugs its content: no aspect ratio, so its height is the copy (plus the nav
+     overlay) and the small vertical padding on .hero-grid, and nothing else. A 16:9 band
+     measured its height off the viewport width instead — 576px at 1024, 1080px at 1920 —
+     which left up to ~300px of empty band below the copy wherever the illustrative panel
+     is hidden (below 1025px) and left the copy stranded below the nav at desktop widths.
+     Hugging removes the space above the copy and the space below it in one move; the
+     narrow-width rules further down now only keep the band compact. The nav floats over
+     the hero's top: content-box + a top padding of exactly the nav's height, cancelled by
+     an equal negative margin. The band's gradient therefore reaches up behind the header
+     while the content box — and every pixel inside it — stays exactly where it was. */
   box-sizing: content-box;
   padding-top: var(--nav-overlay);
   margin-top: calc(-1 * var(--nav-overlay));
-  aspect-ratio: 16 / 9;
-  max-height: max-content;
   overflow: hidden;
   background:
     radial-gradient(900px 420px at 85% -10%, rgba(26, 142, 153, 0.16), transparent 60%),
@@ -442,10 +512,12 @@ img, svg { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: center;
-  /* No height: 100% — the row must be free to report its own height so the band can hug
-     it (see .hero's max-height). The vertical padding is the band's breathing room: it is
-     what separates the copy from the nav above and from the next section below. */
+  align-items: start;
+  /* Start, not center: the row's height is now the taller column (the illustrative panel
+     at ≥1025px), so centring the shorter copy column would push the headline back down
+     the band — 75–145px at desktop widths. The vertical padding is the band's only
+     breathing room: it is what separates the copy from the nav above and from the next
+     section below. */
   padding: clamp(0.85rem, 2.2vw, 2.4rem) 0;
 }
 .hero h1 { font-size: clamp(1.05rem, 2.3vw + 0.6rem, 3.25rem); margin-bottom: clamp(0.45rem, 0.9vw, 1.1rem); }
@@ -792,13 +864,11 @@ img, svg { display: block; max-width: 100%; }
   .navbar { gap: 0.6rem; }
 }
 
-/* Hero 16:9 fit. The band's height is fixed by its width, so as the band gets
-   shorter the least load-bearing content leaves first: the fact strip and the
-   panel's decorative bar chart / standards chips below 1200px, the illustrative
-   panel itself below 1025px (where the layout is single-column any way), and the
-   supporting paragraph on phones. The eyebrow, headline and buttons stay at every
-   width. Nothing is ever clipped: the band's height comes from the ratio alone, so
-   content is reduced rather than cut off. */
+/* Hero content on smaller screens. The band hugs its content now, so none of this is
+   needed to avoid clipping — it only keeps the band compact: the fact strip and the
+   panel's decorative bar chart / standards chips step out below 1200px, the illustrative
+   panel itself below 1025px (where the layout is single-column anyway), and the
+   supporting paragraph on phones. The eyebrow, headline and buttons stay at every width. */
 @media (max-width: 1200px) {
   .hero-proof { display: none; }
   .hero-visual .rise-bar,
@@ -809,14 +879,14 @@ img, svg { display: block; max-width: 100%; }
 }
 @media (max-width: 640px) {
   .hero-sub { display: none; }
-  /* Both buttons share one row so the band stays inside its 16:9 height. */
+  /* Both buttons share one row so the copy block stays compact at this width. */
   .hero-ctas .btn { width: auto; }
 }
 @media (max-width: 430px) {
   .hero-ctas .btn { padding: 0.6rem 0.85rem; font-size: 0.84rem; }
 }
-/* Phones narrower than 360 (band under 203px) need the eyebrow gone and the type a
-   notch smaller so the headline and buttons still fit the band. */
+/* Narrowest phones: the eyebrow steps out and the type drops a notch so the headline and
+   both buttons stay comfortably inside the container gutter. */
 @media (max-width: 359px) {
   .hero .eyebrow { display: none; }
   .hero h1 { font-size: 0.95rem; }
