@@ -80,6 +80,7 @@ on a navy-tint track. It is entirely static — no React component, no library.
 | What | Where | Value |
 |---|---|---|
 | Markup + styles + dismiss script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
+| Wordmark size | `#zain-preloader img` in the inline `<style>` | `min(420px, 72vw)` — the 4.66:1 lockup renders 420 × 90 px on desktop, ~260 × 56 px at a 360 px viewport |
 | Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash: the wordmark is readable, not a flicker |
 | Hard cap | `MAX` | `5000` ms (a stalled page can never keep the overlay up) |
 | Fade | `FADE` + `#zain-preloader[data-out]` | `400` ms, then the element is **removed from the DOM** |
