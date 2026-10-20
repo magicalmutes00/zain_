@@ -71,6 +71,37 @@ utility strip and the floating pill. The knobs:
 - **Hover / current page:** the desktop links are chips inside the capsule (`.nav-links > li > a`), child-scoped so the dropdown's own links keep their softer variant. Hover = navy-tinted frosted chip + 1px lift + brand-blue label; the current page adds a stronger fill and a teal→blue bar (`::after`, grown with `scaleX` — the Services button carries the same class whenever the route is under `/services`). The tint is navy, not white, because the capsule is translucent over the hero and whiter once scrolled: a white chip would vanish there. No state changes padding or font, so hovering can never reflow the row.
 - **Hero band height:** the band hugs its content — no `aspect-ratio` — so its height is the copy (plus the overlay) plus the `.hero-grid` padding. The narrower-width rules under “Hero content on smaller screens" trim content for compactness, not to fit a fixed height. Restore a `16:9` band by adding `aspect-ratio: 16 / 9` to `.hero` and `align-items: center` back to `.hero-grid`.
 
+## Company logo loader
+
+Every hard load opens with a branded loading overlay: the official ZAIN wordmark
+(`/assets/zain-logo-nav.webp`) on the site's pale surface (`#eef3f9 → #fff`) with a brand-blue sweep bar
+on a navy-tint track. It is entirely static — no React component, no library.
+
+| What | Where | Value |
+|---|---|---|
+| Markup + styles + dismiss script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
+| Minimum on-screen time | `MIN` in the inline script | `400` ms (prevents a sub-frame flicker on fast connections) |
+| Hard cap | `MAX` | `3000` ms (a stalled page can never keep the overlay up) |
+| Fade | `FADE` + `#zain-preloader[data-out]` | `340` ms, then the element is **removed from the DOM** |
+
+Why it lives in `index.html`:
+
+- The prerender (`scripts/prerender.mjs`) is string-based — it copies the built body verbatim into all
+  12 `dist/<route>/index.html` files — so markup placed here ships on every hard load, and the inline
+  `<style>` paints on the **first frame**, before the stylesheet or the app bundle has arrived. That is
+  the whole point of a loader; a React component would only appear after JS parses.
+- It sits **outside `#root`**, so React never mounts, re-renders or removes it, and SPA route changes
+  do not re-show it.
+- Dismissal is tied to reality, not a guess: `window.load` (every resource the document depends on has
+  arrived) **or** the 3-second cap, whichever comes first. The element is then removed outright rather
+  than hidden, so it can never intercept a click or linger in the accessibility tree.
+- Accessibility: the overlay is `aria-hidden="true"` with a decorative `alt=""` logo (screen readers
+  reach the page content underneath immediately), `prefers-reduced-motion` skips the fade and the sweep,
+  and `@media print` hides it.
+
+Deployment note: if a strict `Content-Security-Policy` is ever introduced, the loader's inline `<style>`
+and `<script>` need `'unsafe-inline'` (or hashes/nonces). No CSP is configured today.
+
 ## Projects page & imagery
 
 `/projects` is a filterable view (status tabs + discipline chips, with an empty state) driven by the
@@ -157,6 +188,12 @@ Prerendering was verified separately against a static host that resolves directo
 all 12 `dist/<route>/index.html` files carry the right per-route `<title>`, canonical and `og:url`
 in the **pre-JavaScript** source, the SPA boots from them, titles/canonicals stay correct after
 hydration, and the pass reports **0 problems** (no console/page errors, one `<h1>` per page).
+
+The company logo loader was verified separately: it is present in all 12 prerendered files (outside
+`#root`, outside the `seo:start/end` block), appears on first parse, covers the viewport, decodes the
+real artwork, and is removed from the DOM 0.4–1.1 s after navigation (min 400 ms, 3 s cap) — with no
+horizontal overflow, no console errors, no re-show on SPA navigation, instant removal under
+`prefers-reduced-motion`, and no interference with any of the audits above.
 
 ## Develop
 

@@ -46,9 +46,104 @@
         "areaServed": "Oman"
       }
     </script>
+    <!-- Company logo loader. Kept inline in <head> so it is painted on the very first
+         frame — before the stylesheet or the app bundle has arrived — which is the whole
+         point of a loading screen. The wordmark sits on the same pale surface the inner
+         pages use (#eef3f9 → #fff); the bar is a brand-blue sweep on a navy-tint track.
+         The overlay is decorative (aria-hidden): the page is already in the document, so
+         screen readers are never held behind it. Literal colours here on purpose — this
+         block must be correct before index.css has loaded. -->
+    <style>
+      #zain-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        background: linear-gradient(180deg, #eef3f9 0%, #ffffff 70%);
+        opacity: 1;
+        transition: opacity 0.32s ease;
+      }
+      #zain-preloader[data-out] { opacity: 0; pointer-events: none; }
+      #zain-preloader img { width: min(260px, 55vw); height: auto; object-fit: contain; }
+      #zain-preloader .bar {
+        width: min(170px, 38vw);
+        height: 3px;
+        border-radius: 999px;
+        background: rgba(12, 49, 89, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      #zain-preloader .bar::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(90deg, transparent, #174d91 50%, transparent);
+        background-size: 200% 100%;
+        animation: zain-preload 1.2s ease-in-out infinite;
+      }
+      @keyframes zain-preload {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #zain-preloader { transition: none; }
+        #zain-preloader .bar::after { animation: none; background-position: 0 0; }
+      }
+      @media print { #zain-preloader { display: none !important; } }
+    </style>
   </head>
   <body>
+    <!-- Company logo loader: outside #root so React never manages it, and self-removing
+         so it cannot intercept a click or linger in the accessibility tree afterwards. -->
+    <div id="zain-preloader" aria-hidden="true">
+      <img src="/assets/zain-logo-nav.webp" alt="" width="2481" height="532" />
+      <div class="bar"></div>
+    </div>
     <div id="root"></div>
+    <script>
+      (function () {
+        var el = document.getElementById("zain-preloader");
+        if (!el) return;
+        var MIN = 400,
+          MAX = 3000,
+          FADE = 340;
+        var t0 = Date.now();
+        var done = false;
+        /* Dismisses only when the page really is ready — window `load` (everything the
+           document depends on has arrived) or the hard 3s cap, whichever comes first —
+           and never before MIN ms have passed, so the mark cannot flicker past on a fast
+           connection. The element is then removed outright, not just hidden. */
+        function dismiss() {
+          if (done) return;
+          done = true;
+          setTimeout(
+            function () {
+              var reduce =
+                window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              if (reduce) {
+                el.remove();
+                return;
+              }
+              el.setAttribute("data-out", "");
+              window.setTimeout(function () {
+                el.remove();
+              }, FADE);
+            },
+            Math.max(0, MIN - (Date.now() - t0)),
+          );
+        }
+        if (document.readyState === "complete") dismiss();
+        else {
+          window.addEventListener("load", dismiss, { once: true });
+          window.setTimeout(dismiss, MAX);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
