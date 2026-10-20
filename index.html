@@ -109,15 +109,16 @@
       (function () {
         var el = document.getElementById("zain-preloader");
         if (!el) return;
-        var MIN = 400,
-          MAX = 3000,
-          FADE = 340;
+        var MIN = 1500,
+          MAX = 5000,
+          FADE = 400;
         var t0 = Date.now();
         var done = false;
         /* Dismisses only when the page really is ready — window `load` (everything the
-           document depends on has arrived) or the hard 3s cap, whichever comes first —
-           and never before MIN ms have passed, so the mark cannot flicker past on a fast
-           connection. The element is then removed outright, not just hidden. */
+           document depends on has arrived) or the hard 5s cap, whichever comes first —
+           and never before the MIN floor, so the wordmark gets a deliberate ~1.5s splash
+           instead of flickering past on a fast connection. The element is then removed
+           outright, not just hidden. */
         function dismiss() {
           if (done) return;
           done = true;

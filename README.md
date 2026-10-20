@@ -80,9 +80,9 @@ on a navy-tint track. It is entirely static — no React component, no library.
 | What | Where | Value |
 |---|---|---|
 | Markup + styles + dismiss script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
-| Minimum on-screen time | `MIN` in the inline script | `400` ms (prevents a sub-frame flicker on fast connections) |
-| Hard cap | `MAX` | `3000` ms (a stalled page can never keep the overlay up) |
-| Fade | `FADE` + `#zain-preloader[data-out]` | `340` ms, then the element is **removed from the DOM** |
+| Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash: the wordmark is readable, not a flicker |
+| Hard cap | `MAX` | `5000` ms (a stalled page can never keep the overlay up) |
+| Fade | `FADE` + `#zain-preloader[data-out]` | `400` ms, then the element is **removed from the DOM** |
 
 Why it lives in `index.html`:
 
@@ -93,7 +93,8 @@ Why it lives in `index.html`:
 - It sits **outside `#root`**, so React never mounts, re-renders or removes it, and SPA route changes
   do not re-show it.
 - Dismissal is tied to reality, not a guess: `window.load` (every resource the document depends on has
-  arrived) **or** the 3-second cap, whichever comes first. The element is then removed outright rather
+  arrived) **or** the 5-second cap, whichever comes first — and never before the 1.5-second floor, so the
+  wordmark gets a deliberate moment on screen. The element is then removed outright rather
   than hidden, so it can never intercept a click or linger in the accessibility tree.
 - Accessibility: the overlay is `aria-hidden="true"` with a decorative `alt=""` logo (screen readers
   reach the page content underneath immediately), `prefers-reduced-motion` skips the fade and the sweep,
@@ -191,9 +192,11 @@ hydration, and the pass reports **0 problems** (no console/page errors, one `<h1
 
 The company logo loader was verified separately: it is present in all 12 prerendered files (outside
 `#root`, outside the `seo:start/end` block), appears on first parse, covers the viewport, decodes the
-real artwork, and is removed from the DOM 0.4–1.1 s after navigation (min 400 ms, 3 s cap) — with no
+real artwork, and is removed from the DOM 2.0–2.3 s after navigation (1.5 s floor, 5 s cap) — with no
 horizontal overflow, no console errors, no re-show on SPA navigation, instant removal under
-`prefers-reduced-motion`, and no interference with any of the audits above.
+`prefers-reduced-motion`, and no interference with any of the audits above (the pixel-contrast pass
+waits for the overlay to leave the DOM: text it covers is occluded, not perceivable, and therefore not
+a contrast failure).
 
 ## Develop
 
