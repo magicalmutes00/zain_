@@ -242,7 +242,9 @@
         var MIN = 1500,   /* floor: the splash never flashes past */
           MAX = 10000,    /* hard cap: outlasts the 8s film, still protects slow connections */
           TAIL = 300,     /* beat between the film's last frame and the fade */
-          FADE = 400;
+          FADE = 400,
+          REVEAL = 900;   /* how far into the film its glow must have built before the
+                             black layer takes over the wordmark (see revealFilm) */
         var t0 = Date.now();
         var done = false;
         var loaded = document.readyState === "complete";
@@ -264,13 +266,28 @@
           if (videoDoneAt === Infinity) videoDoneAt = Date.now() - t0 + TAIL;
         }
 
+        /* The film opens on ~0.55s of dead black and its glow only builds after that.
+           Fading the black layer in on `playing` would therefore leave the screen empty
+           for the better part of a second - it reads as "nothing is loading". So the
+           wordmark holds the screen until the film is actually showing something, and
+           only then does the black layer cross over it. The film's own opening is dark
+           and slow by design, so nothing worth seeing is missed by waiting for it. */
+        function revealFilm() {
+          (function check() {
+            if (done || videoDoneAt !== Infinity) return;
+            if (video.currentTime * 1000 >= REVEAL) {
+              el.setAttribute("data-video", "");
+              return;
+            }
+            requestAnimationFrame(check);
+          })();
+        }
+
         if (video && !reduce) {
           video.muted = true; /* property as well as attribute: the attribute alone is not
                                  always honoured by every engine */
           video.src = "/assets/zain-loading-screen.mp4";
-          video.addEventListener("playing", function () {
-            el.setAttribute("data-video", "");
-          });
+          video.addEventListener("playing", revealFilm);
           video.addEventListener("ended", filmFinished);
           video.addEventListener("error", filmFinished);
           var started = video.play();

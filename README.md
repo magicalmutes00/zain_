@@ -105,12 +105,13 @@ master is kept **outside the shipped tree** in `assets-source/`, untouched. The 
   before the whole file has downloaded),
 - **1,071 KB** (1,097,211 bytes) at **46.6 dB PSNR** against the master — visually transparent.
 
-The frames were surveyed numerically, not watched: a pure-black hold for the first ~0.8 s, then a wide,
-vertically centred band of light (content spans x ≈ 300–1775 of 1920, y ≈ 360–1000 of 1080) whose colour
-sweeps **blue → teal → gold → orange**, motion peaking at 1.5–3.5 s, the last frame still lit. Two
-consequences drove the CSS: the content uses almost the full frame width, so the film is
+The frames were surveyed numerically, not watched: **frames 0–13 (0.00–0.54 s) are dead black**, then a
+wide, vertically centred band of light builds (content spans x ≈ 300–1775 of 1920, y ≈ 360–1000 of 1080)
+whose colour sweeps **blue → teal → gold → orange**, motion peaking at 1.5–3.5 s, the last frame still lit.
+Two consequences drove the CSS: the content uses almost the full frame width, so the film is
 **`contain`-fitted — `cover` would crop ~74 % of it away on a portrait phone** — and the letterbox that
-`contain` leaves is invisible because the layer behind it is black.
+`contain` leaves is invisible because the layer behind it is black. The dead-black opening is why the
+overlay keeps the wordmark up for `REVEAL` ms before the black layer takes over.
 
 ### Knobs
 
@@ -121,6 +122,7 @@ consequences drove the CSS: the content uses almost the full frame width, so the
 | Film | `public/assets/zain-loading-screen.mp4` | 1,097,211 B · 1920×1080 · 8.00 s · no audio · faststart |
 | Film fit | `#zain-preloader .vid video` | `object-fit: contain` on a black layer — never `cover` (see above) |
 | Layer order | `.vid` z-index `1`, `.bar` z-index `2` | the film covers the wordmark; the progress bar sits above it and **fades out** once the film plays (a line drawn across the client's artwork would only get in its way) |
+| Reveal | `REVEAL` in the inline script | `900` ms — the film opens on ~0.55 s of dead black and its glow only builds after that, so the wordmark holds the screen until there is something to see and the black layer then crossfades over it (otherwise the screen sits empty for the better part of a second, which reads as "nothing is loading") |
 | Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash, not a flicker |
 | Beat after the film | `TAIL` | `300` ms between the last frame and the fade |
 | Hard cap | `MAX` | `10000` ms — the film is 8 s and may start late on a slow connection; a stalled page can never keep the overlay up beyond this |
