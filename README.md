@@ -92,6 +92,7 @@ client's PNG stays untouched in `public/assets/` as the master.
 | Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash: the wordmark is readable, not a flicker |
 | Hard cap | `MAX` | `5000` ms (a stalled page can never keep the overlay up) |
 | Fade | `FADE` + `#zain-preloader[data-out]` | `400` ms, then the element is **removed from the DOM** |
+| Animation | keyframes in the same inline `<style>` | the mark **rises and fades in** (0.75 s expo-out), then **floats** ±5 px (3.6 s loop); a white **glint** sweeps the letterforms every 3.8 s, masked to the artwork's own alpha (`mask`, prefixed form in its own `@supports` block); the bar **scales in** at 0.35 s; on dismiss the mark eases to 1.06× while the overlay fades. `overflow: hidden` on the overlay means no animation can ever add horizontal overflow |
 
 Why it lives in `index.html`:
 

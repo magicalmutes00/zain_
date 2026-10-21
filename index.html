@@ -50,9 +50,11 @@
          frame — before the stylesheet or the app bundle has arrived — which is the whole
          point of a loading screen. The wordmark sits on the same pale surface the inner
          pages use (#eef3f9 → #fff); the bar is a brand-blue sweep on a navy-tint track.
-         The overlay is decorative (aria-hidden): the page is already in the document, so
-         screen readers are never held behind it. Literal colours here on purpose — this
-         block must be correct before index.css has loaded. -->
+         Choreography: the mark rises and fades in, then floats gently while a white glint
+         sweeps its letterforms; on dismiss the whole overlay fades as the mark eases
+         slightly up in scale. The overlay is decorative (aria-hidden): the page is already
+         in the document, so screen readers are never held behind it. Literal colours here
+         on purpose — this block must be correct before index.css has loaded. -->
     <style>
       #zain-preloader {
         position: fixed;
@@ -66,9 +68,21 @@
         background: linear-gradient(180deg, #eef3f9 0%, #ffffff 70%);
         opacity: 1;
         transition: opacity 0.32s ease;
+        overflow: hidden;
       }
       #zain-preloader[data-out] { opacity: 0; pointer-events: none; }
-      #zain-preloader img { width: min(420px, 72vw); height: auto; object-fit: contain; }
+      #zain-preloader .mark {
+        position: relative;
+        display: block;
+        animation: zain-logo-float 3.6s ease-in-out 0.95s infinite;
+      }
+      #zain-preloader img {
+        display: block;
+        width: min(420px, 72vw);
+        height: auto;
+        object-fit: contain;
+        animation: zain-logo-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
       #zain-preloader .bar {
         width: min(170px, 38vw);
         height: 3px;
@@ -76,6 +90,8 @@
         background: rgba(12, 49, 89, 0.1);
         position: relative;
         overflow: hidden;
+        transform-origin: center;
+        animation: zain-bar-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
       }
       #zain-preloader .bar::after {
         content: "";
@@ -86,13 +102,89 @@
         background-size: 200% 100%;
         animation: zain-preload 1.2s ease-in-out infinite;
       }
+      /* The glint: a white band masked to the wordmark's own alpha shape, so the shine
+         travels across the letterforms and nowhere else. The standard `mask` lives here
+         and the prefixed form in its own @supports block — written together, the
+         production minifier collapses the pair and drops the standard property
+         (the same trap as backdrop-filter in src/index.css). */
+      #zain-preloader .mark::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translateX(-140%);
+        background: linear-gradient(
+          100deg,
+          transparent 42%,
+          rgba(255, 255, 255, 0.92) 50%,
+          transparent 58%
+        );
+        animation: zain-sheen 3.8s ease-in-out 1.25s infinite;
+        mask: url("/assets/zain-logo-loader.webp") center / 100% 100% no-repeat;
+      }
+      @supports (-webkit-mask-image: url("/assets/zain-logo-loader.webp")) {
+        #zain-preloader .mark::after {
+          -webkit-mask: url("/assets/zain-logo-loader.webp") center / 100% 100% no-repeat;
+        }
+      }
+      #zain-preloader[data-out] .mark {
+        animation: none;
+        opacity: 0;
+        transform: scale(1.06);
+        transition: opacity 0.35s ease, transform 0.5s ease-out;
+      }
+      @keyframes zain-logo-in {
+        from {
+          opacity: 0;
+          transform: translateY(14px) scale(0.94);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes zain-logo-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+      @keyframes zain-bar-in {
+        from {
+          opacity: 0;
+          transform: scaleX(0);
+        }
+        to {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+      }
+      @keyframes zain-sheen {
+        0% {
+          transform: translateX(-140%);
+        }
+        42%,
+        100% {
+          transform: translateX(140%);
+        }
+      }
       @keyframes zain-preload {
         0% { background-position: 200% 0; }
         100% { background-position: -200% 0; }
       }
       @media (prefers-reduced-motion: reduce) {
         #zain-preloader { transition: none; }
+        #zain-preloader img,
+        #zain-preloader .mark,
+        #zain-preloader .bar {
+          animation: none !important;
+          transform: none !important;
+          opacity: 1 !important;
+        }
         #zain-preloader .bar::after { animation: none; background-position: 0 0; }
+        #zain-preloader .mark::after { display: none; }
       }
       @media print { #zain-preloader { display: none !important; } }
     </style>
@@ -101,7 +193,7 @@
     <!-- Company logo loader: outside #root so React never manages it, and self-removing
          so it cannot intercept a click or linger in the accessibility tree afterwards. -->
     <div id="zain-preloader" aria-hidden="true">
-      <img src="/assets/zain-logo-loader.webp" alt="" width="1363" height="305" />
+      <span class="mark"><img src="/assets/zain-logo-loader.webp" alt="" width="1363" height="305" /></span>
       <div class="bar"></div>
     </div>
     <div id="root"></div>
