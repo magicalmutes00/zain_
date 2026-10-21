@@ -79,11 +79,11 @@ Every hard load opens with a branded loading overlay: the official ZAIN wordmark
 on a navy-tint track. It is entirely static — no React component, no library.
 
 > **The client's video animation was rolled back** (commits `3b3a679`, `c099773`, `51d4966`, reverted in
-> `d1f0f0e`). The loader is the wordmark splash only — no film is requested, so no video bytes are
+> `821f842`). The loader is the wordmark splash only — no film is requested, so no video bytes are
 > fetched on any visit. The work is not lost: the client's untouched export is at
 > `assets-source/Website_loading-screen_animation…_1080p_20261021111733.mp4` (2.44 MB, 1920×1080, 8.00 s),
 > and the prepared derivatives (audio-stripped MP4 at CRF 27, a VP9/WebM copy, and a peak-frame poster)
-> can be rebuilt from it at any time. Re-enable with `git revert d1f0f0e`.
+> can be rebuilt from it at any time. Re-enable with `git revert 821f842`.
 
 The loader mark is **derived from the client's own file** `public/assets/Untitled - 21 October 2026 at
 10.44.44.png` — a 1920×1080 white-canvas render of the same lockup the navbar uses (verified identical:
