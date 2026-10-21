@@ -48,14 +48,13 @@
     </script>
     <!-- Company logo loader. Kept inline in <head> so it is painted on the very first
          frame — before the stylesheet or the app bundle has arrived — which is the whole
-         point of a loading screen. The pale surface + wordmark are the PRE-ROLL and the
-         fallback; the client's 8s film then covers them (black layer, `contain`) and the
-         overlay leaves when the film ends. The bar is a brand-blue sweep on a navy-tint
-         track for the fallback path. Choreography of the static mark: it rises and fades
-         in, then floats gently while a white glint sweeps its letterforms. The overlay is
-         decorative (aria-hidden): the page is already in the document, so screen readers
-         are never held behind it. Literal colours here on purpose — this block must be
-         correct before index.css has loaded. -->
+         point of a loading screen. The wordmark sits on the same pale surface the inner
+         pages use (#eef3f9 → #fff); the bar is a brand-blue sweep on a navy-tint track.
+         Choreography: the mark rises and fades in, then floats gently while a white glint
+         sweeps its letterforms; on dismiss the whole overlay fades as the mark eases
+         slightly up in scale. The overlay is decorative (aria-hidden): the page is already
+         in the document, so screen readers are never held behind it. Literal colours here
+         on purpose — this block must be correct before index.css has loaded. -->
     <style>
       #zain-preloader {
         position: fixed;
@@ -72,27 +71,6 @@
         overflow: hidden;
       }
       #zain-preloader[data-out] { opacity: 0; pointer-events: none; }
-      /* The client's own film takes the screen while it plays. The layer is black so the
-         letterbox `contain` leaves on non-16:9 viewports is invisible, and it sits ABOVE
-         the wordmark: the pale splash is the pre-roll, then the film covers it. `contain`
-         (never `cover`) — on a portrait phone, cover would crop away three quarters of the
-         composition, whose content spans almost the full frame width. */
-      #zain-preloader .vid {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-        background: #000;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-        pointer-events: none;
-      }
-      #zain-preloader[data-video] .vid { opacity: 1; }
-      #zain-preloader .vid video {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
       #zain-preloader .mark {
         position: relative;
         display: block;
@@ -111,10 +89,8 @@
         border-radius: 999px;
         background: rgba(12, 49, 89, 0.1);
         position: relative;
-        z-index: 2;
         overflow: hidden;
         transform-origin: center;
-        transition: opacity 0.3s ease;
         animation: zain-bar-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
       }
       #zain-preloader .bar::after {
@@ -126,28 +102,6 @@
         background-size: 200% 100%;
         animation: zain-preload 1.2s ease-in-out infinite;
       }
-      /* The film carries its own motion — a progress line drawn across the client's
-         artwork would only get in its way, so the bar bows out while it plays. Its
-         entrance animation is cancelled at the same time: the `both` fill would otherwise
-         pin opacity at 1 and the bar would never actually leave. */
-      #zain-preloader[data-video] .bar {
-        animation: none;
-        opacity: 0;
-      }
-      /* Fallback art: the film's own peak frame, used whenever the film cannot MOVE —
-         reduced motion, a refused autoplay, or a codec the browser cannot decode. The
-         artwork still shows; only the movement is given up. `contain` (never `cover`) so
-         the composition is never cropped, over black. The wordmark is navy on a pale
-         surface, so on this dark frame it is flipped to white. */
-      #zain-preloader[data-poster] {
-        background-color: #000;
-        background-image: url("/assets/zain-loading-poster.webp");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-      }
-      #zain-preloader[data-poster] img { filter: brightness(0) invert(1); }
-      #zain-preloader[data-poster] .bar { background: rgba(255, 255, 255, 0.25); }
       /* The glint: a white band masked to the wordmark's own alpha shape, so the shine
          travels across the letterforms and nowhere else. The standard `mask` lives here
          and the prefixed form in its own @supports block — written together, the
@@ -231,20 +185,14 @@
         }
         #zain-preloader .bar::after { animation: none; background-position: 0 0; }
         #zain-preloader .mark::after { display: none; }
-        /* No film for visitors who asked for less motion — they get the static wordmark,
-           and the script never even requests the 1 MB file. */
-        #zain-preloader .vid { display: none !important; }
       }
       @media print { #zain-preloader { display: none !important; } }
     </style>
   </head>
   <body>
-    <!-- Company loader: outside #root so React never manages it, and self-removing so it
-         cannot intercept a click or linger in the accessibility tree afterwards. -->
+    <!-- Company logo loader: outside #root so React never manages it, and self-removing
+         so it cannot intercept a click or linger in the accessibility tree afterwards. -->
     <div id="zain-preloader" aria-hidden="true">
-      <div class="vid">
-        <video id="zain-splash" muted playsinline preload="auto" disablepictureinpicture></video>
-      </div>
       <span class="mark"><img src="/assets/zain-logo-loader.webp" alt="" width="1363" height="305" /></span>
       <div class="bar"></div>
     </div>
@@ -253,132 +201,40 @@
       (function () {
         var el = document.getElementById("zain-preloader");
         if (!el) return;
-        var MIN = 1500,   /* floor: the splash never flashes past */
-          MAX = 10000,    /* hard cap: outlasts the 8s film, still protects slow connections */
-          TAIL = 300,     /* beat between the film's last frame and the fade */
-          FADE = 400,
-          REVEAL = 900;   /* how far into the film its glow must have built before the
-                             black layer takes over the wordmark (see revealFilm) */
-        var FILM_MP4 = "/assets/zain-loading-screen.mp4";
-        var FILM_WEBM = "/assets/zain-loading-screen.webm";
+        var MIN = 1500,
+          MAX = 5000,
+          FADE = 400;
         var t0 = Date.now();
         var done = false;
-        var loaded = document.readyState === "complete";
-        var reduce = !!(
-          window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        );
-        /* The film is the main event, so the overlay leaves after its FINAL FRAME rather
-           than on a timer. `videoDoneAt` is an ELAPSED moment on the same clock tick()
-           compares against (Date.now() - t0), never a wall-clock one - stored as epoch it
-           would be larger than any `t` and the film would silently be cut by the cap every
-           time. Infinity means "not finished yet" until `ended`/`error` says otherwise.
-           Under reduced motion nothing is fetched or played and it stays 0, which is
-           exactly the old load + MIN schedule. The src is set here rather than in the
-           markup for that reason: motion-sensitive visitors never download the film. */
-        var videoDoneAt = reduce ? 0 : Infinity;
-        var video = document.getElementById("zain-splash");
-
-        function filmFinished() {
-          if (videoDoneAt === Infinity) videoDoneAt = Date.now() - t0 + TAIL;
-        }
-
-        /* The film's own peak frame, for when the film cannot move (reduced motion, a
-           refused autoplay, a codec the browser cannot decode). */
-        function posterArt() {
-          el.setAttribute("data-poster", "");
-        }
-
-        /* The film opens on ~0.55s of dead black and its glow only builds after that.
-           Fading the black layer in on `playing` would therefore leave the screen empty
-           for the better part of a second - it reads as "nothing is loading". So the
-           wordmark holds the screen until the film is actually showing something, and
-           only then does the black layer cross over it. The film's own opening is dark
-           and slow by design, so nothing worth seeing is missed by waiting for it. */
-        function revealFilm() {
-          (function check() {
-            if (done || videoDoneAt !== Infinity) return;
-            if (video.currentTime * 1000 >= REVEAL) {
-              el.setAttribute("data-video", "");
-              return;
-            }
-            requestAnimationFrame(check);
-          })();
-        }
-
-        if (video && !reduce) {
-          /* Two sources, codecs named explicitly so a browser without H.264 (some Linux
-             Chromium builds) skips straight to the WebM instead of selecting the MP4 and
-             then failing on it. Only the source a browser can actually play is fetched. */
-          video.innerHTML =
-            '<source src="' + FILM_MP4 + '" type="video/mp4; codecs=&quot;avc1.42E01E&quot;">' +
-            '<source src="' + FILM_WEBM + '" type="video/webm; codecs=&quot;vp9&quot;">';
-          video.load();
-          video.muted = true; /* property as well as attribute: the attribute alone is not
-                                 always honoured by every engine, and load() may reset it */
-          video.addEventListener("playing", revealFilm);
-          video.addEventListener("ended", filmFinished);
-          /* A <source> that cannot be played fires its error at the SOURCE, and Chromium
-             does not raise one at the element itself when the candidates run out - so the
-             sources are watched too (capture: their errors do not bubble). The film is
-             only given up on once every candidate has failed, which is what keeps the
-             WebM fallback reachable when the MP4 is missing. */
-          var sourceErrors = 0;
-          video.addEventListener(
-            "error",
-            function (e) {
-              if (e.target === video) {
-                posterArt();
-                filmFinished();
+        /* Dismisses only when the page really is ready — window `load` (everything the
+           document depends on has arrived) or the hard 5s cap, whichever comes first —
+           and never before the MIN floor, so the wordmark gets a deliberate ~1.5s splash
+           instead of flickering past on a fast connection. The element is then removed
+           outright, not just hidden. */
+        function dismiss() {
+          if (done) return;
+          done = true;
+          setTimeout(
+            function () {
+              var reduce =
+                window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              if (reduce) {
+                el.remove();
                 return;
               }
-              sourceErrors++;
-              if (sourceErrors >= video.querySelectorAll("source").length) {
-                posterArt();
-                filmFinished();
-              }
+              el.setAttribute("data-out", "");
+              window.setTimeout(function () {
+                el.remove();
+              }, FADE);
             },
-            true,
-          );
-          var started = video.play();
-          if (started && started.catch) {
-            started.catch(function () {
-              posterArt();
-              filmFinished();
-            });
-          }
-        } else if (video) {
-          posterArt(); /* reduced motion: the still frame, never the film */
-        }
-        if (!loaded) {
-          window.addEventListener(
-            "load",
-            function () {
-              loaded = true;
-            },
-            { once: true },
+            Math.max(0, MIN - (Date.now() - t0)),
           );
         }
-
-        /* Leaves when the page is ready AND the film has finished (or never ran), never
-           before MIN, and always by MAX. Removed outright, not just hidden. */
-        function tick() {
-          if (done) return;
-          var t = Date.now() - t0;
-          if (t >= MAX || (loaded && t >= MIN && t >= videoDoneAt)) {
-            done = true;
-            if (reduce) {
-              el.remove();
-              return;
-            }
-            el.setAttribute("data-out", "");
-            window.setTimeout(function () {
-              el.remove();
-            }, FADE);
-            return;
-          }
-          window.setTimeout(tick, 120);
+        if (document.readyState === "complete") dismiss();
+        else {
+          window.addEventListener("load", dismiss, { once: true });
+          window.setTimeout(dismiss, MAX);
         }
-        tick();
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>
