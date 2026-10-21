@@ -47,6 +47,7 @@ Generated derivatives in `public/` — via `python scripts/make_brand_assets.py`
 
 - `assets/zain-logo.webp` (66 KB) + `assets/zain-logo.png` (163 KB) — footer plaque, `404.html` and the `Organization` JSON-LD `logo`, 720px wide, `object-fit: contain` (never distorted)
 - `assets/zain-logo-nav.webp` — **navbar wordmark**: a copy of the client-supplied `public/assets/ZAIN LOGO.webp` (2481×532, transparent, navy artwork). It is fitted into a height-capped box (48px, 40px ≤768px, 34px ≤430px) with `object-fit: contain`, so the bar's height depends on the *box*, never on the artwork's aspect ratio.
+- `assets/zain-logo-loader.webp` (24 KB) — **loader wordmark**: the client's `Untitled - 21 October 2026 at 10.44.44.png` cropped to its artwork box with the flat white keyed to alpha, 128-colour lossless WebP (see “Company logo loader”)
 - `assets/zain-z-mark.png` + `favicon.ico` — favicon derived from the official Z mark
 - `og-cover.png` — navy 1200×630 social card built from the official logo asset
 
@@ -74,13 +75,20 @@ utility strip and the floating pill. The knobs:
 ## Company logo loader
 
 Every hard load opens with a branded loading overlay: the official ZAIN wordmark
-(`/assets/zain-logo-nav.webp`) on the site's pale surface (`#eef3f9 → #fff`) with a brand-blue sweep bar
+(`/assets/zain-logo-loader.webp`) on the site's pale surface (`#eef3f9 → #fff`) with a brand-blue sweep bar
 on a navy-tint track. It is entirely static — no React component, no library.
+
+The loader mark is **derived from the client's own file** `public/assets/Untitled - 21 October 2026 at
+10.44.44.png` — a 1920×1080 white-canvas render of the same lockup the navbar uses (verified identical:
+tight aspect 4.469 = 4.469, ink-coverage grids matching cell-for-cell). It is cropped to the artwork box,
+the flat white is keyed to alpha (round-trip error 0.17/255 — invisible on the pale gradient) and encoded
+as a 128-colour lossless WebP: **24 KB** instead of the 206 KB PNG, mean colour error 0.76/255. The
+client's PNG stays untouched in `public/assets/` as the master.
 
 | What | Where | Value |
 |---|---|---|
 | Markup + styles + dismiss script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
-| Wordmark size | `#zain-preloader img` in the inline `<style>` | `min(420px, 72vw)` — the 4.66:1 lockup renders 420 × 90 px on desktop, ~260 × 56 px at a 360 px viewport |
+| Wordmark size | `#zain-preloader img` in the inline `<style>` | `min(420px, 72vw)` — the 4.47:1 lockup renders 420 × 94 px on desktop, ~260 × 58 px at a 360 px viewport |
 | Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash: the wordmark is readable, not a flicker |
 | Hard cap | `MAX` | `5000` ms (a stalled page can never keep the overlay up) |
 | Fade | `FADE` + `#zain-preloader[data-out]` | `400` ms, then the element is **removed from the DOM** |
