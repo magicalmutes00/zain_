@@ -134,6 +134,20 @@
         animation: none;
         opacity: 0;
       }
+      /* Fallback art: the film's own peak frame, used whenever the film cannot MOVE —
+         reduced motion, a refused autoplay, or a codec the browser cannot decode. The
+         artwork still shows; only the movement is given up. `contain` (never `cover`) so
+         the composition is never cropped, over black. The wordmark is navy on a pale
+         surface, so on this dark frame it is flipped to white. */
+      #zain-preloader[data-poster] {
+        background-color: #000;
+        background-image: url("/assets/zain-loading-poster.webp");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      #zain-preloader[data-poster] img { filter: brightness(0) invert(1); }
+      #zain-preloader[data-poster] .bar { background: rgba(255, 255, 255, 0.25); }
       /* The glint: a white band masked to the wordmark's own alpha shape, so the shine
          travels across the letterforms and nowhere else. The standard `mask` lives here
          and the prefixed form in its own @supports block — written together, the
@@ -245,6 +259,8 @@
           FADE = 400,
           REVEAL = 900;   /* how far into the film its glow must have built before the
                              black layer takes over the wordmark (see revealFilm) */
+        var FILM_MP4 = "/assets/zain-loading-screen.mp4";
+        var FILM_WEBM = "/assets/zain-loading-screen.webm";
         var t0 = Date.now();
         var done = false;
         var loaded = document.readyState === "complete";
@@ -266,6 +282,12 @@
           if (videoDoneAt === Infinity) videoDoneAt = Date.now() - t0 + TAIL;
         }
 
+        /* The film's own peak frame, for when the film cannot move (reduced motion, a
+           refused autoplay, a codec the browser cannot decode). */
+        function posterArt() {
+          el.setAttribute("data-poster", "");
+        }
+
         /* The film opens on ~0.55s of dead black and its glow only builds after that.
            Fading the black layer in on `playing` would therefore leave the screen empty
            for the better part of a second - it reads as "nothing is loading". So the
@@ -284,14 +306,48 @@
         }
 
         if (video && !reduce) {
+          /* Two sources, codecs named explicitly so a browser without H.264 (some Linux
+             Chromium builds) skips straight to the WebM instead of selecting the MP4 and
+             then failing on it. Only the source a browser can actually play is fetched. */
+          video.innerHTML =
+            '<source src="' + FILM_MP4 + '" type="video/mp4; codecs=&quot;avc1.42E01E&quot;">' +
+            '<source src="' + FILM_WEBM + '" type="video/webm; codecs=&quot;vp9&quot;">';
+          video.load();
           video.muted = true; /* property as well as attribute: the attribute alone is not
-                                 always honoured by every engine */
-          video.src = "/assets/zain-loading-screen.mp4";
+                                 always honoured by every engine, and load() may reset it */
           video.addEventListener("playing", revealFilm);
           video.addEventListener("ended", filmFinished);
-          video.addEventListener("error", filmFinished);
+          /* A <source> that cannot be played fires its error at the SOURCE, and Chromium
+             does not raise one at the element itself when the candidates run out - so the
+             sources are watched too (capture: their errors do not bubble). The film is
+             only given up on once every candidate has failed, which is what keeps the
+             WebM fallback reachable when the MP4 is missing. */
+          var sourceErrors = 0;
+          video.addEventListener(
+            "error",
+            function (e) {
+              if (e.target === video) {
+                posterArt();
+                filmFinished();
+                return;
+              }
+              sourceErrors++;
+              if (sourceErrors >= video.querySelectorAll("source").length) {
+                posterArt();
+                filmFinished();
+              }
+            },
+            true,
+          );
           var started = video.play();
-          if (started && started.catch) started.catch(filmFinished); /* refused: static fallback */
+          if (started && started.catch) {
+            started.catch(function () {
+              posterArt();
+              filmFinished();
+            });
+          }
+        } else if (video) {
+          posterArt(); /* reduced motion: the still frame, never the film */
         }
         if (!loaded) {
           window.addEventListener(

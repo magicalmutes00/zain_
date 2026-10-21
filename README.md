@@ -49,6 +49,7 @@ Generated derivatives in `public/` — via `python scripts/make_brand_assets.py`
 - `assets/zain-logo-nav.webp` — **navbar wordmark**: a copy of the client-supplied `public/assets/ZAIN LOGO.webp` (2481×532, transparent, navy artwork). It is fitted into a height-capped box (48px, 40px ≤768px, 34px ≤430px) with `object-fit: contain`, so the bar's height depends on the *box*, never on the artwork's aspect ratio.
 - `assets/zain-logo-loader.webp` (24 KB) — **loader wordmark**: the client's `Untitled - 21 October 2026 at 10.44.44.png` cropped to its artwork box with the flat white keyed to alpha, 128-colour lossless WebP (see “Company loader”)
 - `assets/zain-loading-screen.mp4` (1.1 MB) — **loader film**: the client's own 8-second loading animation, audio stripped, re-encoded CRF 27 with `faststart`; the untouched master lives outside the shipped tree in `assets-source/` (see “Company loader”)
+- `assets/zain-loading-screen.webm` (1.1 MB) + `assets/zain-loading-poster.webp` (57 KB) — the film's VP9/WebM fallback source and its peak-frame poster, used when the film cannot play or cannot move (see “Company loader”)
 - `assets/zain-z-mark.png` + `favicon.ico` — favicon derived from the official Z mark
 - `og-cover.png` — navy 1200×630 social card built from the official logo asset
 
@@ -105,6 +106,16 @@ master is kept **outside the shipped tree** in `assets-source/`, untouched. The 
   before the whole file has downloaded),
 - **1,071 KB** (1,097,211 bytes) at **46.6 dB PSNR** against the master — visually transparent.
 
+Two companions ship with it:
+
+- `public/assets/zain-loading-screen.webm` (1,129 KB) — the same film as **VP9/WebM**, for browsers whose
+  build has no H.264 (some Linux Chromium). Both are declared as `<source>` children with their codecs
+  named explicitly, so the browser skips the one it cannot play; **only the source it can decode is
+  fetched**, so the WebM costs the average visitor nothing.
+- `public/assets/zain-loading-poster.webp` (57 KB) — the film's own **peak frame** (t = 3.0 s), used
+  whenever the film cannot *move*: reduced motion, a refused autoplay, or a codec that fails. The
+  artwork still shows — only the movement is given up. The navy wordmark is flipped to white for it.
+
 The frames were surveyed numerically, not watched: **frames 0–13 (0.00–0.54 s) are dead black**, then a
 wide, vertically centred band of light builds (content spans x ≈ 300–1775 of 1920, y ≈ 360–1000 of 1080)
 whose colour sweeps **blue → teal → gold → orange**, motion peaking at 1.5–3.5 s, the last frame still lit.
@@ -120,6 +131,8 @@ overlay keeps the wordmark up for `REVEAL` ms before the black layer takes over.
 | Markup + styles + script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
 | Pre-roll wordmark size | `#zain-preloader img` in the inline `<style>` | `min(420px, 72vw)` — the 4.47:1 lockup renders 420 × 94 px on desktop, ~260 × 58 px at a 360 px viewport |
 | Film | `public/assets/zain-loading-screen.mp4` | 1,097,211 B · 1920×1080 · 8.00 s · no audio · faststart |
+| Film fallback source | `public/assets/zain-loading-screen.webm` | 1,129 KB VP9/WebM, declared second with `codecs="vp9"` — for browsers whose build has no H.264 |
+| Poster (no-motion fallback) | `public/assets/zain-loading-poster.webp` | 57 KB, the film's own peak frame at t = 3.0 s, shown whenever the film cannot move |
 | Film fit | `#zain-preloader .vid video` | `object-fit: contain` on a black layer — never `cover` (see above) |
 | Layer order | `.vid` z-index `1`, `.bar` z-index `2` | the film covers the wordmark; the progress bar sits above it and **fades out** once the film plays (a line drawn across the client's artwork would only get in its way) |
 | Reveal | `REVEAL` in the inline script | `900` ms — the film opens on ~0.55 s of dead black and its glow only builds after that, so the wordmark holds the screen until there is something to see and the black layer then crossfades over it (otherwise the screen sits empty for the better part of a second, which reads as "nothing is loading") |
@@ -135,12 +148,17 @@ It leaves when the page is ready **and** the film has finished (or never ran), n
 always by `MAX`:
 
 - the film ends → `TAIL` beat → fade → removed from the DOM, so a normal visit sees the whole animation;
-- the film cannot play (autoplay refused, decode error, unsupported codec) → treated as finished
-  immediately, so the pre-roll behaves exactly like the previous loader (~1.5 s after `window.load`);
+- the film cannot play (autoplay refused, decode error, unsupported codec) → the **poster frame** takes
+  over so the artwork is still on screen, and the overlay leaves on the old schedule (~1.5 s after
+  `window.load`);
 - the page is still loading when the film ends → it waits for `window.load` too, up to `MAX`;
-- `prefers-reduced-motion` → the film is **never even requested** (its `src` is set by the script, not in
-  the markup), the layer is `display: none`, every animation is off, and the overlay leaves on the old
-  `load` + `MIN` schedule.
+- `prefers-reduced-motion` → the film is **never even requested** (its sources are set by the script, not
+  in the markup), the poster frame is shown instead, every animation is off, and the overlay leaves on
+  the old `load` + `MIN` schedule.
+
+Every one of those paths is exercised by the checks (`scripts/`): the WebM takes over when the MP4
+404s, the poster takes over when every source fails or autoplay is refused, and reduced motion fetches
+not one byte of video.
 
 Why it lives in `index.html`:
 
