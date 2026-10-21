@@ -47,7 +47,8 @@ Generated derivatives in `public/` — via `python scripts/make_brand_assets.py`
 
 - `assets/zain-logo.webp` (66 KB) + `assets/zain-logo.png` (163 KB) — footer plaque, `404.html` and the `Organization` JSON-LD `logo`, 720px wide, `object-fit: contain` (never distorted)
 - `assets/zain-logo-nav.webp` — **navbar wordmark**: a copy of the client-supplied `public/assets/ZAIN LOGO.webp` (2481×532, transparent, navy artwork). It is fitted into a height-capped box (48px, 40px ≤768px, 34px ≤430px) with `object-fit: contain`, so the bar's height depends on the *box*, never on the artwork's aspect ratio.
-- `assets/zain-logo-loader.webp` (24 KB) — **loader wordmark**: the client's `Untitled - 21 October 2026 at 10.44.44.png` cropped to its artwork box with the flat white keyed to alpha, 128-colour lossless WebP (see “Company logo loader”)
+- `assets/zain-logo-loader.webp` (24 KB) — **loader wordmark**: the client's `Untitled - 21 October 2026 at 10.44.44.png` cropped to its artwork box with the flat white keyed to alpha, 128-colour lossless WebP (see “Company loader”)
+- `assets/zain-loading-screen.mp4` (1.1 MB) — **loader film**: the client's own 8-second loading animation, audio stripped, re-encoded CRF 27 with `faststart`; the untouched master lives outside the shipped tree in `assets-source/` (see “Company loader”)
 - `assets/zain-z-mark.png` + `favicon.ico` — favicon derived from the official Z mark
 - `og-cover.png` — navy 1200×630 social card built from the official logo asset
 
@@ -72,27 +73,72 @@ utility strip and the floating pill. The knobs:
 - **Hover / current page:** the desktop links are chips inside the capsule (`.nav-links > li > a`), child-scoped so the dropdown's own links keep their softer variant. Hover = navy-tinted frosted chip + 1px lift + brand-blue label; the current page adds a stronger fill and a teal→blue bar (`::after`, grown with `scaleX` — the Services button carries the same class whenever the route is under `/services`). The tint is navy, not white, because the capsule is translucent over the hero and whiter once scrolled: a white chip would vanish there. No state changes padding or font, so hovering can never reflow the row.
 - **Hero band height:** the band hugs its content — no `aspect-ratio` — so its height is the copy (plus the overlay) plus the `.hero-grid` padding. The narrower-width rules under “Hero content on smaller screens" trim content for compactness, not to fit a fixed height. Restore a `16:9` band by adding `aspect-ratio: 16 / 9` to `.hero` and `align-items: center` back to `.hero-grid`.
 
-## Company logo loader
+## Company loader (wordmark pre-roll + client film)
 
-Every hard load opens with a branded loading overlay: the official ZAIN wordmark
-(`/assets/zain-logo-loader.webp`) on the site's pale surface (`#eef3f9 → #fff`) with a brand-blue sweep bar
-on a navy-tint track. It is entirely static — no React component, no library.
+Every hard load opens with a branded overlay, in two acts:
 
-The loader mark is **derived from the client's own file** `public/assets/Untitled - 21 October 2026 at
+1. **Pre-roll / fallback** — the official ZAIN wordmark (`/assets/zain-logo-loader.webp`) on the site's
+   pale surface (`#eef3f9 → #fff`) with a brand-blue sweep bar on a navy-tint track. This paints on the
+   very first frame and stays if the film cannot play.
+2. **The film** — the client's own 8-second loading animation (`/assets/zain-loading-screen.mp4`) fades in
+   over it on a **black** layer, `object-fit: contain`, muted. The overlay then leaves after the film's
+   **final frame**, not on a timer.
+
+It is entirely static — no React component, no library.
+
+The pre-roll mark is **derived from the client's own file** `public/assets/Untitled - 21 October 2026 at
 10.44.44.png` — a 1920×1080 white-canvas render of the same lockup the navbar uses (verified identical:
 tight aspect 4.469 = 4.469, ink-coverage grids matching cell-for-cell). It is cropped to the artwork box,
 the flat white is keyed to alpha (round-trip error 0.17/255 — invisible on the pale gradient) and encoded
 as a 128-colour lossless WebP: **24 KB** instead of the 206 KB PNG, mean colour error 0.76/255. The
 client's PNG stays untouched in `public/assets/` as the master.
 
+### The film asset
+
+The client supplied `Website_loading-screen_animation…_1080p_20261021111733.mp4` (the `…` is literally
+U+2026 in the filename): 1920×1080, 24 fps, 8.00 s, H.264 with a 139 kb/s stereo AAC track, 2.44 MB. The
+master is kept **outside the shipped tree** in `assets-source/`, untouched. The served derivative is
+`public/assets/zain-loading-screen.mp4`:
+
+- **audio stripped** — a muted film should not be able to make a sound even if an engine ignored `muted`,
+- re-encoded H.264 at CRF 27 with `+faststart` (the `moov` box precedes `mdat`, so playback can start
+  before the whole file has downloaded),
+- **1,071 KB** (1,097,211 bytes) at **46.6 dB PSNR** against the master — visually transparent.
+
+The frames were surveyed numerically, not watched: a pure-black hold for the first ~0.8 s, then a wide,
+vertically centred band of light (content spans x ≈ 300–1775 of 1920, y ≈ 360–1000 of 1080) whose colour
+sweeps **blue → teal → gold → orange**, motion peaking at 1.5–3.5 s, the last frame still lit. Two
+consequences drove the CSS: the content uses almost the full frame width, so the film is
+**`contain`-fitted — `cover` would crop ~74 % of it away on a portrait phone** — and the letterbox that
+`contain` leaves is invisible because the layer behind it is black.
+
+### Knobs
+
 | What | Where | Value |
 |---|---|---|
-| Markup + styles + dismiss script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
-| Wordmark size | `#zain-preloader img` in the inline `<style>` | `min(420px, 72vw)` — the 4.47:1 lockup renders 420 × 94 px on desktop, ~260 × 58 px at a 360 px viewport |
-| Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash: the wordmark is readable, not a flicker |
-| Hard cap | `MAX` | `5000` ms (a stalled page can never keep the overlay up) |
+| Markup + styles + script | `index.html` | inline `<style>` in `<head>`, overlay before `<div id="root">`, script at the end of `<body>` |
+| Pre-roll wordmark size | `#zain-preloader img` in the inline `<style>` | `min(420px, 72vw)` — the 4.47:1 lockup renders 420 × 94 px on desktop, ~260 × 58 px at a 360 px viewport |
+| Film | `public/assets/zain-loading-screen.mp4` | 1,097,211 B · 1920×1080 · 8.00 s · no audio · faststart |
+| Film fit | `#zain-preloader .vid video` | `object-fit: contain` on a black layer — never `cover` (see above) |
+| Layer order | `.vid` z-index `1`, `.bar` z-index `2` | the film covers the wordmark; the progress bar sits above it and **fades out** once the film plays (a line drawn across the client's artwork would only get in its way) |
+| Minimum on-screen time | `MIN` in the inline script | `1500` ms — a deliberate branded splash, not a flicker |
+| Beat after the film | `TAIL` | `300` ms between the last frame and the fade |
+| Hard cap | `MAX` | `10000` ms — the film is 8 s and may start late on a slow connection; a stalled page can never keep the overlay up beyond this |
 | Fade | `FADE` + `#zain-preloader[data-out]` | `400` ms, then the element is **removed from the DOM** |
-| Animation | keyframes in the same inline `<style>` | the mark **rises and fades in** (0.75 s expo-out), then **floats** ±5 px (3.6 s loop); a white **glint** sweeps the letterforms every 3.8 s, masked to the artwork's own alpha (`mask`, prefixed form in its own `@supports` block); the bar **scales in** at 0.35 s; on dismiss the mark eases to 1.06× while the overlay fades. `overflow: hidden` on the overlay means no animation can ever add horizontal overflow |
+| Static-mark animation | keyframes in the same inline `<style>` | the mark **rises and fades in** (0.75 s expo-out), then **floats** ±5 px (3.6 s loop); a white **glint** sweeps the letterforms every 3.8 s, masked to the artwork's own alpha (`mask`, prefixed form in its own `@supports` block); the bar **scales in** at 0.35 s; on dismiss the mark eases to 1.06× while the overlay fades. `overflow: hidden` on the overlay means no animation can ever add horizontal overflow |
+
+### How dismissal works
+
+It leaves when the page is ready **and** the film has finished (or never ran), never before `MIN`, and
+always by `MAX`:
+
+- the film ends → `TAIL` beat → fade → removed from the DOM, so a normal visit sees the whole animation;
+- the film cannot play (autoplay refused, decode error, unsupported codec) → treated as finished
+  immediately, so the pre-roll behaves exactly like the previous loader (~1.5 s after `window.load`);
+- the page is still loading when the film ends → it waits for `window.load` too, up to `MAX`;
+- `prefers-reduced-motion` → the film is **never even requested** (its `src` is set by the script, not in
+  the markup), the layer is `display: none`, every animation is off, and the overlay leaves on the old
+  `load` + `MIN` schedule.
 
 Why it lives in `index.html`:
 
@@ -102,16 +148,15 @@ Why it lives in `index.html`:
   the whole point of a loader; a React component would only appear after JS parses.
 - It sits **outside `#root`**, so React never mounts, re-renders or removes it, and SPA route changes
   do not re-show it.
-- Dismissal is tied to reality, not a guess: `window.load` (every resource the document depends on has
-  arrived) **or** the 5-second cap, whichever comes first — and never before the 1.5-second floor, so the
-  wordmark gets a deliberate moment on screen. The element is then removed outright rather
-  than hidden, so it can never intercept a click or linger in the accessibility tree.
+- The pre-roll is a real fallback, not decoration: if the film is slow, blocked or undecodable, the pale
+  wordmark is already on screen and dismissal falls back to the old schedule.
 - Accessibility: the overlay is `aria-hidden="true"` with a decorative `alt=""` logo (screen readers
-  reach the page content underneath immediately), `prefers-reduced-motion` skips the fade and the sweep,
-  and `@media print` hides it.
+  reach the page content underneath immediately); the film is `muted` + `playsinline` and carries no
+  audio track at all; `prefers-reduced-motion` removes the motion; `@media print` hides the overlay.
 
 Deployment note: if a strict `Content-Security-Policy` is ever introduced, the loader's inline `<style>`
-and `<script>` need `'unsafe-inline'` (or hashes/nonces). No CSP is configured today.
+and `<script>` need `'unsafe-inline'` (or hashes/nonces) and `media-src 'self'` must allow the film. No
+CSP is configured today.
 
 ## Projects page & imagery
 
@@ -200,13 +245,16 @@ all 12 `dist/<route>/index.html` files carry the right per-route `<title>`, cano
 in the **pre-JavaScript** source, the SPA boots from them, titles/canonicals stay correct after
 hydration, and the pass reports **0 problems** (no console/page errors, one `<h1>` per page).
 
-The company logo loader was verified separately: it is present in all 12 prerendered files (outside
+The company loader was verified separately: it is present in all 12 prerendered files (outside
 `#root`, outside the `seo:start/end` block), appears on first parse, covers the viewport, decodes the
-real artwork, and is removed from the DOM 2.0–2.3 s after navigation (1.5 s floor, 5 s cap) — with no
-horizontal overflow, no console errors, no re-show on SPA navigation, instant removal under
-`prefers-reduced-motion`, and no interference with any of the audits above (the pixel-contrast pass
-waits for the overlay to leave the DOM: text it covers is occluded, not perceivable, and therefore not
-a contrast failure).
+real artwork, then the film takes over (muted, contain-fitted, no audio decoded, playing — measured, not
+assumed) and the overlay is removed from the DOM ~9 s after navigation, 200–1600 ms after the film's
+last frame — with no horizontal overflow at any point, no console errors, no re-show on SPA navigation,
+and no interference with any of the audits above (the pixel-contrast pass waits for the overlay to leave
+the DOM: text it covers is occluded, not perceivable, and therefore not a contrast failure). Under
+`prefers-reduced-motion` the film is never requested, every animation is off, and it leaves on the old
+1.5 s floor. The film's float/keyframe motion was proven by seeking the animation and reading the box
+(−5.0 px at the 50 % keyframe) in Chromium, WebKit and Firefox.
 
 ## Develop
 
