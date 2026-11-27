@@ -1,3 +1,4 @@
-.hallmark/
+﻿.hallmark/
 .playwright-mcp/
-
+.DS_Store
+Thumbs.db
