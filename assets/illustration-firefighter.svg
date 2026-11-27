@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 520" width="420" height="520">
+  <!-- Flat 2D line-art firefighter technician. Decorative only; not a ZAIN staff member or real equipment. -->
+  <g fill="none" stroke="#0F172A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Helmet -->
+    <path d="M132 132 Q140 62 210 60 Q280 62 288 132 Z" fill="#FDBA74"/>
+    <path d="M108 132 H312 Q320 132 320 142 H100 Q100 132 108 132 Z" fill="#F88A32"/>
+    <path d="M210 76 L226 76 L226 100 L218 110 L202 100 L202 76 Z" fill="#0F172A" stroke="none"/>
+
+    <!-- Face -->
+    <path d="M156 142 Q156 194 210 196 Q264 194 264 142 Z" fill="#FFF4E8"/>
+    <path d="M156 146 H264"/>
+    <path d="M182 164 H194 M226 164 H238"/>
+    <path d="M198 182 Q210 190 222 182"/>
+    <path d="M188 190 L232 190 L236 212 L184 212 Z" fill="#FFF4E8"/>
+
+    <!-- Turnout coat -->
+    <path d="M154 210 Q210 198 266 210 L292 336 Q210 354 128 336 Z" fill="#FFF4E8"/>
+    <path d="M180 206 L210 232 L240 206" fill="#F88A32"/>
+    <path d="M136 274 Q210 290 284 274" stroke="#F88A32" stroke-width="14"/>
+    <path d="M132 304 Q210 320 288 304" stroke="#F88A32" stroke-width="10"/>
+    <circle cx="210" cy="250" r="5" fill="#0F172A" stroke="none"/>
+    <circle cx="210" cy="286" r="5" fill="#0F172A" stroke="none"/>
+
+    <!-- Arms -->
+    <path d="M154 220 Q124 238 122 272 L172 302" stroke-width="18"/>
+    <path d="M266 220 Q296 238 298 272 L244 302" stroke-width="18"/>
+    <circle cx="174" cy="304" r="15" fill="#F88A32"/>
+    <circle cx="242" cy="304" r="15" fill="#F88A32"/>
+
+    <!-- Legs and boots -->
+    <path d="M138 338 L150 434 L188 434 L198 348 Z" fill="#FFF4E8"/>
+    <path d="M222 348 L232 434 L270 434 L282 338 Z" fill="#FFF4E8"/>
+    <path d="M150 386 H188 M232 386 H270" stroke="#F88A32" stroke-width="10"/>
+    <path d="M148 434 H190 V456 Q190 466 180 466 H138 Q130 466 132 456 Z" fill="#0F172A" stroke="none"/>
+    <path d="M230 434 H272 V456 Q272 466 262 466 H220 Q212 466 214 456 Z" fill="#0F172A" stroke="none"/>
+
+    <!-- Extinguisher -->
+    <rect x="176" y="296" width="68" height="112" rx="12" fill="#F88A32"/>
+    <rect x="196" y="282" width="28" height="16" rx="3" fill="#0F172A" stroke="none"/>
+    <path d="M196 284 H238 Q248 284 248 272 H224" stroke-width="8"/>
+    <path d="M244 292 Q282 306 274 344" stroke-width="6"/>
+    <rect x="186" y="326" width="48" height="46" rx="3" fill="#FFF4E8"/>
+    <path d="M210 340 Q220 326 226 340 Q220 344 222 352 Q210 350 210 340 Z" fill="#F88A32" stroke="none"/>
+    <rect x="172" y="406" width="76" height="12" rx="3" fill="#0F172A" stroke="none"/>
+
+    <!-- Discharge / flame -->
+    <path d="M274 344 Q292 330 304 340 Q296 346 300 356 Q284 354 274 344 Z" fill="#F88A32"/>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 420" width="280" height="420">
+  <!-- Flat 2D line-art fire extinguisher. Decorative only. -->
+  <g fill="none" stroke="#0F172A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M88 76 H178 Q204 76 204 102 V136 H62 V102 Q62 76 88 76 Z" fill="#FFF4E8"/>
+    <path d="M86 112 H180" stroke="#F88A32" stroke-width="12"/>
+    <rect x="110" y="56" width="46" height="24" rx="4" fill="#0F172A" stroke="none"/>
+    <path d="M156 62 H194 Q210 62 210 76 V88 H184" stroke-width="8"/>
+    <path d="M210 88 Q240 106 230 146" stroke-width="8"/>
+    <path d="M230 146 Q246 132 258 144 Q248 150 252 162 Q236 160 230 146 Z" fill="#F88A32"/>
+
+    <rect x="58" y="136" width="150" height="224" rx="18" fill="#F88A32"/>
+    <rect x="78" y="188" width="110" height="78" rx="6" fill="#FFF4E8"/>
+    <path d="M133 208 Q150 188 160 208 Q150 216 154 230 Q133 226 133 208 Z" fill="#F88A32" stroke="none"/>
+    <path d="M133 246 H173" stroke-width="4"/>
+    <path d="M88 284 Q133 300 178 284" stroke="#0F172A" stroke-width="6"/>
+    <rect x="54" y="356" width="158" height="18" rx="4" fill="#0F172A" stroke="none"/>
+  </g>
+</svg>

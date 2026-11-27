@@ -1,28 +1,3 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+.hallmark/
+.playwright-mcp/
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Local env files (only the documented placeholders in .env.example are tracked)
-.env*
-!.env.example
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?

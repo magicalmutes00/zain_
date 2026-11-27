@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 620" width="520" height="620">
+  <defs>
+    <linearGradient id="helmet" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="55%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="coatHi" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#475569" stop-opacity="0.55"/>
+      <stop offset="1%" stop-color="#475569" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#FDE3CC"/>
+      <stop offset="100%" stop-color="#E8B89A"/>
+    </linearGradient>
+    <linearGradient id="ext" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF8A4C"/>
+      <stop offset="45%" stop-color="#F88A32"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="extSh" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- ground shadow -->
+  <ellipse cx="260" cy="585" rx="170" ry="24" fill="url(#shadow)"/>
+
+  <!-- boots -->
+  <path d="M175 470 L190 555 L230 555 L238 470 Z" fill="#111827"/>
+  <path d="M282 470 L290 555 L330 555 L345 470 Z" fill="#111827"/>
+  <path d="M188 555 L232 555 L232 575 Q232 585 222 585 L178 585 Q170 585 172 575 Z" fill="#020617"/>
+  <path d="M288 555 L332 555 L332 575 Q332 585 322 585 L278 585 Q270 585 272 575 Z" fill="#020617"/>
+
+  <!-- legs -->
+  <path d="M170 360 L175 470 L238 470 L248 375 Z" fill="url(#coat)"/>
+  <path d="M272 375 L282 470 L345 470 L350 360 Z" fill="url(#coat)"/>
+  <path d="M176 430 H238 M282 430 H344" stroke="#F88A32" stroke-width="10" stroke-linecap="round" opacity="0.95"/>
+
+  <!-- coat body -->
+  <path d="M165 235 Q260 215 355 235 L372 390 Q260 415 148 390 Z" fill="url(#coat)"/>
+  <path d="M165 235 Q260 215 355 235 L372 390 Q260 415 148 390 Z" fill="url(#coatHi)"/>
+  <path d="M156 305 Q260 330 364 305" stroke="#F88A32" stroke-width="16" stroke-linecap="round"/>
+  <path d="M150 340 Q260 362 370 340" stroke="#FDBA74" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+  <path d="M260 225 L260 390" stroke="#1E293B" stroke-width="4"/>
+  <circle cx="260" cy="275" r="6" fill="#CBD5E1"/>
+  <circle cx="260" cy="315" r="6" fill="#CBD5E1"/>
+  <path d="M210 235 L260 270 L310 235 L292 225 Q260 240 228 225 Z" fill="#334155"/>
+
+  <!-- arms -->
+  <path d="M165 245 Q120 265 118 310 L165 345" stroke="#1E293B" stroke-width="34" stroke-linecap="round" fill="none"/>
+  <path d="M355 245 Q400 265 402 310 L355 345" stroke="#1E293B" stroke-width="34" stroke-linecap="round" fill="none"/>
+  <path d="M165 245 Q120 265 118 310 L165 345" stroke="#334155" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <path d="M355 245 Q400 265 402 310 L355 345" stroke="#334155" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <circle cx="168" cy="346" r="18" fill="#1F2937"/>
+  <circle cx="352" cy="346" r="18" fill="#1F2937"/>
+
+  <!-- extinguisher (held in front) -->
+  <g transform="translate(0,8)">
+    <rect x="220" y="330" width="80" height="140" rx="16" fill="url(#ext)"/>
+    <rect x="220" y="330" width="80" height="140" rx="16" fill="url(#extSh)"/>
+    <rect x="242" y="314" width="36" height="20" rx="5" fill="#334155"/>
+    <path d="M242 318 H296 Q308 318 308 304 H278" stroke="#475569" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <path d="M304 330 Q344 350 334 390" stroke="#475569" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M334 390 Q354 374 366 386 Q354 392 360 404 Q342 400 334 390 Z" fill="#FDBA74"/>
+    <rect x="232" y="368" width="56" height="52" rx="4" fill="#FFF7ED"/>
+    <path d="M260 378 Q272 364 278 378 Q272 384 274 394 Q260 390 260 378 Z" fill="#F88A32"/>
+    <rect x="216" y="466" width="88" height="14" rx="4" fill="#0F172A"/>
+  </g>
+
+  <!-- neck -->
+  <rect x="238" y="188" width="44" height="34" rx="10" fill="url(#skin)"/>
+
+  <!-- head -->
+  <path d="M198 128 Q198 198 260 202 Q322 198 322 128 Q322 86 260 84 Q198 86 198 128 Z" fill="url(#skin)"/>
+  <path d="M222 140 Q232 134 242 140" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M278 140 Q288 134 298 140" stroke="#334155" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M246 162 Q260 172 274 162" stroke="#B45309" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- helmet -->
+  <path d="M182 128 Q186 52 260 48 Q334 52 338 128 Z" fill="url(#helmet)"/>
+  <path d="M160 128 H360 Q370 128 370 140 Q370 148 360 148 H160 Q150 148 150 140 Q150 128 160 128 Z" fill="#F59E0B"/>
+  <path d="M260 66 L278 66 L278 96 L270 108 L250 96 L250 66 Z" fill="#B45309"/>
+  <path d="M198 128 Q260 120 322 128" stroke="#FDE68A" stroke-width="5" fill="none" opacity="0.7"/>
+</svg>
